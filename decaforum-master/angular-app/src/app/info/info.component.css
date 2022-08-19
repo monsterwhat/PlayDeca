@@ -1,0 +1,14 @@
+hr {
+    border: 0;
+    height: 2px;
+    background: #23D160;
+}
+
+.tabs-content li {
+    display: none;
+    list-style: none;
+}
+
+.tabs-content li.is-active {
+    display: block;
+}

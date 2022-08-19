@@ -1,0 +1,21 @@
+<app-header></app-header>
+<mat-card>
+
+  <mat-card-title>
+    Account Confirmation
+  </mat-card-title>
+  <mat-card-content>
+    <ng-container *ngIf="this.confirmed; else elseTemplate">
+      <h2>
+        Your account has been confirmed!
+      </h2>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <p class="warning">
+        There was an error connecting to your account, try again later or contact Random6894 on Discord.
+      </p>
+      <p>{{message}}</p>
+    </ng-template>
+
+  </mat-card-content>
+</mat-card>

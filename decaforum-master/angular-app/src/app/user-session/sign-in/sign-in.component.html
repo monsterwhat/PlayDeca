@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div class="containers">
+  <div class="left-container inline-block">
+
+  <mat-card>
+
+    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-subtitle>Already signed up? Sign in below!</mat-card-subtitle>
+
+    <form class="sign-in-form" (submit)="onSubmit(signInForm)" #signInForm="ngForm">
+
+      <mat-form-field class="sign-in-field">
+        <input matInput
+        ngModel
+        type="email"
+        name="enteredEmail"
+        required
+        placeholder="Email" value="">
+      </mat-form-field>
+
+      <mat-form-field class="sign-in-field">
+        <input matInput
+        ngModel
+        type="password"
+        name="enteredPassword"
+        required
+        placeholder="Password"/>
+      </mat-form-field>
+
+      <div class="inline-region">
+        <button
+        mat-raised-button
+        color="primary"
+        type=submit>SIGN IN</button>
+
+        <button
+        mat-button
+        color="primary" (click)="resetPassword()"
+        >Forgot password</button>
+        <br><br>
+        <span class="warning">{{ warning }}</span>
+
+
+      </div>
+
+    </form>
+
+  </mat-card>
+  </div>
+  <div class="right-container inline-block">
+
+  <app-sign-up></app-sign-up>
+  </div>
+</div>

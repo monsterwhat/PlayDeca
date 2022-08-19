@@ -1,0 +1,53 @@
+<mat-card>
+
+  <mat-card-title>
+    <h3>
+      All News Posts
+    </h3>
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <div class="section" *ngFor="let newsPost of this.newsPosts">
+
+      <hr>
+      <div class="listing">
+
+        <div class="left-region inline-block">
+
+          <div class="news-title">
+            <h3>
+              {{newsPost.title}}
+            </h3>
+          </div>
+          <div class="news-date">
+            {{newsPost.date}}
+          </div>
+        </div>
+        <div class="right-region inline-block">
+
+          <button mat-button>
+            <a routerLink="/admin/edit-news/{{newsPost._id}}">
+              Edit
+            </a>
+          </button>
+          <button mat-button class="delete" (click)="deleteNewsPost(newsPost._id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr>
+
+  </mat-card-content>
+
+
+</mat-card>
+
+<mat-card>
+  <h2 class="underlinable centre">
+    <a [routerLink]="['/admin/create-news']" routerLinkActive="router-link-active">
+      Write more news for front page
+    </a>
+  </h2>
+</mat-card>

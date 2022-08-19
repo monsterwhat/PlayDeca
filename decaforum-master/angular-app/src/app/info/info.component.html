@@ -1,0 +1,531 @@
+<app-header></app-header>
+
+<div class="container" style="top: 80px;">
+    <div class="columns is-centered">
+        <div class="column is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
+            <div class="notification">
+                <nav class="tabs is-boxed">
+                    <div class="container">
+                        <ul>
+                            <li class="tab" (click)="this.targetElement = 'Rules'" [ngClass]="{'is-active': this.targetElement  === 'Rules'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span>
+                                    <span>Rules of the Server</span>
+                                </a>
+                            </li>
+                            <li class="tab" (click)="this.targetElement = 'Commands' " [ngClass]="{'is-active': this.targetElement  === 'Commands'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-terminal" aria-hidden="true"></i></span>
+                                    <span>Commands</span>
+                                </a>
+                            </li>
+                            <li class="tab" (click)="this.targetElement = 'FAQ' " [ngClass]="{'is-active': this.targetElement  === 'FAQ'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-question" aria-hidden="true"></i></span>
+                                    <span>FAQ</span>
+                                </a>
+                            </li>
+                            <li class="tab" (click)="this.targetElement = 'Craftbook' " [ngClass]="{'is-active': this.targetElement  === 'Craftbook'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-book" aria-hidden="true"></i></span>
+                                    <span>Craftbook</span>
+                                </a>
+                            </li>
+                            <li class="tab" (click)="this.targetElement = 'Armour' " [ngClass]="{'is-active': this.targetElement  === 'Armour'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-bolt" aria-hidden="true"></i></span>
+                                    <span>ArmourAbilities</span>
+                                </a>
+                            </li>
+                            <li class="tab" (click)="this.targetElement = 'Donator' " [ngClass]="{'is-active': this.targetElement  === 'Donator'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-terminal" aria-hidden="true"></i></span>
+                                    <span>Donator Commands</span>
+                                </a>
+                            </li>
+                            <li class="tab" (click)="this.targetElement = 'Supporter' " [ngClass]="{'is-active': this.targetElement  === 'Supporter'}">
+                                <a>
+                                    <span class="icon is-small"><i class="fas fa-terminal" aria-hidden="true"></i></span>
+                                    <span>Supporter Commands</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <hr />
+                <div class="column is-centered">
+                    <div class="content">
+                        <div class="content-tab" *ngIf="'Rules' === this.targetElement">
+                            <div class="bd-notification has-text-link has-text-success">
+                                <h1 class="title"> Minecraft Rules </h1>
+                            </div>
+                            <div class="content">
+                                <br>
+                                <p>The following rules apply to the minecraft server. Please also read the general rules section</p>
+                                <ol>
+                                    <li>You are responsible for the behaviour of anyone playing on your minecraft account - if they are banned, you are too.
+                                    </li>
+                                    <li>Do not ask for a higher rank.</li>
+                                    <li>Recruiting for other servers, regardless of size, is not permitted.</li>
+                                    <li>
+                                        A person may not abuse other players in any fashion. This includes, but is not restricted to:
+                                        <ol>
+                                            <li>PVP abuse- e.g.s; setting teleports within a pvp zone, making traps to damage players</li>
+                                            <li>Teleport death traps</li>
+                                            <li><strong>Griefing</strong></li>
+                                        </ol>
+                                    </li>
+                                    <li>Players must report any and all problems with the server (e.g.; exploits, lag sources, hacks) to an admin.
+                                    </li>
+                                    <li>non-admin players must not imply or claim that they are an admin</li>
+                                    <li>Do not exploit deficiencies in the server's security. (This effectively covers hacking minecraft, or trying to get around land protections)
+                                    </li>
+                                    <li>
+                                        Client mods and texture packs:
+                                        <ol>
+                                            <li>Flying and movement mods are permitted only for donators and admins</li>
+                                            <li>Any mod or texture pack that gives a player an unfair advantage over others (e.g; x-ray) is not permitted. This includes cavern finders and cave-mapping features of mods such as REI's minimap (turn off cave
+                                                mapping!)
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>No block or item made in creative mode may be broken in survival mode (or adventure mode) - if a block placed in creative mode is broken it must be immediately replaced or destroyed - it may not be placed at a new location
+                                        or used. Please inform an admin of your mistakes adhering to this rule (for it can be difficult).
+                                    </li>
+                                    <li>Abuse of global chat such as spamming, swearing or misuse of capital letters is not permitted. This aplies equally to donators' [tags]. All other forms of chat are unregulated unless their misuse generates complaints
+                                        from recipients.
+                                    </li>
+                                    <li>Users are required to follow the instructions of admins (but can freely complain about these instructions on the website)
+                                    </li>
+                                    <li>Sign shops must not have misleading discriptions.</li>
+                                    <li>
+                                        Special Rules for the Supporter rank:
+                                        <ol>
+                                            <li>With a penalty of immediate loss of supporter and being blacklisted from purchasing supporter again,
+                                                <strong>items made in
+                                    creative mode may not be reclaimed in survival mode</strong>
+                                            </li>
+                                            <li>You must not teleport (/tp) to other players or teleport other player(s) without their permission.
+                                            </li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                                <hr>
+                                <div class="bd-notification has-text-link has-text-success">
+                                    <h1 class="title"> Admin Terms </h1>
+                                </div>
+                                <div class="content">
+                                    <p>The following terms apply to admins:</p>
+                                    <ol>
+                                        <li>Under the alias used on the server, an admin must act mature at all times</li>
+                                        <li>Negligence of duty may lead to a demotion.</li>
+                                        <li>All requests for help must be responded to.</li>
+                                        <li>It is recommended that screenshots are also taken to backup all claims against other players.</li>
+                                        <li>If an instruction issued by an admin is found to be unreasonable, it may lead to a demotion.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div *ngIf="'Commands' === targetElement" class="content-tab">
+                            <div class="bd-notification has-text-link has-text-success">
+                                <h1 class="title"> Command Guide </h1>
+                            </div>
+                            <div class="content">
+                                <p>Octain features many plugins to enhance the default Minecraft experience. Some of these simply change how the game works and require no player interaction, but many offer new commands for players of all ranks to take advantage
+                                    of.
+                                </p>
+                                <p>To enter a command you simply press the '<strong>/</strong>' key (which opens your your chat field with an inserted '/') and then type in a valid command. Some commands are just a single word (e.g.
+                                    <strong>/fly</strong>) and some commands have additional and optional parameters that allow you to change how the command operates (e.g. <strong>/home Naughty_UK</strong>). You can press the 'TAB' key while typing in
+                                    a command and it will be auto-completed. The more letters of the command you have typed in, the quicker it will find the right match. This helps if you can't quite remember the full command name or you just don't like
+                                    typing :D. If you don't get the desired commmand first time simply keep pressing TAB until you find the command you are after.
+                                </p>
+                                <p>What follows is a brief guide to the available commands*. Not all commands are available to all players, so they have been listed in groups based on rank. If you are not at least the rank shown you will not be able to use
+                                    that command.
+                                </p>
+                                <p class="has-text-grey">*Available commands are constantly in flux as new plugins are added, existing ones are modified or break or get retired, so bear in mind this information may not always be 100% accurate.*</p>
+                                <hr />
+                                <div class="bd-notification has-text-link has-text-success">
+                                    <h1 class="title"> General Commands </h1>
+                                </div>
+                                <p>These commands are available to all players, new and old and do not require any special permissions to use. However, higher ranked players may be able to do more with some commands than those lower ranked.
+                                </p>
+                                <strong>/help</strong> [<em>command</em>]
+                                <p>This is a useful command as it gives you detailed and additional information on the specified command. For example, if you forgot how to use the /cmodify command you could type: <strong>/help cmodify</strong>
+                                </p>
+                                <strong>/spawn</strong>
+                                <p>Teleports you instantly to the server spawn. This is where all new players start.</p>
+                                <strong>/hub</strong>
+                                <p>Teleports you to the gateways hub. This is an area of the spawn where you can access other areas of the worlds via portals.
+                                </p>
+                                <strong>/home</strong> [<em>playername</em>]
+                                <p>Teleports you instantly to the specified players "home". If the player does not exist or has no home you will not teleport anywhere. If you omit the <em>playername</em> you will teleport back to your own /home.
+                                </p>
+                                <strong>/sethome</strong>
+                                <p>This sets your "home" to the exact location you are currently standing in. You can warp back to this point at any time by using the <strong>/home</strong> command as can any other players by using <strong>/home
+                           [<em>yourname</em>]</strong>. You can only have one home set at a time, so if you run the /sethome command again your home will be changed to the new location and your old home location will be gone for good, so be careful!
+                                </p>
+                                <p>Trusted+ players can use the additional <em>private</em> parameter like so: <strong>/sethome private</strong> which sets your home as "private", meaning that players cannot teleport there without your personal invitation.
+                                </p>
+                                <strong>/g</strong> [<em>message</em>]
+                                <p>This allows you to say something in global chat, so everyone on the server will see your message. If you talk without using /g (like in vanilla Minecraft) you will still speak, but locally, so only players nearby will hear
+                                    you.
+                                </p>
+                                <strong>/tell</strong> [<em>playername</em>] [<em>message</em>]<br />
+                                <strong>/msg</strong> [<em>playername</em>] [<em>message</em>]<br />
+                                <strong>/pm</strong> [<em>playername</em>] [<em>message</em>]<br />
+                                <strong>/w</strong> [<em>playername</em>] [<em>message</em>]<br />
+                                <p>All these commands do the same thing: send a message directly to the specified player, and only they will see it.
+                                </p>
+                                <strong>/r</strong> [<em>message</em>]
+                                <p>Replies to the last player who messaged you.</p>
+                                <strong>/ignore</strong> [<em>playername</em>]
+                                <p>This makes you "ignore" the specified player. All chat and messages from that player will not show up in your chat log window. use /ignore [playername] a second time to cancel it.
+                                </p>
+                                <strong>/afk</strong>
+                                <p>This toggles "AFK" (Away From Keyboard) mode. When you turn on AFK anyone who tries to message you will be told you are "AFK".
+                                </p>
+                                <strong>/money</strong>
+                                <p>Octain uses the virtual currency of "credits". This command shows how many in-game credits you own. In-game credits can be used to pay players for goods or services. You can make credits by selling stuff yourself or by
+                                    voting for the server here: <a href="/Minecraft/Vote_For_Credits/">Vote for Credits</a>
+                                </p>
+                                <p>If you want to see how much money another player has use: <strong>/money balance</strong> [
+                                    <em>playername</em>]
+                                </p>
+                                <strong>/pay</strong> [<em>playername</em>] [<em>amount</em>]
+                                <p>This gives an amount of in-game credits to the specified player. Use this command when you buy goods or services from another player who requires credits as payment.
+                                </p>
+                                <strong>/lock</strong><br />
+                                <strong>/cprivate</strong>
+                                <p>This locks the next item you LMB-click so that only you can access it. Useful for doors, chests, furnaces, buttons, levers, etc. Bear in mind that most containers you create (chests, furnaces) are automatically locked to
+                                    you by default and do not require manual /locking. Use the <strong>/cinfo</strong> command to query the current protections on items.
+                                </p>
+                                <strong>/unlock</strong><br />
+                                <strong>/cremove</strong>
+                                <p>This removes your lock protection on the next item you LMB-click on. You can only remove locks on your own items. Please be aware that unlocked items are not protected and can be locked by <em>any</em> other player. If
+                                    you want other players to access your item, don't unlock it, simply add them to its permissions with the
+                                    <strong>/cmodify</strong> command. If you want to make it available to all players without unlocking it, make it public with /cpublic.
+                                </p>
+                                <strong>/cpublic</strong>
+                                <p>This makes the item accessable to ALL players but without changing the actual owner or allowing it to be owned/locked by someone else. If you want to make something free to access by everybody without removing it's protection
+                                    this is the command for you.
+                                </p>
+                                <strong>/cmodify</strong> [<em>playername</em>] [-<em>playername</em>]
+                                <p>This allows you to make changes to who can access a protected item. This is useful if, for example, you want to give your friends access to one of your chests. You can enter a single playername or multiple playernames to
+                                    modify permissions for multiple users at once. If you want to <em>remove</em> a player from an items permissions simply put a - in front of the name.
+                                </p>
+                                <strong>/cinfo</strong>
+                                <p>This gives you information on permissions for the next item you LMB-click on. This is useful to see who owns a chest, door, sign, furnace, etc...
+                                </p>
+                                <p>Admins - this commmand also tells you when the item was created and last accessed.</p>
+                                <strong>/cpersist</strong>
+                                <p>If you find you need to issue the same /c permissions command multiple times this command makes it persist so that every successive time you LMB-click you will alter permissions. This is useful if, for example, you have
+                                    10 chests and you want to add your friend to all of them. Execute /cpersist a second time to toggle it off so your commands will no longer persist.
+                                </p>
+                                <strong>/rg</strong> [<em>params</em>]<br />
+                                <strong>/region</strong> [<em>params</em>]
+                                <p>This command is used by players (and protector admins) to show or modify region settings. Regions are designated areas that are protected so only certain players can build/modify the world there. The region command does
+                                    nothing on its own, and requires one of the following parameteres:
+                                </p>
+                                <ul>
+                                    <li><strong>i</strong> - Region information. This gives you info about the region(s) you are currently standing in. It will tell you the region name(s), who the owners are, and who the members are. This is useful if you
+                                        want to add or remove users from your regions as you need to know the region name to do that. It is also useful if you want to check the area you are in is available to claim as your own.
+                                    </li>
+                                    <li><strong>addmember</strong> [<em>region</em>] [<em>playername</em>] - Add a player to one of your regions
+                                    </li>
+                                    <li><strong>removemember</strong> [<em>region</em>] [<em>playername</em>] - remove a player from one of your regions. N.B. you cannot remove owners!
+                                    </li>
+                                </ul>
+                                <strong>/shop</strong> [<em>params</em>]
+                                <p>This command is for working with player shops. A shop is simply a world location that other players can visit to buy something from you. Basically it's just like a /home but with the sole purpose of trading. Anyone can
+                                    set up their own shop and you are allowed to sell what you like, however you want, for whatever price you like. You can open and close your shop, and give it a custom description so people can see what your shop is
+                                    all about. How you run your shop is completely up to you.
+                                </p>
+                                The shop command takes the following parameters:
+                                <ul>
+                                    <li>without params - using /shop with no params simply teleports you to your <em>own</em> shop.</li>
+                                    <li><strong>list</strong> - This prints out a list of all currently open shops on Octain.</li>
+                                    <li><strong>go</strong> [<em>playername</em>] - Teleports you to the specified players shop. If the player is offline or his shop is closed you cannot visit it.
+                                    </li>
+                                    <li><strong>open</strong> - sets your shop to be open to the public. This means your shop appears in the shop list and people can visit it using the <strong>/shop go</strong> command.
+                                    </li>
+                                    <li><strong>close</strong> - sets your shop to be closed to the public. Use this if you don't want to sell anything atm.
+                                    </li>
+                                </ul>
+                                <strong>/tm</strong> [<em>params</em>]<br />
+                                <strong>/ticketmanager</strong> [<em>params</em>]
+                                <p>The ticket manager is a system that allows players to leave messages and/or requests for admins during those times when no admins are online or available. When you create a "ticket" you place a message into a queue, so
+                                    that when an admin comes online they can see all the outstanding tickets and follow up accordingly. For example, you find a grief while there are no Anti-Griefer Admins online, simply create a ticket stating what the
+                                    problem is. When you submit a ticket it is linked to the location you are standing in, so make sure you are at the relevent location when you create a ticket.
+                                </p>
+                                The ticketmanager command takes the following parameters:
+                                <ul>
+                                    <li><strong>list</strong> - Shows a list of all outstanding tickets.</li>
+                                    <li><strong>view</strong> [<em>#</em>] - This shows full details of the specified ticket #.</li>
+                                    <li><strong>create</strong> [<em>message</em>] - This creates a new ticket with the given message.</li>
+                                    <li><strong>close</strong> [<em>#</em>] [<em>message</em>] - This closes ticket number # with the specified message.
+                                    </li>
+                                    <li><strong>update</strong> [<em>#</em>] [<em>message</em>] - This adds a new message to the specified ticket #. If you want to add more details or edit an error in an existing ticket, please use update rather than creating
+                                        a new ticket.
+                                    </li>
+                                </ul>
+                                <strong>/signedit</strong> [<em>params</em>]
+                                <p>This handy command allows you to easily edit signs without having to destroy them and recreate from scratch. It also allows you to copy signs and use the same text again and again on new or existing signs.
+                                </p>
+                                <strong>/formats</strong>
+                                <p>This gives you some info about text formatting for signs and messages.</p>
+                                <strong>/hat</strong>
+                                <p>Puts the block you are holding on your head. If you're not holding a eligible block, it sends you a link to an image which shows you which items can be put on your head
+                                </p>
+                                <hr />
+                                <div class="bd-notification has-text-link has-text-success">
+                                    <h1 class="title"> Trusted Commands </h1>
+                                </div>
+                                <p>These commands are only available to <em>trusted</em> (and above) ranked players.</p>
+                                <strong>/tpr</strong> [<em>playername</em>]
+                                <p>This sends a teleport request to the specified player. They will see your request and get to choose whether to accept or decline you. Use <strong>/tpr accept</strong> to accept the request and have the requesting player
+                                    teleported to you, or use <strong>/tpr deny</strong> to refuse their request. You can also simply choose to ignore the request message and it will automatically expire within a minute or so.
+                                </p>
+                                <strong>/ride</strong> [<em>playername</em>]
+                                <p>This makes you jump onto the back of the specified player for a free piggy-back ride. Use
+                                    <strong>/ride</strong> again to dismount.
+                                </p>
+                                <hr />
+                                <div class="bd-notification has-text-link has-text-success">
+                                    <h1 class="title"> Admin Commands </h1>
+                                </div>
+                                <p>These commands are only available to <em>Admins</em></p>
+                                <strong>/a</strong> [<em>message</em>]
+                                <p>This sends the message to the admin channel. This is a special chat channel that only admins will see.</p>
+                                <strong>/ekick</strong> [<em>playername</em>] [<em>reason</em>]
+                                <p>This kicks the specified player from the server and cites the given reason. Everybody on the server will see this notification.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div *ngIf="'FAQ' === targetElement" class="content-tab">
+                            <div class="bd-notification has-text-link has-text-success">
+                                <h1 class="title"> FAQ </h1>
+                            </div>
+                            <div class="content">
+                                <p class="has-text-grey">This page has not been checked over recently - it may be out of date</p>
+                                <h2 class="has-text-success">How do I get admin?</h2>
+                                <p>There is currently no way to get the admin rank, because I haven't started writing the code for it yet. However, this is how it will work:
+                                </p>
+                                <p>You probably won't ever be an admin, but here is a step-by-step guide:</p>
+                                <ol>
+                                    <li>Never ask for admin</li>
+                                    <li>Be helpful, mature and kind at all times - and don't break the rules</li>
+                                    <li>Achieve the trusted rank by vote <strong>or</strong> stick around long enough after donating that you would have acheived the rank anyway
+                                    </li>
+                                    <li>Do more of step 2 until you are well liked by most of our regular players.</li>
+                                    <li>Ask an admin to grant you access to the admin test (currenlty not implemented)</li>
+                                    <li>Pass the admin test by showing your maturity, knowing the server well enough to know how and when admins use their powers, and showing the capability to find out how our plugins work by using Google
+                                    </li>
+                                    <li>Acheive a high enough score to be voted in as an admin</li>
+                                </ol>
+                                <p>There is an age requirement of 14 for admin applications. Only in rare cases will someone who is not yet 14 be considered for admin.
+                                </p>
+                                <p>100% of people who ask for admin within a day of joining never get admin. It's not a rule we have, it's that generally the kind of people who ask this are not capable to be admins or never get mature or responsible enough.
+                                </p>
+                                <p>There are <strong>no</strong> shortcuts.</p>
+                                <h2 class="has-text-success">What ranks are there?</h2>
+                                <p>We have 4 non-admin ranks. First is the guest rank, second is trusted rank, third is donator rank and forth is supporter. Without donating, you can only get the trusted rank.
+                                </p>
+                                <h2 class="has-text-success">How do I get a different coloured name?</h2>
+                                <p>Name colour is based on rank - grey names are for guests, green for trusted, purple for donator and red for supporter
+                                </p>
+                                <h2 class="has-text-success">What is the trusted rank?</h2>
+                                <p>The trusted rank has 2 perks, and a boatload of features we don't trust everyone to have. The two perks are the green name and the ability to private your home so that people can only come when invited.
+                                </p>
+                                <p>Here is a list (as at 11th January 2014) of the features you get that we don't trust everyone with:</p>
+                                <ol>
+                                    <li>/ride (it is buggy, and can be abused to cause harm to others)</li>
+                                    <li>Access to Haven on our snapshot server</li>
+                                    <li>Use of <strong>flint and steal</strong></li>
+                                    <li>Able to make <a href="http://wiki.sk89q.com/wiki/CraftBook/Better_Pistons">Super sticky, and bounce
+                              pistons</a>
+                                    </li>
+                                    <li>
+                                        Access to the following mcmmo abilities:
+                                        <ul>
+                                            <li>Tree feller (remove trees quickly with your axe)</li>
+                                            <li>Beserk (remove dirt/gravel/etc quickly with your fist)</li>
+                                            <li>Greenthumb and Green Terra. (if you're trusted, use /herbalism for more information)</li>
+                                        </ul>
+                                    </li>
+                                    <li>Various <a href="http://wiki.sk89q.com/wiki/CraftBook/Usage#Vehicles">craftbook vehicles</a> functions
+                                    </li>
+                                    <li><strong>Make your home private</strong></li>
+                                </ol>
+                                <p>Finally, you get a green name.</p>
+                                <h2 class="has-text-success">How do I get trusted?</h2>
+                                <p>Never ask for trusted. Asking for trusted immediately shows that you do not respect the rules of the server which, in turn, shows you cannot be trusted.
+                                </p>
+                                <p>To get trusted: be courtious, friendly, speak on global chat and, even better, join us on the teamspeak server - this will get you noticed. Eventually, you will be nominated for the trusted rank by an admin. when that happens,
+                                    everyone on the server will get to vote on whether you get the rank
+                                </p>
+                                <h2 class="has-text-success">What is the donator rank?</h2>
+                                <p>The core of the donator rank is god mode and the ability to fly, but there are various other useful features like mob disguises and spy mode
+                                </p>
+                                <h2 class="has-text-success">What is the supporter rank?</h2>
+                                <p>Supporters get creative mode, but they are not allowed to take items from creative mode over to survival mode - we provide seperate inventories for creative mode, block access to containers like chests and heavily track
+                                    new supporters using antigrief tools to make sure that they do not place blocks in creative mode and mine them in survival mode. In the event of a user exploiting creative mode, we ban them for a week, strip them of
+                                    the supporter rank (back to donator) and blacklist them from ever purchasing supporter again.
+                                </p>
+                                <h2 class="has-text-danger">I am banned. What do I do?</h2>
+                                <p>If, when you attempt to join the server, it says "You are banned" and does not provide a reason for your ban, then you have an IP ban. This occurs when someone who has played at your home at any point becomes banned. Please
+                                    contact dddeeefff through the temporary blog to have your ip unbanned - please give the (minecraft account) name of anyone who has played on octain (or zarkov) at your home.<br /> If, however, it states a reason for
+                                    your ban, you will not be able to appeal your ban until the website has been developed to allow this. Please stand by. Note: you will only ever be able to get one unban request - after the second time you are banned,
+                                    it will be permenant.
+                                </p>
+                                <h2 class="has-text-success">What's the difference between half/full admins?</h2>
+                                <p>Within the protector/antigrief rank system, there is an upper tier and a lower tier. Admins who have demonstrated exemplary knowledge of the plugins that they use will be given the higher rank.
+                                </p>
+                                <p>Full antigriefs have the capability to open others inventories as if they were a chest, and have greater access to the rollback plugin's more possible-destrictive features
+                                </p>
+                                <p>Full protectors gain near-full control of Worldguard including the ability to set any flag on region (as appropriate). This includes invinciblity flags, healing flags, mob-spawning flags, pvp flags, etc. (If you wish to
+                                    have one of these flags placed on your protection, you must have a good reason)
+                                </p>
+                                <p>In addition to this, all full admins bypass region protections and so can place/destroy blocks in regions they don't own
+                                </p>
+                                <h2 class="has-text-success">How do I get op?</h2>
+                                <p>Please refer to this <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Link</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div *ngIf="'Craftbook' === targetElement" class="content-tab">
+                            <p>
+                                This is the craftbook guide here there are many tools and tricks you can add on the server :D
+                            </p>
+                        </div>
+                    </div>
+                    <div *ngIf="'Armour' === targetElement" class="content-tab">
+                        <p>
+                            I'm the armour abilities page for the server. :D you will learn about the abilities and how to craft them here
+                        </p>
+                    </div>
+                    <div class="content">
+                        <div *ngIf="'Donator' === targetElement" class="content-tab">
+                            <p>This pack gives you a whole host of cool features that will completely reshape the way you get to play Octain. The currently avaialable features are:
+                            </p>
+                            <ul>
+                                <li><strong>God mode</strong> Never take damage! (caveats: some areas, mostly PVP areas, have this feature turned off to prevent abuse. This does not include the nether - you are free to use god mode in the nether)
+                                </li>
+                                <li><strong>Chat Tags</strong> (coming soon): set a [tag] to appear before your name on global chat.</li>
+                                <li><strong>Invisibility</strong>: You can render yourself invisible with a single command. Mobs can't see you! Players can't see you! Somm caveats: you cannot interact with the minecraft world whilst in spy mode - for example,
+                                    you can't place or destroy blocks). Also, some admins will be able to see you.
+                                </li>
+                                <li>Instant <strong>trusted rank</strong> - get access to all the features our trusted users get.</li>
+                                <li>Spawn a bat and ride it! You don't get to control it though :(</li>
+                                <li><strong>/speed</strong> - set your own walking/sprinting speed using this handy command. Caveat: may be disabled in PVP.
+                                </li>
+                                <li><strong>/jumpboost</strong> - set your own jump height (the maximum value takes you up past the world height limit from ground level)
+                                </li>
+                                <li>Instantly <strong>butcher nearby hostile mobs</strong> using the /butcher command (range - 128 blocks)
+                                </li>
+                                <li><strong>Greeting/farewell</strong> messages on your protections - anyone leaving/entering your protections can receive a customisable message from you (with colours!)
+                                </li>
+                                <li><strong>Mob disguises</strong> - disguise yourself as a mob and troll people! (Please let them in on the joke when you've finished trolling though.) Caveat: only non-hostile mobs are available as disguises
+                                </li>
+                                <li><strong>Teleporter signs</strong> - the ability to make signs that can teleport people when they click them (distance limit is 40 blocks or something)
+                                </li>
+                                <li><strong>Blink</strong> - teleport on top of whatever block you're looking at. <a href="http://youtu.be/vp8uQ_Em4N0?t=8s">youtube video preview here</a></li>
+                                <li><strong>Fly mode!</strong> - use the /fly command or download any movement mod (e.g. the fly features of zombe's mod) - you have our permission with the donator pack :) There's also a <em>really</em> fun fly mode where
+                                    you right click with a firework star to propell yourself forward.
+                                </li>
+                                <li>More features are being added to donator pack all the time (just ask some of our players), and you get every new feature as it comes out!
+                                </li>
+                            </ul>
+                            <p>Once a donator, always a donator - whilst some features come and go (usually when plugins no longer work), you'll aways be a donator - no need to repurchase.
+                            </p>
+                            <hr />
+                            <h2>Donator Commands</h2>
+                            <p>These commands are only available to <em>Donators</em>.</p>
+                            <strong>/fly</strong>
+                            <p>This toggles flying mode on/off. This is identical to creatives flight, simply double-tp jump to launch into flight or cancel flying. Using /fly also prevents you from taking any fall damage.
+                            </p>
+                            <strong>/j</strong><br />
+                            <strong>/jumpto</strong>
+                            <p>This warps you immediately to the top of the block(s) stack you are looking at (under your crosshair). You can use this to get through holes too high or too narrow to walk through, and it's also useful for getting back to the
+                                surface from underground.
+                            </p>
+                            <strong>/dis</strong> [<em>mobname</em>]<br />
+                            <strong>/disguise</strong> [<em>mobname</em>]
+                            <p>This allows you to disguise yourself as a mob. when disguised your name will be hidden and you should be indistinguishable from the real thing. When you're bored of being disguised, simply use
+                                <strong>/undis</strong> to revert back to your original form.
+                            </p>
+                            <strong>/undis</strong><br />
+                            <strong>/undisguise</strong>
+                            <p>This turns off any disguises you have on and returns you to your true form.</p>
+                            <strong>/god</strong>
+                            <p>This puts you in "god" mode which means you never get hurt or hungry and cannot die. Use
+                                <strong>/ungod</strong> to revert back to normal mortality.
+                            </p>
+                            <strong>/butcher</strong>
+                            <p>This instantly kills all mobs within a 128 block radius.</p>
+                            <strong>/v</strong><br />
+                            <strong>/vanish</strong><br />
+                            <strong>/spy</strong>
+                            <p>Either of these commands makes you completely invisible so other players cannot see you. N.B. All ops can see vanished players! Repeat the same command again to toggle vanish off.
+                            </p>
+                            <strong>/quit</strong>
+                            <p>This makes it look like you have disconnected and left the server, but really it just makes you invisible and hides your name from the player list.
+                            </p>
+                            <strong>/join</strong>
+                            <p>This makes you rejoin the server if you have used /leave. To other players it will look just like you have joined the game in the usual manner.
+                            </p>
+                            <strong>/greeting</strong> [<em>region</em>] [<em>message</em>]
+                            <p>This sets the given [message] so it appears whenever a player enters the specified [region]. use /rg i to find out the region name.
+                            </p>
+                            <strong>/farewell</strong> [<em>region</em>] [<em>message</em>]
+                            <p>This sets the given [message] so it appears whenever a player leaves the specified [region]. use /rg i to find out the region name.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div *ngIf="'Supporter' === targetElement" class="content-tab">
+                            <p>Requires purchase of the donator pack first. Expires after 30 days.</p>
+                            <ul>
+                                <li><strong>Creative mode!</strong> (Please read the rules!) Caveats: certain features of creative mode are blocked to stop abuse. This includes bedrock, eggs, bottles o' enchanting, spawn eggs and access to chests and other
+                                    containers whilst in creative mode. If in doubt, please ask a few supporters what is disabled before purchasing.
+                                </li>
+                                <li><strong>Seperate inventory</strong> whilst in creative mode (stops your legit stuff getting mixed up with your non-legit stuff, something which is against the rules!)
+                                </li>
+                                <li>Instantly <strong>teleport</strong> people to you or teleport yourself to people. (Please read the rules!)
+                                </li>
+                                <li><strong>/nightvision</strong> - access to an infinitely-longlasting night vision potion effect</li>
+                                <li><strong>More diguises!</strong> diguise yourself as a boat, or a floating block of TNT (or any block) and more!
+                                </li>
+                            </ul>
+                            <p>Please read the special rules for creative mode (Rule 13) in our <a href="/rules">minecraft rules
+                        section</a>. Failure to follow these rules will result in your supporter pack being revoked immediately and a week ban put in place on your account.
+                            </p>
+                            <p>Purchase the Supporter pack for 30 days of creative mode today!</p>
+                            <hr />
+                            <h2>Supporter Commands</h2>
+                            <p>These commands are only available to players who have <em>supporter</em> mode currently active.</p>
+
+                            <strong>/gm</strong>
+                            <p>This toggles your game mode between Survival and Creative.</p>
+                            <strong>/nv</strong><br />
+                            <strong>/nightvision</strong>
+                            <p>This toggles "night vision" on/off. This is a special visual mode that makes even the darkest areas look clear and bright like daylight, super useful for building at night!
+                            </p>
+                            <strong>/tp</strong> [<em>playername</em>]
+                            <p>Teleports you to the given player. Please do not /tp to arbitrary players without their permission as many players find it rude and an invasion of privacy, and in some cases it's downright creepy and stalkerish. Doing an unauthorized
+                                /tp to an admin is against the rules and is not generally tolerated.
+                            </p>
+                            <strong>/s</strong> [<em>playername</em>]
+                            <p>"Summons" the given player to you. This basically teleports the specified player to your position. Do not do this to players without asking them first and confirming they are ok to be dragged away from whatever they are doing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

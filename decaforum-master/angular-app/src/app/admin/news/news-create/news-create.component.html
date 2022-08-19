@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title>
+    Create post for the front page
+  </mat-card-title>
+  <form class="news-create-form" (submit)="onSubmit(newsForm)" #newsForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Title" name="enteredTitle" ngModel required minlength="3" #title="ngModel" />
+      <mat-error *ngIf="title.invalid">
+        Please enter a new news post title.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput rows="6" name="enteredContent" placeholder="Post" ngModel required
+        #content="ngModel"></textarea>
+      <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit">Publish</button>
+  </form>
+</mat-card>

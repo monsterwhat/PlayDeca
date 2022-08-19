@@ -1,0 +1,43 @@
+{
+  "name": "decaforum",
+  "version": "1.0.0",
+  "description": "Forum made for the Playdeca.com website and game server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "William F",
+  "license": "ISC",
+  "dependencies": {
+    "@angular-devkit/schematics": "^10.1.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "bulma": "^0.9.1",
+    "bulmajs": "0.0.2",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "forever": "^3.0.2",
+    "helmet": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.2",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemailer": "^6.4.5",
+    "nodemon": "^2.0.4",
+    "package.json": "^2.0.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5",
+    "set-cookie-parser": "^2.4.3"
+  },
+  "devDependencies": {
+    "@vizuaalog/bulmajs": "^0.11.0"
+  }
+}

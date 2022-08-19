@@ -1,0 +1,14 @@
+mat-card{
+
+  display: block;
+  width: 100%;
+}
+
+.sign-up-form {
+  margin: auto;
+}
+
+.sign-up-field {
+  display: inline;
+  margin: auto;
+}

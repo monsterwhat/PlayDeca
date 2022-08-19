@@ -1,0 +1,33 @@
+<app-header></app-header>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Make a new forum post
+    </mat-card-title>
+  </mat-card-header>
+  <form class="news-create-form" (ngSubmit)="submitPost(forumForm)" #forumForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Title" name="enteredTitle" ngModel required minlength="3" #title="ngModel" />
+      <mat-error *ngIf="title.invalid">
+        Please enter a new news post title.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput rows="6" name="enteredContent" placeholder="Post" ngModel required
+        #content="ngModel"></textarea>
+      <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!forumForm.form.valid">Publish</button>
+  </form>
+</mat-card>
+
+
+<mat-card *ngIf="this.successfullyPosted">
+  <mat-card-header>
+    <mat-card-title>
+      Submitted!
+    </mat-card-title>
+  </mat-card-header>
+</mat-card>

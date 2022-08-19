@@ -1,0 +1,69 @@
+<app-header></app-header>
+<div class="main-display">
+
+  <div class="main-profile-container">
+
+    <div class="main-profile">
+
+      <mat-card>
+
+        <mat-card-title>
+          {{ this.user.username }}'s profile
+        </mat-card-title>
+        <mat-card-content>
+          Username: {{ this.user.username }}
+          <br>
+          Email: {{ this.user.email }}
+          <br>
+          Join Date: {{ this.user.creation_date }}
+          <br>
+          Confirmed: {{ this.user.confirmed }}
+        </mat-card-content>
+
+      </mat-card>
+
+
+    </div>
+
+    <div class="main-profile">
+      <mat-card>
+
+        <mat-card-title>
+          Other features coming soon
+        </mat-card-title>
+        <mat-card-content>
+          Planned features include:
+          <ul>
+            <li>
+              Changing Tag
+            </li>
+            <li>
+              Listing own posts and comments
+            </li>
+            <li>
+              Supporter Timer
+            </li>
+          </ul>
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+  </div>
+  <div class="side-bar">
+
+    <mat-card>
+      <mat-card-title>
+        Others' Profiles
+      </mat-card-title>
+      <ul >
+        <!-- <div *ngFor="let user of this.allUsers"> -->
+        <li *ngFor=" let user of this.allUsers"><a href="/profile/{{ user._id }}">{{ user.username }}</a></li>
+
+        <!-- </div> -->
+
+      </ul>
+    </mat-card>
+
+  </div>
+</div>

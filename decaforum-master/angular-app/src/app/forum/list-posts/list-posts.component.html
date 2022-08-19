@@ -1,0 +1,56 @@
+<!-- Make the card clickable for the user to go to showpost -->
+<app-header></app-header>
+
+<mat-card>
+  <div class="buttons">
+    <h2>
+      Welcome to the forums. Feel free to join in or
+      <span *ngIf="this.userSignedIn">
+        <a routerLink="/create">Create new post</a>
+      </span>
+      <span *ngIf="!this.userSignedIn">
+        <a routerLink="/sign-in">sign in to make a new post</a>
+      </span>
+    </h2>
+  </div>
+</mat-card>
+
+<mat-card *ngFor="let post of posts" routerLink="/forums/{{post._id}}">
+  <div class="voting inline-block">
+
+    <div class="vote">
+      <div class="uparrow">
+        <span (click)="upVote(post, false, post.vote_status.voted_down)" *ngIf="!(post.vote_status.voted_up)"> &#9650;
+        </span>
+        <span (click)="upVote(post, true, false)" *ngIf="post.vote_status.voted_up" class="green"> &#9650; </span>
+      </div>
+      <div class="vote-count">
+        <span>{{post.vote_count}}</span>
+      </div>
+      <div class="downarrow">
+        <span (click)="downVote(post, post.vote_status.voted_up, false)" *ngIf="!post.vote_status.voted_down"> &#9660;
+        </span>
+        <span (click)="downVote(post, false, true)" *ngIf="post.vote_status.voted_down" class="red"> &#9660; </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="post inline-block">
+
+    <mat-card-title>
+      <h3 [innerText]="post.title"></h3>
+    </mat-card-title>
+    <mat-card-content>
+      <div class="post-content">
+        <div [innerHTML]="post.content"> </div>
+      </div>
+      <hr />
+      <h4 class="author-area"> Created by
+        <span class="author-name">
+          <a href="/profile/{{post.author}}">{{post.authorname}}</a>
+        </span> at {{ post.date_published }}</h4>
+      <br>
+    </mat-card-content>
+  </div>
+</mat-card>

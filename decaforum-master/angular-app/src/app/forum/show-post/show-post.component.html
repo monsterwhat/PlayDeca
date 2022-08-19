@@ -1,0 +1,87 @@
+<app-header></app-header>
+<div *ngIf="forumPost">
+
+  <mat-card>
+    <!-- Thinking of a few styles here. One card per reply. Maybe reply chains are the own smaller cards -->
+    <!-- Have all the cards in the one  main card, with a expansion panel for the comments/replies -->
+    <div class="full-block">
+
+      <div class="voting inline-block">
+
+        <div class="vote">
+          <div class="uparrow">
+            <span (click)="upVote(false, this.voteStatus.voted_down)" *ngIf="!this.voteStatus.voted_up"> &#9650; </span>
+            <span (click)="upVote(true, false)" *ngIf="this.voteStatus.voted_up" class="green"> &#9650; </span>
+          </div>
+          <div class="vote-count">
+            <span>{{this.forumPost.vote_count}}</span>
+          </div>
+          <div class="downarrow">
+            <span (click)="downVote(this.voteStatus.voted_up, false)" *ngIf="!this.voteStatus.voted_down"> &#9660;
+            </span>
+            <span (click)="downVote(false, true)" *ngIf="this.voteStatus.voted_down" class="red"> &#9660; </span>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="post inline-block">
+
+        <mat-card-title>
+          <h3 [innerText]="this.forumPost.title"></h3>
+        </mat-card-title>
+        <hr>
+        <mat-card-content class="content">
+          <div class="post-content">
+            <div [innerHTML]="this.forumPost.content">
+
+            </div>
+
+          </div>
+
+          <div class="post-footer">
+            <hr>
+            <span class="flex footer-item ">
+
+              <div class="control-links" [hidden]="!this.showPostControls()">
+                <a routerLink="/forums/edit/{{forumPost._id}}" routerLinkActive="active"><button mat-button
+                    class="control-links">Forum
+                    Edit
+                  </button>
+                </a>
+                <a (click)="deletePost(this.forumPost)" routerLinkActive="active"><button mat-button
+                    class="control-links">Forum
+                    Delete
+                  </button>
+                </a>
+              </div>
+            </span>
+            <span class="footer-credit footer-item">
+              By
+              <a href="/profile/{{this.forumPost.author }}"><span [innerText]="this.forumPost.authorname"
+                  class="author"></span></a>
+              published on <span [innerText]="this.forumPost.date_published"></span>
+            </span>
+          </div>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+
+  <app-comment></app-comment>
+
+  <div [hidden]="checkSignedOut()">
+    <mat-card>
+      <form class="" (ngSubmit)="createComment(this.forumPost._id, commentForm)" #commentForm="ngForm">
+        <mat-form-field>
+          <textarea matInput rows="3" name="enteredComment" placeholder="Add a comment..." ngModel required
+            #content="ngModel"></textarea>
+          <mat-error *ngIf="content.invalid">Please enter content.</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit"
+          [disabled]="commentForm.form.invalid || commentButtonClicked">Comment</button>
+      </form>
+    </mat-card>
+  </div>
+
+</div>

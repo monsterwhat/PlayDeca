@@ -1,0 +1,20 @@
+<mat-toolbar fullscreen>
+  <div class="navigation-bar-left">
+    <a routerLink="/" routerLinkActive="active">
+      <img class="logo" src="../../assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="PlayDeca logo">
+    </a>
+  </div>
+  <div class="heading">
+    <h1 class="white">Admin Panel</h1>
+  </div>
+  <nav class="navigation-bar-right">
+    <a routerLink="/admin/dashboard" routerLinkActive="active"> <button mat-button
+        class="header-link">Dashboard</button></a>
+    <a routerLink="/" routerLinkActive="active"><button mat-button class="header-link">Home Page</button></a>
+    <a routerLink="/admin/news-list" routerLinkActive="active"><button mat-button class="header-link">News
+        List</button></a>
+    <a routerLink="" routerLinkActive="active"><button mat-button class="header-link"
+        (click)="logout()">Logout</button></a>
+
+  </nav>
+</mat-toolbar>
