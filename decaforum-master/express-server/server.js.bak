@@ -98,4 +98,4 @@ http.createServer(options, app).listen(BACKEND_PORT, '0.0.0.0', () => {
     console.log('Server started!');
 });
 // connectToDB(MONGODB_DOMAIN);
-connectToDB(MONGODB_DOMAIN_DOCKER);
+connectToDB(MONGODB_DOMAIN_DOCKER)
