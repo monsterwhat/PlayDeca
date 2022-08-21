@@ -12,6 +12,8 @@ public class ForumData {
     private VoteData votes;
     private CommentData comment;
 
+        //Jakarta 9 JSON Files requiere NO CONTRUCTORS
+
     public String getTitle() {
         return title;
     }
@@ -67,6 +69,6 @@ public class ForumData {
     public void setComment(CommentData comment) {
         this.comment = comment;
     }
-    
+
     
 }

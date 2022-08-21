@@ -9,6 +9,8 @@ public class NewsData {
     private String author;
     private Date date;
 
+        //Jakarta 9 JSON Files requiere NO CONTRUCTORS
+
     public String getTitle() {
         return title;
     }
@@ -40,6 +42,6 @@ public class NewsData {
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
     
 }

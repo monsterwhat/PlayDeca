@@ -6,6 +6,8 @@ public class JWT_blacklist {
    private String jwt;
    private Date date_added;
 
+       //Jakarta 9 JSON Files requiere NO CONTRUCTORS
+
     public String getJwt() {
         return jwt;
     }
@@ -21,6 +23,7 @@ public class JWT_blacklist {
     public void setDate_added(Date date_added) {
         this.date_added = date_added;
     }
+
     
    
 }

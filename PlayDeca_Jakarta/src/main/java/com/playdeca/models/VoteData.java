@@ -7,6 +7,8 @@ public class VoteData {
     private boolean voted_down;
     private UserData user_id;
 
+        //Jakarta 9 JSON Files requiere NO CONTRUCTORS
+
     public ForumData getForum_id() {
         return forum_id;
     }
@@ -38,5 +40,7 @@ public class VoteData {
     public void setUser_id(UserData user_id) {
         this.user_id = user_id;
     }
+
+    
     
 }

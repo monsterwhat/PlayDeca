@@ -8,6 +8,8 @@ public class CommentData {
     private UserData author;
     private Date date_published;
 
+    //Jakarta 9 JSON Files requiere NO CONTRUCTORS
+
     public String getContent() {
         return content;
     }
