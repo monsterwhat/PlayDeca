@@ -1,6 +1,11 @@
 package com.playdeca.rest.api;
 
+import com.playdeca.dao.UserDataDAOImpl;
 import com.playdeca.models.UserData;
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
+import jakarta.validation.constraints.Email;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -8,112 +13,145 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Application;
-import jakarta.ws.rs.core.Cookie;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.time.Instant;
-import java.util.Date;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilderException;
+import java.net.URI;
 
 /**
  *
  * @author alvaro@playdeca.com
  */
 @ApplicationPath("/api")
+
 public class RESTAPI extends Application {
 
-    public boolean doesEmailExist(Cookie email) {
+    @Email
+    public boolean doesEmailExist(String email) {
 
         return false;
     }
 
-    public boolean isEmailConfirmed(Cookie email) {
+    @Email
+    public boolean isEmailConfirmed(String email) {
 
         return false;
-
     }
 
-    public boolean validateNewUser() {
-
-        return false;
-
-    }
     
-    public boolean validateSignIn(String User, String password){
-        
+    public boolean validateNewUser(String email) {
+
         return false;
-        
     }
 
-    @Path("/user")
-    public class userResource {
+    public boolean validateSignIn(String User, String password) {
 
+        return false;
+    }
+
+    @Path("user")
+    @Singleton
+    @Stateless
+    public class userResource {
+        
+        @Inject
+        private UserDataDAOImpl userController;
+        
+
+        @POST
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Path("/user-info")
+        public Response user_info(UserData User){
+            
+            if(!userController.findByID(User)){
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            if(!userController.seeInfo(User)){
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            UserData UserInfo = userController.getInfo(User);
+            
+            return Response.ok(UserInfo, MediaType.APPLICATION_JSON).build();
+        }
+        
         @GET
         @Produces(MediaType.APPLICATION_JSON)
-        public UserData getUser() {
-            return null; // some way to return a Person instance
+        @Path("/all-users")
+        public Response all_users(){
+            try {
+                return Response.ok(userController.findAllPublic()).build();
+            } catch (Exception e) {
+                
+            }
+            return null;
         }
-
-        @POST
+        
+        @GET
         @Produces(MediaType.APPLICATION_JSON)
+        @Path("/user")
+        public Response user(int id){
+            
+//            try {
+//                if(!request.authenticate(response)){
+//                    return Response.status(Response.Status.CONFLICT).build();                }
+//                if(request.getHeader("banned").equals(true)){
+//                    Response.ok("",MediaType.APPLICATION_JSON).build();
+//                }
+//
+//            } catch (ServletException | IOException e) {
+//            } finally {
+//            }
+            return null;
+
+        }
+        
+        
+        @POST
         @Consumes(MediaType.APPLICATION_JSON)
         @Path("/register")
-        public Response.ResponseBuilder register(Cookie user) {
+        public Response register(UserData user) {
             try {
-                
-                final String value = user.getValue();
-
-                if (doesEmailExist(user)) {
-                    return Response.serverError().status(400,"User is already registered on this Email Address");
+                if(userController.exists(user.getEmail())){
+                    return Response.status(Response.Status.CONFLICT).build();
                 }
-                if (validateNewUser()) {
+                userController.register(user);
+                URI location = UriBuilder.fromResource(userResource.class)
+                        .path("/{user}")
+                        .resolveTemplate("user", user.getEmail())
+                        .build();
+                return Response.created(location).build();
 
-                    UserData newUser = new UserData();
-
-                    newUser.setEmail(value);
-                    newUser.setUsername(value);
-                    newUser.setPassword(value);
-                    newUser.setExtra_info(value);
-                    newUser.setDate(Date.from(Instant.now()));
-                    newUser.setConfirmed_game(false);
-                    newUser.setConfirmed_game(false);
-                    newUser.setRole("user");
-
-                    //ADD newUser to Database
-                    return Response.ok().status(201);
-                    
-                }
-
-            } catch (Exception e) {
-
-                return Response.serverError().status(400,"Information was Invalid");
+            } catch (UriBuilderException | IllegalArgumentException e) {
                 
-            } finally {
+                return Response.serverError().build();
 
             }
-            return Response.status(400,"Information was Invalid");
         }
-        
+
         @POST
-        @Produces(MediaType.APPLICATION_JSON)
         @Consumes(MediaType.APPLICATION_JSON)
         @Path("/login")
-        public Response.ResponseBuilder loginUser(Cookie User){
-            final String value = User.getValue();
-
-            if(validateSignIn(value, value)){
+        public Response loginUser(UserData user) {
             
-        }
-            
-            return null;
-            
-        }
-        
-
+            if (userController.signIn(user)==true) {
+                
+                if (userController.findByEmail(user.getEmail())){
+                    
+                    if( userController.isBanned(user.getExtra_info()) || !userController.isConfirmed(user.getEmail())){
+                        return Response.status(Response.Status.FORBIDDEN).build();
+                    }
+                    else{
+                        //CREATE COOKIE AND SEND IT
+                        //return Response.accepted("TOKEN");
+                    }
+                }
+            }
+        return null;
     }
 
     @Path("/news")
     public class newsResource {
-        
 
     }
 
@@ -126,4 +164,5 @@ public class RESTAPI extends Application {
     public class adminResource {
 
     }
+}
 }
