@@ -2,6 +2,7 @@ package com.playdeca.models;
 
 public class VoteData {
     
+        private int ID;
     private ForumData forum_id;
     private boolean voted_up;
     private boolean voted_down;

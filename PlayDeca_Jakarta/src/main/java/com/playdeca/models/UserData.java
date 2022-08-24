@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class UserData {
     
+    private int ID;
     private String email;
     private String username;
     //This is a direct translation, storing this is a massive security risk - Even in memory.
     private String password;
-    private Date date;
+    private String date;
     private String extra_info;
     private boolean allow_reset;
     private boolean confirmed_game;
@@ -42,11 +43,11 @@ public class UserData {
         this.password = password;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

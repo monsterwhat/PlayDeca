@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class CommentData {
     
+    private int ID;
     private String content;
     private UserData author;
     private Date date_published;

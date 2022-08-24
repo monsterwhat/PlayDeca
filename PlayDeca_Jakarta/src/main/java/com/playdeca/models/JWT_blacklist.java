@@ -5,9 +5,11 @@ import java.util.Date;
 public class JWT_blacklist {
    private String jwt;
    private Date date_added;
-
+   private int ID;
+   
        //Jakarta 9 JSON Files requiere NO CONTRUCTORS
 
+   
     public String getJwt() {
         return jwt;
     }

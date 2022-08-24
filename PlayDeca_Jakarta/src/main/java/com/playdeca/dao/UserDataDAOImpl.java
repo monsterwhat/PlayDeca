@@ -1,34 +1,45 @@
 package com.playdeca.dao;
 
 import com.playdeca.models.UserData;
+import jakarta.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author alvaro@playdeca.com
  */
-public class UserDataDAOImpl implements UserDataDAO{
+@Named
+public class UserDataDAOImpl implements UserDataDAO {
+
+    private static List<UserData> people = new ArrayList<>();
 
     @Override
     public List<UserData> listAll() {
-        return null;
+        return people;
     }
 
     @Override
     public UserData findByID(int id) {
-        return null;
+        return people.stream().filter(e -> e.getEmail().equals(id)).findAny().orElse(null);
     }
 
     @Override
-    public void register(UserData t) {
+    public UserData register(UserData t) {
+        people.add(t);
+        return t;
     }
 
     @Override
-    public void update(UserData t) {
+    public boolean update(UserData t) {
+        people = people.stream().map(p -> p.getEmail().equals(t.getEmail()) ? t : p).collect(Collectors.toList());
+        return false;
     }
 
     @Override
     public void delete(int id) {
+        people.removeIf(p -> p.getEmail().equals(id));
     }
 
     public boolean signIn(UserData user) {
@@ -39,11 +50,7 @@ public class UserDataDAOImpl implements UserDataDAO{
         return false;
     }
 
-    public boolean isConfirmed(String email) {
-        return false;
-    }
-
-    public boolean isBanned(String extra_info) {
+    public boolean isConfirmed(UserData user) {
         return false;
     }
 
@@ -51,11 +58,9 @@ public class UserDataDAOImpl implements UserDataDAO{
         return false;
     }
 
-
     public boolean seeInfo(UserData User) {
         return false;
     }
-    
 
     public boolean exists(String email) {
         return false;
@@ -65,14 +70,17 @@ public class UserDataDAOImpl implements UserDataDAO{
         return null;
     }
 
-    public Object findAll() {
-        return null;
+    public void confirmEmail(UserData user) {
     }
 
-    public Object findAllPublic() {
-        return null;
+    public boolean isBanned() {
+        return false;
+    }
+
+    public boolean isBanned(UserData foundUser) {
+        return false;
     }
 
 
-    
+
 }

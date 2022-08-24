@@ -1,0 +1,1397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Jakarta® EE | Cloud Native Enterprise Java | Java EE | the Eclipse Foundation | The Eclipse Foundation</title>
+<meta property="og:title" content="Jakarta® EE | Cloud Native Enterprise Java | Java EE | the Eclipse Foundation | The Eclipse Foundation" />
+<meta name="twitter:title" content="Jakarta® EE | Cloud Native Enterprise Java | Java EE | the Eclipse … | The Eclipse Foundation" />
+
+<meta name="description" content="Jakarta Enterprise Edition (EE) is the open source future of cloud native enterprise Java. Protect your investments in Java EE and modernize your enterprise …">
+<meta property="og:description" content="Jakarta Enterprise Edition (EE) is the open source future of cloud native enterprise Java. Protect your investments in Java EE and modernize your enterprise …">
+<meta name="twitter:description" content="Jakarta Enterprise Edition (EE) is the open source future of cloud native enterprise Java. Protect your investments in Java EE and modernize your enterprise …">
+<meta name="author" content="Christopher Guindon"/>
+<link href='/images/jakarta/favicon.ico' rel='icon' type='image/x-icon'/>
+<meta property="og:image" content="/images/jakarta/jakarta_ee_400x400.png" />
+<meta name="twitter:image" content="/images/jakarta/jakarta_ee_400x400.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@EclipseFdn" />
+<meta name="twitter:creator" content="@EclipseFdn" />
+<meta property="og:url" content="https://jakarta.ee/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Jakarta® EE: The New Home of Cloud Native Java" />
+<meta name="keywords" content="Jakarta EE software, Java EE, cloud, microservices, enterprise, open source, innovation">
+
+
+<meta name="generator" content="Hugo 0.76.5" />
+<link rel="canonical" href="https://jakarta.ee/" />
+
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="">
+
+
+<link rel="stylesheet" href="/css/styles.css?v2.3?v=1661236618">
+  
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5WLCZXC');</script>
+  
+<script>
+	
+		var tableClasses = "table";
+	
+</script>
+
+  
+<meta name="google-site-verification" content="5YeiMF6KiZn6B27dbjuYWoFgMnzsEdbqqSaE4SbO3l4" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" type="text/css"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5WLCZXC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<a class="sr-only" href="#content">Skip to main content</a>
+
+
+<div class="clearfix toolbar-container-wrapper">
+  <div class="container">
+    <div class="text-right toolbar-row row hidden-print">
+      <div class="col-md-24 row-toolbar-col">
+        <ul class="list-inline">
+          <li><a href="https://accounts.eclipse.org/user/edit" class="" data-tab-destination="tab-profile">Edit my account</a></li>
+          <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle">Manage Cookies</a></li>
+          
+          <li class="language-selector dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+              <span> English</span>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              
+              <li><a href="https://jakarta.ee/">English</a></li>
+              
+              <li><a href="https://jakarta.ee/zh/">简体中文</a></li>
+              
+            </ul>
+          </li>
+          
+          
+
+
+<li class="dropdown eclipse-more hidden-xs">
+  <a data-toggle="dropdown" class="dropdown-toggle" role="button"><i class="fa fa-search"></i> <b class="caret"></b></a>
+  <ul class="dropdown-menu">
+    <li>
+      
+      <div class="yamm-content">
+        <div class="row">
+          <div class="col-sm-24">
+            <p><strong>Search</strong></p>
+            <div class="row">
+              <div class="col-md-24">
+                <div id="custom-search-form" class="reset-box-sizing">
+                  <script>
+                    (function() {
+                      var cx = '011805775785170369411:p3ec0igo0qq';
+                      var gcse = document.createElement('script');
+                      gcse.type = 'text/javascript';
+                      gcse.async = true;
+                      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                      '//cse.google.com/cse.js?cx=' + cx;
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(gcse, s);
+                    })();
+                  </script>
+                  <gcse:searchbox-only gname="main" resultsUrl="https://www.eclipse.org/home/search.php"></gcse:searchbox-only>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="navbar-wrapper">
+  <div class="container">
+    <div class="row" id="header-row">
+      <div class="col-sm-5" id="header-left">
+        <div class="wrapper-logo-default">
+
+            
+
+            
+            
+            
+
+            
+
+            <a title="Jakarta® EE: The New Home of Cloud Native Java" href="https://jakarta.ee/">
+              <img width="200" class="logo-eclipse-default img-responsive hidden-xs" src="/images/jakarta/jakarta-ee-logo-color.svg" alt="Jakarta® EE: The New Home of Cloud Native Java" />
+            </a>
+            
+
+        </div>
+      </div>
+      
+      
+        
+      
+      <div class="col-sm-19 margin-top-20" id="main-menu-wrapper">
+        
+        
+        
+
+        
+        
+        
+        
+          <div class="float-right hidden-xs" id="btn-call-for-action">
+            <div id="btn-call-for-action"><a href="/compatibility/download/" class="btn btn-warning btn-call-for-action"><i class="fa "></i> Download</a></div>
+          </div>
+        
+        <div class="navbar float-sm-right yamm" id="main-menu">
+          <div class="navbar-collapse collapse reset float-right" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              
+
+
+  
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+    <li class="dropdown eclipse-more">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        
+        
+        <span>About</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        
+        <li>
+          
+          <div class="yamm-content">
+            <div class="row">
+              <div class="col-sm-12 padding-right-0">
+                <div class="dropdown-menu-left-panel">
+                  <ul class="list-unstyled menu-tabs match-height-dropdown-menu-item" role="tablist">
+                    
+                      
+                        <li role="presentation" class="active">
+                          <i class="hidden-xs fa fa-caret-right" aria-hidden="true"></i> 
+                          <a class="hidden-xs" data-target="#jakarta-ee-tab" aria-controls="jakarta-ee-tab" role="tab" data-toggle="tab">
+                            Jakarta EE
+                          </a>
+
+                          <a class="visible-xs" role="button" data-toggle="collapse" href="#jakarta-ee-collapse" aria-expanded="false" aria-controls="jakarta-ee-collapse">
+                            Jakarta EE
+                            <b class="caret"></b>
+                          </a>
+                          <div class="dropdown-collapse collapse" id="jakarta-ee-collapse">
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="/about/jakarta-ee">About Jakarta EE</a></li>
+                              
+                                <li><a href="/about/faq/">Frequently Asked Questions</a></li>
+                              
+                                <li><a href="/release/">Releases</a></li>
+                              
+                            </ul>
+                          </div>
+
+                        </li>
+                      
+                    
+                      
+                        <li role="presentation" >
+                          <i class="hidden-xs fa fa-caret-right" aria-hidden="true"></i> 
+                          <a class="hidden-xs" data-target="#jakarta-ee-working-group-tab" aria-controls="jakarta-ee-working-group-tab" role="tab" data-toggle="tab">
+                            Jakarta EE Working Group
+                          </a>
+
+                          <a class="visible-xs" role="button" data-toggle="collapse" href="#jakarta-ee-working-group-collapse" aria-expanded="false" aria-controls="jakarta-ee-working-group-collapse">
+                            Jakarta EE Working Group
+                            <b class="caret"></b>
+                          </a>
+                          <div class="dropdown-collapse collapse" id="jakarta-ee-working-group-collapse">
+                            <ul class="list-unstyled">
+                              
+                                <li><a href="/about/working-group">About Working Group</a></li>
+                              
+                                <li><a href="https://eclipse.org/org/workinggroups/jakarta_ee_charter.php">Charter</a></li>
+                              
+                                <li><a href="/legal/trademark_guidelines/">Trademark Guidelines</a></li>
+                              
+                                <li><a href="https://www.eclipse.org/ee4j/direction.php">Technical Direction</a></li>
+                              
+                                <li><a href="/committees">Committees</a></li>
+                              
+                                <li><a href="/meeting_minutes/">Committees Meeting Minutes</a></li>
+                              
+                            </ul>
+                          </div>
+
+                        </li>
+                      
+                    
+                      
+                        <li><a href="/news/">News</a></li>
+                      
+                    
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-12 padding-left-0 hidden-xs">
+                <div class="dropdown-menu-right-panel">
+                  <div class="tab-content">
+                    
+                      
+                        <div role="tabpanel" class="match-height-dropdown-menu-item tab-pane active" id="jakarta-ee-tab">
+                          <ul class="list-unstyled">
+                          
+                            <li><a href="/about/jakarta-ee"><strong>About Jakarta EE</strong></a></li>
+                          
+                            <li><a href="/about/faq/"><strong>Frequently Asked Questions</strong></a></li>
+                          
+                            <li><a href="/release/"><strong>Releases</strong></a></li>
+                          
+                        </ul>
+                        </div>
+                      
+                    
+                      
+                        <div role="tabpanel" class="match-height-dropdown-menu-item tab-pane fade" id="jakarta-ee-working-group-tab">
+                          <ul class="list-unstyled">
+                          
+                            <li><a href="/about/working-group"><strong>About Working Group</strong></a></li>
+                          
+                            <li><a href="https://eclipse.org/org/workinggroups/jakarta_ee_charter.php"><strong>Charter</strong></a></li>
+                          
+                            <li><a href="/legal/trademark_guidelines/"><strong>Trademark Guidelines</strong></a></li>
+                          
+                            <li><a href="https://www.eclipse.org/ee4j/direction.php"><strong>Technical Direction</strong></a></li>
+                          
+                            <li><a href="/committees"><strong>Committees</strong></a></li>
+                          
+                            <li><a href="/meeting_minutes/"><strong>Committees Meeting Minutes</strong></a></li>
+                          
+                        </ul>
+                        </div>
+                      
+                    
+                      
+                    
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </li>
+        
+      </ul>
+    </li>
+  
+
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        
+        
+        <span>Specifications</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        
+          
+          <li><a href="/specifications/">Browse Specifications</a> </li>
+          
+          <li><a href="/about/jesp/">Specification Process</a> </li>
+          
+          <li><a href="/committees/specification/guide/">JESP guide</a> </li>
+          
+          <li><a href="https://projects.eclipse.org/list-of-projects?combine=jakarta&amp;field_project_techology_types_tid=1102&amp;field_state_value_2=All">Specification Projects</a> </li>
+          
+        
+      </ul>
+    </li>
+  
+
+  
+    
+    
+      
+    
+      
+    
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        
+        
+        <span>Compatible Products</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        
+          
+          <li><a href="/compatibility/">Jakarta EE Compatible Products</a> </li>
+          
+          <li><a href="/compatibility/get-listed/">Get Listed</a> </li>
+          
+        
+      </ul>
+    </li>
+  
+
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        
+        
+        <span>Community</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        
+          
+          <li><a href="/community/">Overview</a> </li>
+          
+          <li><a href="/community/adopt-a-spec/">Adopt A Spec</a> </li>
+          
+          <li><a href="/blogs">Blog</a> </li>
+          
+          <li><a href="/community/events/">Events</a> </li>
+          
+          <li><a href="https://jakartaone.org">JakartaOne Livestream</a> </li>
+          
+          <li><a href="/connect/">Stay Connected</a> </li>
+          
+          <li><a href="/community/#meetups">Tech Talk Meet-ups</a> </li>
+          
+          <li><a href="/community/videos">Videos</a> </li>
+          
+          <li><a href="/community/get-involved">Get Involved</a> </li>
+          
+        
+      </ul>
+    </li>
+  
+
+  
+    
+    
+      
+    
+      
+    
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        
+        
+        <span>Membership</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        
+          
+          <li><a href="/membership">Join</a> </li>
+          
+          <li><a href="/membership/members/">Members</a> </li>
+          
+        
+      </ul>
+    </li>
+  
+
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        
+        
+        <span>Resources</span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        
+          
+          <li><a href="/resources">Overview</a> </li>
+          
+          <li><a href="/resources#datasheets">Datasheets</a> </li>
+          
+          <li><a href="/resources#documentation">Documentation</a> </li>
+          
+          <li><a href="/resources#presentations">Presentations</a> </li>
+          
+          <li><a href="/resources#surveys">Surveys</a> </li>
+          
+          <li><a href="/resources/#ebooks">eBooks</a> </li>
+          
+          <li><a href="/resources/#white-papers">White Papers</a> </li>
+          
+          <li><a href="/resources/#cases-studies">Case Studies</a> </li>
+          
+          <li><a href="https://start.jakarta.ee/">Starter for Jakarta EE</a> </li>
+          
+        
+      </ul>
+    </li>
+  
+
+
+<li class="visible-xs"><a href="/release/">Releases</a></li>
+            </ul>
+          </div>
+          
+<div class="navbar-header">
+  
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  
+  <div class="wrapper-logo-mobile">
+      
+      
+      
+
+        
+
+      <a class="navbar-brand visible-xs" title="Jakarta® EE: The New Home of Cloud Native Java" href="https://jakarta.ee/">
+        <img width="200" class="logo-eclipse-default-mobile img-responsive" src="/images/jakarta/jakarta-ee-logo-color.svg" alt="Jakarta® EE: The New Home of Cloud Native Java" />
+      </a>
+    
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="header-wrapper header-default-bg-img" id="header-wrapper">
+  
+
+
+<div class="jumbotron featured-jumbotron featured-jumbotron-default margin-bottom-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-24 col-sm-18 ">
+        <h1><img class='jumbotron-title' src='/images/jakarta/jakarta-ee-text.svg' alt='Jakarta EE'><br>BUILDING AN OPEN SOURCE ECOSYSTEM FOR CLOUD NATIVE ENTERPRISE JAVA</h1>
+          
+         
+          
+
+          
+
+         
+      </div>
+    </div>
+  </div>
+</div>
+
+</header>
+
+  
+  
+  
+
+
+
+ 
+<main>
+  <div class="container-fluid">
+    
+
+    
+  
+ 
+
+
+
+
+
+  
+
+
+<div class="row">
+  <div class="featured-section eclipsefdn-featured-story featured-story" 
+     id="featured-story-container" 
+     data-template-id="featured-story-custom" 
+     data-publish-target="jakarta_ee"
+     data-count="5">
+    
+        <div class="featured-container owl-carousel owl-theme solstice-featured-story-slider" data-slider-lg-count="1" data-slider-md-count="1" data-slider-sm-count="1">
+        </div>
+    
+  </div>
+</div>
+
+<div class="featured-section-cta-item-container container">
+    <div class="row">
+        <div class="col-sm-8 col-md-6 col-md-offset-3">
+            <div class="featured-section-cta-item match-height-item-by-row">
+                <div class="featured-section-cta-item-img">
+                    <img src="/images/home/get-informed.svg" alt="Get Informed">
+                </div>
+                <h2 class="heading-underline">GET INFORMED</h2>
+                <p><a href="/specifications">GET THE <br>SPECIFICATIONS</a></p>
+                <p><a href="https://docs.google.com/presentation/d/1LBjjJg64j0HjmFu6m3EApN--mkavemyPFMUobIbGZds/edit#slide=id.g10a8950dfd6_0_139">JAKARTA EE PRESENTATION</a></p>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-6">
+            <div class="featured-section-cta-item match-height-item-by-row">
+                <div class="featured-section-cta-item-img">
+                    <img src="/images/home/get-involved.svg" alt="Get INVOLVED">
+                </div>
+                <h2 class="heading-underline">GET INVOLVED</h2>
+                <p><a href="/community/get-involved/">How to Get Involved</a></p>
+                <p><a href="/membership/">JOIN THE <br>WORKING GROUP</a></p>
+                
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-6">
+            <div class="featured-section-cta-item match-height-item-by-row">
+                <div class="featured-section-cta-item-img">
+                    <img src="/images/home/get-started.svg" alt="Get STARTED">
+                </div>
+                
+                <h2 class="heading-underline">GET STARTED</h2>
+                <p><a href="https://start.jakarta.ee/">STARTER FOR JAKARTA EE</a></p>
+                <p><a href="/compatibility/">DOWNLOAD <br>COMPATIBLE PRODUCTS</a></p>
+                <p><a href="/release/">RELEASES</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row featured-section featured-section-cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-18 col-sm-offset-3">
+                <p>Jakarta EE brings together a global community of leading developers, vendors, and enterprises to collaborate on advancing enterprise Java technologies in the cloud</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="featured-section featured-section-members">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-18 col-sm-offset-3">
+        <h2 class="big-text-secondary">Members</h2>
+        <p>Working together, the world’s enterprise Java ecosystem leaders, including Fujitsu, IBM, Oracle, Red Hat, and Tomitribe, are advancing Java EE and Jakarta EE to support moving mission-critical applications and workloads to the cloud.</p>
+        <ul class="list-inline eclipsefdn-members-list members-by-level flex-center gap-50" data-ml-wg="jakarta-ee"
+          data-ml-template="logo-with-levels" data-ml-wg-level="WGSD" data-ml-level-under-logo="true">
+        </ul>
+      </div>
+    </div>
+    <p class="margin-top-20"><a class="btn btn-primary" href="/membership/members/">Explore All Members</a></p>
+  </div>
+</div>
+<div class="container tab-content-nav">
+    <div class="col-sm-24">
+        <h2 class="big-text-secondary text-center">What&#39;s New</h2>
+        
+        <ul class="nav nav-tabs solstice-tabs solstice-tabs-center" role="tablist">
+            <li role="presentation1" class="active"><a data-target="#whats-new-announcements" aria-controls="whats-new-announcements" role="tab" data-toggle="tab">Announcements</a></li>
+            <li role="presentation1"><a data-target="#whats-new-news" aria-controls="whats-new-news" role="tab" data-toggle="tab">News</a></li>
+            <li role="presentation1"><a data-target="#whats-new-events" aria-controls="whats-new-events" role="tab" data-toggle="tab">Events</a></li>
+        </ul>
+    </div>
+</div>
+
+
+
+<section class="row ">
+  <div class="container">
+    
+      
+  
+    
+<div class="featured-section-news tab-content tab-content-home">
+ 
+   
+
+      
+<div id="whats-new-announcements" class="tab-pane active" role="tabpanel">
+ 
+   
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+<div class="news-list">
+  
+  <div id="announcements_news_lists" class="news-items" data-news-count="5" 
+     data-news-type="announcements" 
+    
+     data-template-id="custom-announcement-template" 
+     data-publish-target="jakarta_ee"
+    
+    
+    >
+  </div>
+  
+  <ul class="list-inline block-summary-more margin-bottom-40">
+    <li><a href="https://newsroom.eclipse.org/rss/news/jakarta_ee/news.xml" title="Subscribe to our RSS-feed"><i class="fa fa-rss margin-right-5"></i></a><a href="/news">View all</a></li>
+    <li class="news-list-links-view-all"><a href="https://newsroom.eclipse.org/node/add/news">Submit News</a></li>
+  </ul>
+  
+</div>
+      
+ 
+</div>
+
+      
+<div id="whats-new-news" class="tab-pane fade" role="tabpanel">
+ 
+   
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+<div class="news-list">
+  
+  <div id="community_news_lists" class="news-items" data-news-count="5" 
+     data-news-type="community_news" 
+    
+     data-template-id="custom-news-template" 
+     data-publish-target="jakarta_ee"
+    
+    
+    >
+  </div>
+  
+  <ul class="list-inline block-summary-more margin-bottom-40">
+    <li><a href="https://newsroom.eclipse.org/rss/news/jakarta_ee/news.xml" title="Subscribe to our RSS-feed"><i class="fa fa-rss margin-right-5"></i></a><a href="/news">View all</a></li>
+    <li class="news-list-links-view-all"><a href="https://newsroom.eclipse.org/node/add/news">Submit News</a></li>
+  </ul>
+  
+</div>
+      
+ 
+</div>
+
+      
+<div id="whats-new-events" class="tab-pane fade" role="tabpanel">
+ 
+   
+        
+  <div class="events">
+    <div class="row">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+<div class="news-list col-xs-24">
+  
+  <div id="events_lists" class="news-items clearfix" data-count="4" 
+    
+    
+     data-template-id="custom-events-template" 
+     data-publish-target="jakarta_ee"
+    
+    
+     data-upcoming="1"
+    
+    >
+  </div>
+  
+</div>
+        
+    </div>
+    <ul class="text-center margin-top-25 list-inline list-inline-xs-margin">
+      <li><a style="width:220px;" href="/events" aria-controls="featured-more-items" class="btn btn-primary">View More Events</a></li>
+      <li><a style="width:220px;" class="btn btn-primary" href="https://newsroom.eclipse.org/node/add/events" target="_blank">Submit Event</a></li>
+    </ul>
+  </div>
+
+      
+ 
+</div>
+
+    
+ 
+</div>
+  
+
+   
+  </div>
+</section>
+<div class="container featured-section-videos">
+    <h2 class="big-text-secondary">Videos</h2>
+
+    <div class="row">
+        <div class="col-sm-12 col-sm-push-12 match-height-item-by-row">
+            <div class="">
+                <a href="https://www.youtube.com/channel/UC4M7h5b6elu9VlzjLfzuXyg">
+                    <img class="img-responsive" src="/images/home/video.png" alt="Jakarta EE Videos">
+                </a>
+            </div>
+            
+        </div>
+        <div class="col-sm-12 col-sm-pull-12 vertical-align-container match-height-item-by-row">
+            <div class="">
+                <h3 class="heading-underline">Jakarta EE on YouTube</h3>
+                <p>The Jakarta EE Youtube channel is a platform that features Jakarta EE related videos aiming to educate the new and existing enterprise java community members about open source, cloud native and microservices technologies.</p>
+                <p><a class="btn btn-primary" href="https://www.youtube.com/channel/UC4M7h5b6elu9VlzjLfzuXyg">Watch More</a></p>
+            </div>
+            
+        </div>
+        
+
+    </div>
+</div>
+
+
+
+
+
+    
+        
+        
+    
+    
+
+    
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+
+    
+        
+        
+    
+    
+
+    
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+        
+        
+        
+    
+
+
+
+
+
+    <div class="container featured-section-testimonials">
+        <h2 class="big-text-secondary">Testimonials</h2>
+        <div class="row testimonial-container">
+            
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/testimonials/david-blevins.png" width="60" alt="David Blevins's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-tomitribe.svg" width="60" alt="Founder and CEO of Tomitribe's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">In 20 years working in open source and Java standards I&#39;ve never seen such a truly diverse and equally shared effort as that required to ship Jakarta EE 8. Source code has been donated, but what emerged is a community that bravely accepts change, innovates open processes and repeatedly choses shared victory over individual success. When we look back in 10 years at all we&#39;ve accomplished in Jakarta, everyone will agree this was the singular moment in time that shaped our future.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>David Blevins,</strong> <em>Founder and CEO of Tomitribe</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                
+            
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/silhouette.jpg" width="60" alt="Hideki Nozaki's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-fujitsu.svg" width="60" alt="VP, Deputy Head of Fujitsu Middleware Unit's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">Through the years, Fujitsu Limited has been not only a user of the Java language, but has also been actively involved in the development of Java, and as a Charter Member of the Java Community Process Executive Committee, it has helped create the development process for the Java language. As the future of Java EE development moves to Eclipse and becomes an Open Source Developed Specification, Fujitsu has joined Eclipse as a Strategic Member in order to continue its participation in the evolution of Java EE as Jakarta EE, providing it in the cloud native world.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>Hideki Nozaki,</strong> <em>VP, Deputy Head of Fujitsu Middleware Unit</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/testimonials/ian-robinson.jpg" width="60" alt="Ian Robinson's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-ibm.png" width="60" alt="Distinguished Engineer, CTO IBM App Platform's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">IBM helped create Java EE and guide it through its teenage years and I’m delighted to see the progress made under Jakarta EE. I look forward to Jakarta EE and MicroProfile becoming the open standard for cloud native innovation and the technology we need for Java in the cloud.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>Ian Robinson,</strong> <em>Distinguished Engineer, CTO IBM App Platform</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                
+            
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/testimonials/jesse-mcconnell.jpg" width="60" alt="Jesse McConnell's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-webtide.svg" width="60" alt="CEO and co-founder of Webtide LLC's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">Jakarta EE&#39;s specifications are fundamental to the core Java experience. Webtide LLC, through its developers of Eclipse Jetty, has contributed to many specifications since their inception and is pleased to continue doing so as a part of Jakarta EE.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>Jesse McConnell,</strong> <em>CEO and co-founder of Webtide LLC</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/silhouette.jpg" width="60" alt="Mark Little's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-redhat.svg" width="60" alt="VP of Red Hat Software Engineering's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">Red Hat reaffirms its support for the development of Jakarta EE. We look forward to working with the Eclipse Foundation and the broader Java community to align efforts to drive Enterprise Java forward. The breadth of participation in combination with community governance will help accelerate the evolution of Jakarta EE. We believe that Jakarta EE represents one of the most significant events to have happened to the open source enterprise Java ecosystem since OpenJDK was released.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>Mark Little,</strong> <em>VP of Red Hat Software Engineering</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/testimonials/stephen-millidge.jpg" width="60" alt="Stephen Millidge's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-payara.svg" width="60" alt="Founder and Director of Payara® Services, LTD and the Payara Foundation's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">The Payara Team is dedicated to the growth and success of Jakarta EE. Our customer support contracts help fund our ongoing development efforts and we continue to lend our expertise and resources to the development of Jakarta EE. We’re committed to helping shape the future of open source cloud native Java.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>Stephen Millidge,</strong> <em>Founder and Director of Payara® Services, LTD and the Payara Foundation</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+                
+            
+                
+                    <div class="col-sm-8 testimonial-item" style="display:none;">
+                        <div class="featured-section-testimonials-item match-height-item-by-row">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    
+                                    <div class="featured-section-testimonials-item-picture"><img class="img" src="/images/silhouette.jpg" width="60" alt="Tom Snyder's picture"></div>
+                                    
+                                    <p><img class="featured-section-testimonials-item-logo img img-responsive" src="/images/members/jakarta-member-oracle.svg" width="60" alt="VP of Engineering, Oracle Enterprise Cloud Native Java's logo"></p>
+                                </div>
+                                <div class="col-md-18">
+                                    <p class="featured-section-testimonials-item-content">Oracle remains committed to the success of Jakarta EE and is pleased with its progress and community support. We are contributing to the projects and the committees and are leveraging the technologies in Oracle Enterprise Cloud Native Java products.</p>
+                                    <p class="featured-section-testimonials-item-name"><strong>Tom Snyder,</strong> <em>VP of Engineering, Oracle Enterprise Cloud Native Java</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+            
+        </div>
+    </div>
+
+
+
+  
+
+    
+  </div>
+</main>
+  
+
+<div class="featured-footer featured-mailing-list text-center" id="social-media">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-24">
+        <ul class="list-inline">
+          <li><a class="btn btn-primary margin-right-15" href="https://accounts.eclipse.org/mailing-list/jakarta.ee-wg">Sign up now</a></li>
+          <li>
+            <a class="social-icon" href="https://www.facebook.com/JakartaEE/">
+              <i class="fa fa-facebook-official" aria-label="Facebook page for Jakarta EE"></i><span class="sr-only">Facebook account</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-icon" href="https://ca.linkedin.com/showcase/jakartaee">
+              <i class="fa fa-linkedin-square" aria-label="Linkedin profile for Jakarta EE"></i><span class="sr-only">Linkedin account</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-icon" href="https://twitter.com/JakartaEE">
+              <i class="fa fa-twitter" aria-label="Twitter profile for Jakarta EE"></i><span class="sr-only">Twitter account</span>
+            </a>
+          </li>
+          <li>
+            <a class="social-icon" href="https://www.youtube.com/c/JakartaEE">
+              <i class="fa fa-youtube-play" aria-label="Youtube channel for Jakarta EE"></i><span class="sr-only">Youtube account</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+  
+<p id="back-to-top">
+  <a class="visible-xs" href="#top">Back to the top</a>
+</p>
+<footer id="solstice-footer" class="">
+  <div class="container">
+    <div class="row">
+      
+      <section class="col-sm-5th footer-section-socials" id="footer-socials">
+    <h2 class="section-title"><img class="img-responsive" src="/images/jakarta/jakarta-ee-logo-white.svg" alt="Jakarta EE logo"></h2>
+    <ul class="list-inline margin-top-20">
+        <li>
+          <a class="social-icon" href="https://www.facebook.com/JakartaEE/">
+            <i class="fa fa-facebook-official" aria-label="Facebook page for Jakarta EE"></i>
+          </a>
+        </li>
+        <li>
+          <a class="social-icon" href="https://ca.linkedin.com/showcase/jakartaee">
+            <i class="fa fa-linkedin-square" aria-label="Linkedin profile for Jakarta EE"></i>
+          </a>
+        </li>
+        <li>
+          <a class="social-icon" href="https://twitter.com/JakartaEE">
+            <i class="fa fa-twitter" aria-label="Twitter profile for Jakarta EE"></i>
+          </a>
+        </li>
+        <li>
+          <a class="social-icon" href="https://www.youtube.com/c/JakartaEE">
+            <i class="fa fa-youtube-play" aria-label="Youtube channel for Jakarta EE"></i>
+          </a>
+        </li>
+      </ul>
+  </section>
+<section class="col-sm-5th padding-top-20" id="footer-eclipse-foundation">
+  <h2 class="section-title">Eclipse Foundation</h2>
+  <ul class="nav">
+    <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+    <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+    <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+    <li><a href="https://www.eclipse.org/membership">Members</a></li>
+    <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+    <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+    <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+    <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+  </ul>
+</section>
+<section class="col-sm-5th padding-top-20" id="footer-legal">
+  <h2 class="section-title">Legal</h2>
+  <ul class="nav">
+    <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+    <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+    <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+    <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+    <li><a href="https://www.eclipse.org/legal/">Legal Resources </a></li>
+  </ul>
+</section>
+<section class="col-sm-5th padding-top-20" id="footer-useful-links">
+  <h2 class="section-title">Useful Links</h2>
+  <ul class="nav">
+    <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+    <li><a href="//help.eclipse.org/">Documentation</a></li>
+    <li><a href="/community/get-involved/">How to Contribute</a></li>
+    <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+    <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+    <li><a href="//marketplace.eclipse.org">Marketplace</a></li>
+  </ul>
+</section>
+<section class="col-sm-5th padding-top-20" id="footer-other">
+  <h2 class="section-title">Other</h2>
+  <ul class="nav">
+    <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+    <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+    <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+    <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+    <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+    <li><a href="https://status.eclipse.org">Service Status</a></li>
+  </ul>
+</section>
+
+
+      
+      <a href="#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      <div class="col-sm-24 margin-top-20">
+  <div class="row">
+    <div id="copyright" class="col-md-16">
+      <p id="copyright-text">Copyright &copy; Eclipse Foundation. All Rights Reserved.</p>
+    </div>
+    
+  </div>
+</div>
+    </div>
+  </div>
+  
+  
+</footer>
+
+  
+  
+
+<script src="/js/solstice.js?v2.3?v=1661236618"></script>
+
+
+
+
+
+<script id="custom-announcement-template" type="text/html">
+{{#news}}
+<div class="eclipsefdn-news-list item block-summary-item">
+  <div class="row">
+    {{#image}}
+      <div class="col-sm-6">
+        <div class="eclipsefdn-news-list-img" style="background-image:url({{image}});"></div>
+      </div>
+    {{/image}}
+
+    <div class="col-sm-18 {{^image}}eclipsefdn-news-list-content{{/image}}">
+      <p class="eclipsefdn-news-list-date">{{ date }}</p>
+      <h4 class="eclipsefdn-news-list-heading"><a href="{{ link }}">{{ title }}</a></h4>
+      <p class="eclipsefdn-news-list-body">{{ body }}</p>
+    </div>
+  </div>
+</div>
+{{/news}} 
+</script>
+
+<script id="custom-events-template" type="text/html">
+<div class="eclipsefdn-event-list-teaser row">
+{{#events}}
+  <div class="col-sm-12">
+    <div class="eclipsefdn-event-list-teaser-content block-summary-item match-height-item-by-row">
+      {{#infoLink}}
+        <h4><a href="{{infoLink}}">{{ title }}</a></h4>
+      {{/infoLink}}
+
+      {{^infoLink}}
+        <h4>{{ title }}</h4>
+      {{/infoLink}}
+
+      {{#locationName}}
+        <p class="eclipsefdn-event-list-teaser-location"><span class="fw-700">Location:</span> {{ locationName }}</p>
+      {{/locationName}}
+
+      {{#date}}
+        <p class="eclipsefdn-event-list-teaser-date">{{ date }}{{#end-date}} - {{ end-date }}{{/end-date}}</p>
+      {{/date}}
+      {{#registration}}
+        <p class="eclipsefdn-event-list-teaser-registation"><a href="{{registration}}" class="btn btn-primary btn-sm">Register</a></p>
+      {{/registration}}   
+    </div>
+  </div>
+{{/events}}
+</div>
+</script>
+
+<script id="custom-news-template" type="text/html">
+{{#news}}
+<div class="eclipsefdn-news-list item block-summary-item">
+  <div class="row">
+    {{#image}}
+      <div class="col-sm-6">
+        <div class="eclipsefdn-news-list-img" style="background-image:url({{image}});"></div>
+      </div>
+    {{/image}}
+
+    <div class="col-sm-18 {{^image}}eclipsefdn-news-list-content{{/image}}">
+      <p class="eclipsefdn-news-list-date">{{ date }}</p>
+      <h4 class="eclipsefdn-news-list-heading"><a href="{{ link }}">{{ title }}</a></h4>
+      <p class="eclipsefdn-news-list-body">{{ body }}</p>
+    </div>
+  </div>
+</div>
+{{/news}} 
+</script>
+
+<script id="featured-story-custom" type="text/html">
+{{#featuredStory}}
+    <div class="col-sm-18 col-sm-offset-3 item text-center featured-story-block featured-story-block-content match-height-item-by-row featured-container">
+        <h2 class="webinar-series-1-title">{{ title }}</h2>
+        <p>{{ body }}</p>
+        <ul class="list-inline list-inline-xs-margin">
+            {{#links}}
+                <li><a class="btn btn-primary" href="{{ url }}">{{ title }}</a></li>
+            {{/links}}
+        </ul>
+    </div>
+
+{{/featuredStory}}
+</script>
+
+
+
+<script>
+(function($, document) {
+  
+    $("#events_lists").eclipseFdnApi({
+      type: "filteredEvents"
+    });
+  
+  
+    $("#announcements_news_lists").eclipseFdnApi({
+      type: "newsItems"
+    });
+  
+    $("#community_news_lists").eclipseFdnApi({
+      type: "newsItems"
+    });
+  
+})(jQuery, document);
+</script>
+
+<script>
+  (function (eclipseFdnAdopters) {
+    if (typeof eclipsefdn_adopters_configs !== 'undefined') {
+      eclipseFdnAdopters.getWGList({
+        src_root: 'https://api.eclipse.org/adopters',
+        working_group: eclipsefdn_adopters_configs.working_group,
+        ul_classes: eclipsefdn_adopters_configs.ul_classes,
+      });
+    }
+  })(eclipseFdnAdopters);
+</script>
+
+</body>
+</html>
+

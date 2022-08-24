@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class NewsData {
     
+    private int ID;
     private String title;
     private String content;
     private String author;

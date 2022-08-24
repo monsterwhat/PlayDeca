@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ForumData {
     
+    private int ID;
     private String title;
     private String content;
     private UserData author;
