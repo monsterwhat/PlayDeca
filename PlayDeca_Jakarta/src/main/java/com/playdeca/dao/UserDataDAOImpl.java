@@ -46,8 +46,8 @@ public class UserDataDAOImpl implements UserDataDAO {
         return false;
     }
 
-    public boolean findByEmail(String email) {
-        return false;
+    public UserData findByEmail(String email) {
+        return null;
     }
 
     public boolean isConfirmed(UserData user) {
@@ -70,7 +70,8 @@ public class UserDataDAOImpl implements UserDataDAO {
         return null;
     }
 
-    public void confirmEmail(UserData user) {
+    public boolean confirmEmail(UserData user) {
+        return false;
     }
 
     public boolean isBanned() {
@@ -79,6 +80,15 @@ public class UserDataDAOImpl implements UserDataDAO {
 
     public boolean isBanned(UserData foundUser) {
         return false;
+    }
+
+    public boolean updatePassword(String password) {
+        
+        return false;
+    }
+
+    public UserData signIn(String Email, String password) {
+        return null;
     }
 
 

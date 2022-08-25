@@ -39,7 +39,7 @@ public class UserDataResource {
 
     @Inject
     private UserDataDAOImpl userController;
-    
+
     @Context
     private HttpHeaders headers;
 
@@ -138,7 +138,7 @@ public class UserDataResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/register")
-    public Response register(UserData user) {
+    public Response register(@FormParam("email")String email,@FormParam("username")String username,@FormParam("password")String password, UserData user) {
         try {
             if (userController.exists(user.getEmail())) {
                 return Response.status(Response.Status.CONFLICT).build();
@@ -159,24 +159,26 @@ public class UserDataResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/login")
-    public Response loginUser(UserData user) {
+    public Response loginUser(@FormParam("email") String email,
+            @FormParam("password") String password,
+            UserData user) {
         try {
-            if (userController.signIn(user) == true) {
-                if (userController.findByEmail(user.getEmail())) {
-                    if (userController.isBanned() || !userController.isConfirmed(user)) {
-                        return Response.status(Response.Status.FORBIDDEN).build();
-                    } else {
-                        //CREATE COOKIE AND SEND IT
-                        //return Response.accepted("TOKEN");
-                        //return Response.ok().status(Response.Status.).entity(cookie).build();
-                    }
+            UserData loggedUser = userController.signIn(email, password);
+            if (!loggedUser.equals(null)) {
+                if (userController.isBanned() || !userController.isConfirmed(user)) {
+                    return Response.status(400,"User is banned").build();
+                } else {
+                    //CREATE COOKIE AND SEND IT
+                    //return Response.accepted("TOKEN");
+                    //return Response.ok().status(200).entity(cookie).build();
                 }
             }
+            return Response.status(400,"Incorrect email or password").build();
+
         } catch (Exception e) {
-            return Response.serverError().build();
+            return Response.serverError().status(400, "Invalid information received").build();
         }
 
-        return null;
     }
 
     @GET
@@ -190,29 +192,41 @@ public class UserDataResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/check-email")
-    public Response checkEmail(UserData user) {
-
-        return null;
+    public Response checkEmail(@FormParam("email") String email) {
+        try {
+            UserData foundUser = userController.findByEmail(email);
+            if (!foundUser.equals(null)) {
+                if (!foundUser.isBanned()) {
+                    if (foundUser.isConfirmed_email()) {
+                        return Response.status(Response.Status.BAD_REQUEST).build();
+                    } else {
+                        userController.confirmEmail(foundUser);
+                        return Response.status(Response.Status.FOUND).build();
+                    }
+                }
+            }
+            return Response.status(200,"Email format is invalid").status(Response.Status.NOT_FOUND).build();
+        } catch (Exception e) {
+            return Response.serverError().build();
+        }
     }
-
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/confirm-email")
     public Response confirmEmail(@FormParam("password") String password,
-                                 @FormParam("id") int id,
-                                 @FormParam("information") String info) {
+            @FormParam("id") int id,
+            @FormParam("information") String info) {
         try {
-            
             UserData foundUser = new UserData();
             foundUser = userController.findByID(id);
-            userController.confirmEmail(foundUser);
-            
             if (userController.isBanned(foundUser)) {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
-            return Response.ok().status(200).build();
-
+            if (userController.confirmEmail(foundUser)) {
+                return Response.ok().status(200,"Your account\'s email address has been confirmed").status(Response.Status.ACCEPTED).build();
+            }
+            return Response.status(401,"Unable to confirm email address sorry").status(Response.Status.NOT_ACCEPTABLE).build();
         } catch (Exception e) {
             return Response.serverError().build();
         }
@@ -221,10 +235,27 @@ public class UserDataResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/reset-pass")
-    public Response resetPassword() {
+    public Response resetPassword(@FormParam("password") String password,
+            @FormParam("id") int userId,
+            @FormParam("information") String extraInfo) {
 
-        return null;
+        try {
+            UserData foundUser = new UserData();
+            foundUser = userController.findByID(userId);
+
+            if (!foundUser.isBanned()) {
+                if (foundUser.getExtra_info().equals(extraInfo)) {
+                    userController.updatePassword(password);
+                    return Response.accepted().status(Response.Status.CREATED).build();
+                }
+                return Response.serverError().status(404,"Incorrect temporary passcode").build();
+            }
+
+            return Response.notAcceptable(null).status(Response.Status.FORBIDDEN).build();
+
+        } catch (Exception e) {
+            return Response.serverError().status(404,"err").status(Response.Status.NOT_ACCEPTABLE).build();
+        }
 
     }
-
 }
