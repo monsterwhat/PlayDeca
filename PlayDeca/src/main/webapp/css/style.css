@@ -1,0 +1,27 @@
+/* background */
+.hero {
+    background: black url("../assets/images/backgrounds/1080U.jpeg") center / cover;
+}
+
+@media (max-width: 1920px) { .hero { background: black url(../assets/images/backgrounds/banner.png) center / cover; } }
+@media (max-width: 1024px) { .hero { background: black url(../assets/images/backgrounds/banner.jpg) center / cover; } }
+@media (max-width:  768px) { .hero { background: black url(../assets/images/backgrounds/banner.jpg) center / cover; } }
+
+/* responsive */
+@media (max-width: 768px) {
+    :root {
+        font-size: 90%;
+    }
+}
+
+.center, .center-column, .top, .right, .bottom, .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+border: 0;
+height: 2px;
+background: #23D160;
+}

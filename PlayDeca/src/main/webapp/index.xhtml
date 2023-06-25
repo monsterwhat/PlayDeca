@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>PlayDeca - Home</title>
+  <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"/>
+  <script src="js/navbar.js"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
+</head>
+
+<body>
+  <section class="hero is-fullheight">
+    <nav class="navbar is-danger">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://playdeca.com/">
+          <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28"/>
+        </a>
+        <div class="navbar-burger burger" data-target="navbarMain">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div id="navbarMain" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item is-active" href="index.xhtml">Home</a>
+          <a class="navbar-item" href="info.xhtml">Information</a>
+          <a class="navbar-item" href="vote.xhtml">Vote</a>
+          <a class="navbar-item" href="forums.xhtml">Forum</a>
+          <a class="navbar-item" href="donate.xhtml">Donate</a>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="button is-info" href="https://discord.com/invite/4KtEsPF">
+                  <span class="icon">
+                    <i class="fab fa-discord"></i>
+                  </span>
+                </a>
+              </p>
+              <p class="control">
+                <a class="button is-info" href="https://playdeca.com:8123">
+                  <span class="icon">
+                    <i class="fas fa-map"></i>
+                  </span>
+                  <span>Dynmap</span>
+                </a>
+              </p>
+              <p class="control">
+                <a class="button is-info" href="login.xhtml">
+                  <span class="icon">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                  </span>
+                  <span>Log In</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </nav>
+   </section>
+
+  <section class="section is-overlay">
+   <br/>
+    <div class="hero-body">
+     
+      <div class="is-overlay has-text-centered " style="top: 82px;">
+        <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="Server Banner" width="512" height="512"/>
+        <h2 class="subtitle is-4 has-text-white">Hello and welcome to the news page!</h2>
+      </div>
+
+      <!-- This is the main Container with the news -->
+
+      <div class="container" style="top: 100px;">
+        <div class="columns is-centered">
+          <div class="column is-three-fifths-tablet">
+            <div class="notification">
+              <div class="bd-notification has-text-centered has-text-success">
+                <h1 class="title">We launched the new site</h1>
+                <span class="tag is-success">Date</span>
+                <span class="tag is-success">Sat Jun 24 2023 03:56:48 GMT-0600 (Central Standard Time)</span>
+              </div>
+              <hr />
+              <div class="column is-centered">
+                <div class="content">
+                  <p>Hello everyone!</p>
+                  <p>A few months back, I set out to create a new and functioning website for Playdeca, and now we are
+                    finally launched and as far as I can tell... its all stable and working.</p>
+                  <p>While the old site didn't really do much but allow for members to donate, this new site should be
+                    more supportive for users. There is a great amount of information available to users and I plan to add
+                    more functions for user control over their account from the website.
+                    I still highly recommend using the Discord server, as it is the fastest and easiest way to contact
+                    other members.
+                    Any updates for Minecraft and the site will be posted here under the news and in the forums.</p>
+                  <p>Good luck and have fun!</p>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</body>
+</html>

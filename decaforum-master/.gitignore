@@ -1,8 +1,0 @@
-express-server/.env
-.vscode
-angular-angular/.env
-.editorconfig
-decaforum.code-workspace
-express-server/node_modules
-angular-app/node_modules
-data/
