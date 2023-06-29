@@ -6,7 +6,12 @@ import jakarta.annotation.Resource;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
 import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
 import java.io.Serializable;
@@ -35,77 +40,70 @@ public class UserService implements Serializable{
     }
     
     public void InsertAdmin(){  
-        try {        
+        try {
             userTransaction.begin();
-            String sqlQuery = "SELECT * FROM user WHERE user.username = ?1";
-            Query query = em.createNativeQuery(sqlQuery);
-            query.setParameter(1,"admin");
+            String username = "Admin";
+
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+            query.setParameter("username", username);
             List<User> existingUsers = query.getResultList();
 
             if (existingUsers.isEmpty()) {
-                
-            User user = new User();
+                User user = new User();
                 user.setUsername("Admin");
                 user.setPassword("password123");
                 user.setUUID("some-uuid");
                 user.setEmail("admin@playdeca.com");
                 user.setRegistrationDate(new Date());
-        
+
                 em.persist(user);
                 userTransaction.commit();
                 System.out.println("Default Admin Saved!");
             } else {
                 System.out.println("User already exists");
             }
-            
-            } catch (Exception e) {
-                    System.out.println("Error in InsertAdmin! Error: " + e.toString());
-            }
+        } catch (HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException | IllegalStateException | SecurityException e) {
+            System.out.println("Error in InsertAdmin! Error: " + e.toString());
+        }
+
     }
     
-    public boolean login(String username, String password){
+    public boolean login(String username, String password) {
         try {
-            String sqlQuery = "SELECT COUNT(*) FROM user WHERE username = ?1 AND password = ?2";
-            Query query = em.createNativeQuery(sqlQuery);
-            query.setParameter(1, username);
-            query.setParameter(2, password);
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.username = :username AND u.password = :password", Long.class);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
 
-            var result = (Number) query.getSingleResult();  // Cast the result to Number type
-            int count = result.intValue();
-            
+            Long count = query.getSingleResult();
+
             System.out.println(count);
-            if(count > 0){
-                return true;
-            }else{
-                return false;
-            }
-            
+            return count > 0;
         } catch (Exception e) {
             System.out.println("Error: ");
             System.out.println(e);
             return false;
         }
-    }   
+    }
+ 
     
-    public User getSession(String username, String password){
+    public User getSession(String username, String password) {
         try {
-        String sqlQuery = "SELECT * FROM user WHERE username = ?1 AND password = ?2";
-        Query query = em.createNativeQuery(sqlQuery, User.class);
-        query.setParameter(1, username);
-        query.setParameter(2, password);
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
 
-        List<User> resultList = query.getResultList();
+            List<User> resultList = query.getResultList();
 
             if (!resultList.isEmpty()) {
                 return resultList.get(0);
             } else {
                 return null;
             }
-            
         } catch (Exception e) {
             System.out.println("Error: ");
             System.out.println(e);
             return null;
         }
     }
+
 }

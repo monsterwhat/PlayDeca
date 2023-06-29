@@ -5,17 +5,16 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Login</title>
+  <title>PlayDeca - Profile</title>
   <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"/>
   <script src="js/navbar.js"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
 </h:head>
 
- 
 <h:body>
   <section class="hero is-fullheight">
     <nav class="navbar is-danger">
@@ -88,64 +87,17 @@
     </nav>
   </section>
   
-
+      <section class="section is-overlay">
+     <div class="container" style="top: 100px">
+      <div class="columns is-centered">
+       <div class="column is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
+        <div class="notification">
+         
+         </div>
+       </div>
+      </div>
+     </div>
+    </section>
   
-  <section class="section is-overlay">
-   <br/>
-    <div class="hero-body">
-     
-      <div class="is-overlay has-text-centered " style="top: 82px;">
-        <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="Server Banner" width="512" height="512"/>
-      </div>
-     
-     
-      <div class="container" style="top: 50px;">
-        <div class="columns is-centered">
-          <div class="column is-two-fifths-tablet">
-            <div class="notification">
-              <hr />
-              <div class="columns is-centered">
-               
-                <h:form rendered="#{not sessionController.isValid()}">
-                 
-                <h2 class="has-text-centered title has-text-success" >Login</h2>
-                <p class="has-text-centered">Please enter your credentials:</p>
-                <br/>
-                 
-                <div class="field">
-                 <p class="control has-icons-left has-icons-right">
-                   <p:inputText class="input is-primary is-rounded" value="#{SessionController.username}" type="text" placeholder="Username"/>
-                   <span class="icon is-small is-left">
-                     <i class="fas fa-user"></i>
-                   </span>
-                   <span class="icon is-small is-right">
-                     <i class="fas fa-check"></i>
-                   </span>
-                 </p>
-               </div>
-               <div class="field">
-                 <p class="control has-icons-left">
-                   <p:password class="input is-primary is-rounded" value="#{SessionController.password}" placeholder="Password" feedback="true"/>
-                   <span class="icon is-small is-left">
-                     <i class="fas fa-lock"></i>
-                   </span>
-                 </p>
-               </div>
-               <div class="field">
-                 <p class="control">
-                  <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Login" action="#{SessionController.login()}" />
-                 </p>
-               </div>
-                  <p:growl id="growl" showDetail="true" />
-                </h:form>
-               
-              </div>
-              <hr />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
   </h:body>
 </html>

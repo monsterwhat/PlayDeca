@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-<head>
+<h:head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>PlayDeca Voting List</title>
@@ -12,14 +13,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
-</head>
+</h:head>
 
-<body>
+<h:body>
   <section class="hero is-fullheight">
     <nav class="navbar is-danger">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://playdeca.com/">
-          <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" width="28" height="28"/>
+          <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28" />
         </a>
         <div class="navbar-burger burger" data-target="navbarMain">
           <span></span>
@@ -32,7 +33,7 @@
         <div class="navbar-start">
           <a class="navbar-item" href="/"> Home </a>
           <a class="navbar-item" href="info.xhtml"> Information </a>
-          <a class="navbar-item is-active" href="vote.xhtml"> Vote </a>
+          <a class="navbar-item" href="vote.xhtml"> Vote </a>
           <a class="navbar-item" href="forums.xhtml"> Forum </a>
           <a class="navbar-item" href="donate.xhtml"> Donate </a>
         </div>
@@ -55,22 +56,39 @@
                   <span>Dynmap</span>
                 </a>
               </p>
+            
+              <p:outputPanel rendered="#{not SessionController.isValid()}">
               <p class="control">
                 <a class="button is-info" href="login.xhtml">
                   <span class="icon">
                     <i class="fa-solid fa-right-to-bracket"></i>
                   </span>
-                  <span>Log In</span>
+                  <span>Log In / Register</span>
                 </a>
               </p>
+              </p:outputPanel>
+              
+              <p:outputPanel rendered="#{SessionController.isValid()}">
+                <p class="control">
+                  <a class="button is-info" href="user-profile.xhtml">
+                    <span class="icon">
+                      <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span>Profile</span>
+                  </a>
+                </p>
+              </p:outputPanel>
+              
             </div>
           </div>
         </div>
       </div>
       
     </nav>
-   </section>
+  </section>
 
+
+  
     <!-- This are is the main Container with the news -->
     <section class="section is-overlay">
       <div class="container" style="top: 100px;">
@@ -106,13 +124,13 @@
               <div class="columns">
                 <div class="column is-half">
                   <a href="http://minecraftservers.org/server/366723">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-1.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-1.jpg"
                       alt="" />
                   </a>
                 </div>
                 <div class="column is-half">
                   <a href="http://minecraft-mp.com/server-s133827">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-2.png"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-2.png"
                       alt="" />
                   </a>
                 </div>
@@ -120,13 +138,13 @@
               <div class="columns">
                 <div class="column is-half">
                   <a href="http://minecraft-server-list.com/server/357058/">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-3.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-3.jpg"
                       alt="" />
                   </a>
                 </div>
                 <div class="column is-half">
                   <a href="http://www.planetminecraft.com/server/deca/">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-7.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-7.jpg"
                       alt="" />
                   </a>
                 </div>
@@ -134,13 +152,13 @@
               <div class="columns">
                 <div class="column is-half">
                   <a href="http://topg.org/Minecraft/in-437648">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-4.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-4.jpg"
                       alt="" />
                   </a>
                 </div>
                 <div class="column is-half">
                   <a href="https://mineservers.com/server/A1wBvDfh/vote">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-10.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-10.jpg"
                       alt="" />
                   </a>
                 </div>
@@ -148,19 +166,19 @@
               <div class="columns">
                 <div class="column is-half">
                   <a href="http://www.serverpact.com/vote-14104">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-5.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-5.jpg"
                       alt="" /></a>
                 </div>
                 <div class="column is-half">
                   <a href="http://minecraftservers.net/server/82121/vote/">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-8.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-8.jpg"
                       alt="" /></a>
                 </div>
               </div>
               <div class="columns is-centered">
                 <div class="column is-half">
                   <a href="https://mcserverstatus.com/viewserver/32048">
-                    <img class="voter-image" src="https://playdeca.com/assets/images/voting/PlayDeca-Banner-9.jpg"
+                    <img class="voter-image" src="./assets/images/voting/PlayDeca-Banner-9.jpg"
                       alt="" />
                   </a>
                 </div>
@@ -172,5 +190,5 @@
       </div>
     </section>
     
-</body>
+</h:body>
 </html>

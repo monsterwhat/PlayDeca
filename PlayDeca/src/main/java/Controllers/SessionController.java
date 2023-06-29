@@ -39,6 +39,14 @@ public class SessionController implements Serializable{
             return null;
         }
     }
+    
+    public boolean isValid(){
+        if(currentUser != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public String getUsername() {
         return username;
