@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
+  <h:outputStylesheet library="css" name="bulma.min.css" />
 </h:head>
 
 <h:body>
@@ -87,60 +88,100 @@
     </nav>
   </section>
   
-      <section class="section is-overlay">
+  
+    <p:messages id="messages"/>
+  
+    <h:form id="formPost">
+  
+    <section class="section is-overlay">
      <div class="container" style="top: 100px">
       <div class="columns is-centered">
        <div class="column is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
         <div class="notification">
-         
-         <h:form>
-        
-          <div class="columns">
-              <!-- Sidebar -->
-            <div class="column is-one-fifth">
-               <div class="menu">
-                <p:tabMenu orientation="left">
-                   <p:menuitem value="Create Post" outcome="/index" icon="fa-solid fa-plus">
-                   <f:param name="i" value="0"/>
-                   </p:menuitem>
-                </p:tabMenu>
-               </div>
-            </div>
-           
             <div class="column">
               <!-- Main Content -->
               <div class="content">
                 <div class="box">
                   <h1 class="title">General Discussion</h1>
-                  <p:dataTable value="#{PostController.getList()}" var="post" rows="5" paginator="true" paginatorPosition="bottom">
-                    <p:column headerText="User">
+                  <p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="5" 
+                                paginator="true" paginatorPosition="bottom" reflow="true" id="postsTable" 
+                                emptyMessage="No posts available" selectionMode="single" rowKey="#{thepost.postId}"
+                                selection="#{PostController.selectedPost}" filteredValue="#{PostController.filteredList}">
+                    
+                  <p:ajax event="rowSelect" update=":formPost:postDetail" oncomplete="PF('postDialog').show()"/>
+                    
+                   <p:column headerText="Post Title">
                       <div class="media">
-                        <div class="media-left">
-                          <figure class="image is-48x48">
-                            <img src="user-avatar.jpg" alt="User Avatar"/>
-                          </figure>
-                        </div>
                         <div class="media-content">
-                          <p class="title is-4">#{post.UserID}</p>
-                          <p class="subtitle is-6">Posted on #{post.CreationDate}</p>
+                          <h:outputText class="title is-4" value="#{thepost.title}"/>
+                          <br/>
+                          <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user}"/>                        </div>
+                        <div class="media-right">
+                         <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
+                         <br/>
+                          <h:outputText class="subtitle is-6 pi pi-thumbs-down" value=" #{thepost.downvotes}"/>
                         </div>
                       </div>
                     </p:column>
-                    <p:column headerText="Content">
-                      <p>#{post.content}</p>
-                    </p:column>
                   </p:dataTable>
+                  
+                  <p:dialog id="postDialog" header="Post Details" widgetVar="postDialog" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+                         <p:outputPanel id="postDetail">
+                            <div class="notification">
+                             <div class="columns">
+                              <div class="column">
+                              <h:outputText class="title is-4" value="#{PostController.selectedPost.title}"></h:outputText>
+                              </div>
+                             </div>
+                            <div class="columns">
+                              <div class="column">
+                             <h:outputText class="subtitle is-6" value="#{PostController.selectedPost.body}"></h:outputText>
+                              </div>
+                             </div>
+                            </div>
+                          </p:outputPanel>
+                  </p:dialog>
                 </div>
               </div>
+                <p class="control">
+                    <p:commandButton value="New Post" onclick="PF('postDialogCreate').show();" 
+                                     styleClass="button is-link is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
+                </p>
+              
+              <p:dialog id="postDialogCreate" header="Create Post" widgetVar="postDialogCreate" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+                 <div class="notification">
+                     <div class="columns">
+                         <div class="column">
+                             <h:outputLabel styleClass="label is-centered" for="title" value="Post Title: "/>
+                         </div>
+                      </div>
+                   <div class="columns">
+                    <div class="column">
+                             <p:inputText class="input" id="title" value="#{PostController.newPost.title}" required="true" />
+                    </div>
+                   </div>
+                   <div class="columns">
+                         <div class="column">
+                             <h:outputLabel styleClass="label is-centered" for="body" value="Body: " />
+                         </div>
+                     </div>
+                   <div class="columns">
+                    <div class="column">
+                             <p:inputTextarea class="textarea" id="body" autoResize="true" value="#{PostController.newPost.body}" required="true" />
+                    </div>
+                   </div>
+                   <div class="buttons is-centered">
+                         <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" action="#{PostController.createPost}" update=":formPost:postDetail"/>
+                         <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel" onclick="PF('postDialogCreate').hide();" />
+                   </div>
+                 </div>
+             </p:dialog>
             </div>
-              </div>
-         </h:form>
-         
-         </div>
+         </div>         
        </div>
       </div>
      </div>
     </section>
-  
+    </h:form>
   </h:body>
 </html>

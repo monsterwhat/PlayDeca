@@ -39,6 +39,7 @@ public class UserService implements Serializable{
         InsertAdmin();
     }
     
+    @Transactional
     public void InsertAdmin(){  
         try {
             userTransaction.begin();
@@ -68,6 +69,7 @@ public class UserService implements Serializable{
 
     }
     
+    @Transactional
     public boolean login(String username, String password) {
         try {
             TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.username = :username AND u.password = :password", Long.class);
@@ -85,7 +87,7 @@ public class UserService implements Serializable{
         }
     }
  
-    
+    @Transactional
     public User getSession(String username, String password) {
         try {
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);

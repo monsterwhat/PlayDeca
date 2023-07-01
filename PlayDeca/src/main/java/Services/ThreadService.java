@@ -1,6 +1,6 @@
 package Services;
 
-import Models.Category;
+import Models.Threads;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.inject.Named;
@@ -18,27 +18,35 @@ import java.util.List;
  */
 @Named
 @Transactional
-public class CategoryService implements Serializable{
+public class ThreadService implements Serializable{
     @PersistenceContext()
     EntityManager em;
     
     @Resource UserTransaction userTransaction;
 
-    public CategoryService() {
+    public ThreadService() {
     }
     
     @PostConstruct
     void init(){
     }
     
-    public List<Category> listAll(){
+    public List<Threads> listAll(){
         try {
-                TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c", Category.class);
-                return query.getResultList();
+            TypedQuery<Threads> query = em.createQuery("SELECT t FROM Threads t", Threads.class);
+            return query.getResultList();
         } catch (Exception e) {
-                return null;
+            return null;
         }
     }
     
+    public Threads getThreadByID(int threadId){
+        try {
+            return em.find(Threads.class, threadId);
+        } catch (Exception e) {
+            System.out.println("Error: "+e.toString());
+            return null;
+        }
+    }
     
 }
