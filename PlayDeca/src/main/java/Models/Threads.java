@@ -22,7 +22,7 @@ public class Threads implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "userID")
-    private User user;
+    private Users user;
 
     private String title;
 
@@ -32,7 +32,7 @@ public class Threads implements Serializable {
     public Threads() {
     }
 
-    public Threads(int threadId, User user, String title, Date date) {
+    public Threads(int threadId, Users user, String title, Date date) {
         this.threadId = threadId;
         this.user = user;
         this.title = title;
@@ -47,11 +47,11 @@ public class Threads implements Serializable {
         this.threadId = threadId;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

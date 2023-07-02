@@ -112,10 +112,13 @@
                     
                    <p:column headerText="Post Title">
                       <div class="media">
+                       <p:commandButton rendered="#{SessionController.isAdmin()}" styleClass="button is-danger is-small"
+                             icon="pi pi-trash" title="Delete" action="#{PostController.deletePost(thepost)}" 
+                             update=":formPost:postsTable" process="@this" />
                         <div class="media-content">
                           <h:outputText class="title is-4" value="#{thepost.title}"/>
                           <br/>
-                          <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user}"/>                        </div>
+                          <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        </div>
                         <div class="media-right">
                          <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
                          <br/>
@@ -171,7 +174,7 @@
                     </div>
                    </div>
                    <div class="buttons is-centered">
-                         <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" action="#{PostController.createPost}" update=":formPost:postDetail"/>
+                         <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" action="#{PostController.createPost}" onclick="PF('postDialogCreate').hide();" update="postsTable"/>
                          <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel" onclick="PF('postDialogCreate').hide();" />
                    </div>
                  </div>

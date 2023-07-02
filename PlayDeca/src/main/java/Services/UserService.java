@@ -1,6 +1,6 @@
 package Services;
 
-import Models.User;
+import Models.Users;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.inject.Named;
@@ -39,29 +39,30 @@ public class UserService implements Serializable{
         InsertAdmin();
     }
     
-    @Transactional
     public void InsertAdmin(){  
         try {
-            userTransaction.begin();
+            this.userTransaction.begin();
             String username = "Admin";
 
-            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", username);
-            List<User> existingUsers = query.getResultList();
+            List<Users> existingUsers = query.getResultList();
 
             if (existingUsers.isEmpty()) {
-                User user = new User();
+                Users user = new Users();
                 user.setUsername("Admin");
                 user.setPassword("password123");
                 user.setUUID("some-uuid");
                 user.setEmail("admin@playdeca.com");
                 user.setRegistrationDate(new Date());
+                user.setRole("Administrator");
 
                 em.persist(user);
-                userTransaction.commit();
+                this.userTransaction.commit();
                 System.out.println("Default Admin Saved!");
             } else {
                 System.out.println("User already exists");
+                this.userTransaction.rollback();
             }
         } catch (HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException | IllegalStateException | SecurityException e) {
             System.out.println("Error in InsertAdmin! Error: " + e.toString());
@@ -69,10 +70,9 @@ public class UserService implements Serializable{
 
     }
     
-    @Transactional
     public boolean login(String username, String password) {
         try {
-            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.username = :username AND u.password = :password", Long.class);
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM Users u WHERE u.username = :username AND u.password = :password", Long.class);
             query.setParameter("username", username);
             query.setParameter("password", password);
 
@@ -80,28 +80,27 @@ public class UserService implements Serializable{
 
             System.out.println(count);
             return count > 0;
-        } catch (Exception e) {
+        } catch (IllegalStateException | SecurityException e) {
             System.out.println("Error: ");
             System.out.println(e);
             return false;
         }
     }
  
-    @Transactional
-    public User getSession(String username, String password) {
+    public Users getSession(String username, String password) {
         try {
-            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
+            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username AND u.password = :password", Users.class);
             query.setParameter("username", username);
             query.setParameter("password", password);
 
-            List<User> resultList = query.getResultList();
+            List<Users> resultList = query.getResultList();
 
             if (!resultList.isEmpty()) {
                 return resultList.get(0);
             } else {
                 return null;
             }
-        } catch (Exception e) {
+        } catch (IllegalStateException | SecurityException e) {
             System.out.println("Error: ");
             System.out.println(e);
             return null;

@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -26,7 +25,7 @@ public class Posts implements Serializable{
     
     @ManyToOne
     @JoinColumn(name = "userID")
-    private User user;
+    private Users user;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
@@ -42,7 +41,7 @@ public class Posts implements Serializable{
     public Posts() {
     }
 
-    public Posts(int postId, Threads thread, User user, Date date, String title, String body, int upvotes, int downvotes) {
+    public Posts(int postId, Threads thread, Users user, Date date, String title, String body, int upvotes, int downvotes) {
         this.postId = postId;
         this.thread = thread;
         this.user = user;
@@ -69,11 +68,11 @@ public class Posts implements Serializable{
         this.thread = thread;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

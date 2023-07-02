@@ -1,6 +1,6 @@
 package Controllers;
 
-import Models.User;
+import Models.Users;
 import Services.UserService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
@@ -24,7 +24,7 @@ public class SessionController implements Serializable{
     private String username;
     private String password;
     
-    private User currentUser;
+    private Users currentUser;
     
     @Inject
     private UserService UserService;
@@ -41,11 +41,11 @@ public class SessionController implements Serializable{
     }
     
     public boolean isValid(){
-        if(currentUser != null){
-            return true;
-        }else{
-            return false;
-        }
+        return currentUser != null;
+    }
+    
+    public boolean isAdmin(){
+        return "administrator".equals(currentUser.getRole());
     }
 
     public String getUsername() {
@@ -64,11 +64,11 @@ public class SessionController implements Serializable{
         this.password = password;
     }
 
-    public User getCurrentUser() {
+    public Users getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
+    public void setCurrentUser(Users currentUser) {
         this.currentUser = currentUser;
     }
 
@@ -80,8 +80,4 @@ public class SessionController implements Serializable{
         this.UserService = UserService;
     }
 
-    
-    
-    
-    
 }

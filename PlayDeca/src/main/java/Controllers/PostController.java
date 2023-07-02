@@ -1,14 +1,11 @@
 package Controllers;
 
 import Models.Posts;
-import Models.Threads;
 import Services.PostService;
-import Services.ThreadService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,12 +23,9 @@ public class PostController implements Serializable{
     
     @Inject SessionController SessionController;
     
-    @Inject ThreadService ThreadService;
     
     String UserID = null;
-    
-    private Threads thread = null;
-    
+        
     private Posts selectedPost = new Posts();
     
     private Posts newPost = new Posts();
@@ -43,21 +37,11 @@ public class PostController implements Serializable{
         return List;
     }
     
-    public void getThread(){
-       thread = ThreadService.getThreadByID(1);
-    }
-    
-    public void populatePost(){
-        newPost.setUser(SessionController.getCurrentUser());
-            newPost.setDate(new Date()); // Set the current date
-            newPost.setUpvotes(0); // Set initial upvotes to 0
-            newPost.setDownvotes(0); // Set initial downvotes to 0
-            getThread();
-            newPost.setThread(thread);
+    public void deletePost(Posts post){
+        PostService.deletePost(post);
     }
     
     public void createPost(){
-            populatePost();
             PostService.addPost(newPost);
             newPost = new Posts();
     }
@@ -101,7 +85,5 @@ public class PostController implements Serializable{
     public void setNewPost(Posts newPost) {
         this.newPost = newPost;
     }
-    
-    
     
 }

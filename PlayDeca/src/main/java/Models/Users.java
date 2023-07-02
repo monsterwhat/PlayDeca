@@ -16,8 +16,8 @@ import java.util.Date;
  * @author Al
  */
 @Entity
-@Table(name = "User")
-public class User implements Serializable{
+@Table(name = "Users")
+public class Users implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
@@ -26,20 +26,22 @@ public class User implements Serializable{
     private String password;
     private String UUID;
     private String email;
+    private String role;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "RegistrationDate")
     private Date registrationDate;
 
-    public User() {
+    public Users() {
     }
 
-    public User(Long userID, String username, String password, String UUID, String email, Date registrationDate) {
+    public Users(Long userID, String username, String password, String UUID, String email, String role, Date registrationDate) {
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.UUID = UUID;
         this.email = email;
+        this.role = role;
         this.registrationDate = registrationDate;
     }
 
@@ -90,6 +92,13 @@ public class User implements Serializable{
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
-    
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     
 }

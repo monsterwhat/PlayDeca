@@ -7,6 +7,11 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
 import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
 import java.io.Serializable;
@@ -19,6 +24,7 @@ import java.util.List;
 @Named
 @Transactional
 public class ThreadService implements Serializable{
+    
     @PersistenceContext()
     EntityManager em;
     
@@ -35,7 +41,7 @@ public class ThreadService implements Serializable{
         try {
             TypedQuery<Threads> query = em.createQuery("SELECT t FROM Threads t", Threads.class);
             return query.getResultList();
-        } catch (Exception e) {
+        } catch (IllegalStateException | SecurityException e) {
             return null;
         }
     }
