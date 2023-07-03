@@ -63,13 +63,21 @@ public class PostService implements Serializable
             System.out.println("Error adding post: " + e.toString());
         }
     }
-    
-    public void deletePost(Posts post){
-        try {
-                em.remove(post);
-        } catch (Exception e) {
-            
-        }
-    }
 
+        public void deletePost(Posts post) {
+            try {
+                if (!em.contains(post)) {
+                    // Entity is detached, obtain a managed instance
+                    post = em.find(Posts.class, post.getPostId());
+                }
+
+                if (post != null) {
+                    em.remove(post);
+                } else {
+                    System.out.println("Post not found");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.toString());
+            }
+        }
 }

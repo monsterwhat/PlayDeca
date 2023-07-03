@@ -52,7 +52,7 @@ public class UserService implements Serializable{
                 Users user = new Users();
                 user.setUsername("Admin");
                 user.setPassword("password123");
-                user.setUUID("some-uuid");
+                user.setUUID("e6fc0ebdfd7e4e86ad0ffce099a0a9b4");
                 user.setEmail("admin@playdeca.com");
                 user.setRegistrationDate(new Date());
                 user.setRole("Administrator");

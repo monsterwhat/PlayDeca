@@ -112,9 +112,11 @@
                     
                    <p:column headerText="Post Title">
                       <div class="media">
-                       <p:commandButton rendered="#{SessionController.isAdmin()}" styleClass="button is-danger is-small"
+                       <div class="media-left">
+                        <p:commandButton rendered="#{SessionController.isAdmin()}" styleClass="button is-rounded is-danger is-small"
                              icon="pi pi-trash" title="Delete" action="#{PostController.deletePost(thepost)}" 
-                             update=":formPost:postsTable" process="@this" />
+                             update="postsTable" process="@this" />
+                       </div>
                         <div class="media-content">
                           <h:outputText class="title is-4" value="#{thepost.title}"/>
                           <br/>

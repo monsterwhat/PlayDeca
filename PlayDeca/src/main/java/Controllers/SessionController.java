@@ -33,6 +33,8 @@ public class SessionController implements Serializable{
         boolean isValid = UserService.login(username, password);
         if(isValid){
             currentUser = UserService.getSession(username, password);
+            this.username = null;
+            this.password=null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Login successful!"));
             return "index.xhtml?faces-redirect=true";
         }else{
@@ -40,12 +42,22 @@ public class SessionController implements Serializable{
         }
     }
     
+    public String logOut(){
+        this.currentUser = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
+        return "index.xhtml?faces-redirect=true";
+    }
+    
     public boolean isValid(){
         return currentUser != null;
     }
     
     public boolean isAdmin(){
-        return "administrator".equals(currentUser.getRole());
+        if(isValid() && "Administrator".equals(currentUser.getRole())){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getUsername() {
