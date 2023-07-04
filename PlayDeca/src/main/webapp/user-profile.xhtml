@@ -100,27 +100,121 @@
                <p class="title is-4">#{SessionController.currentUser.username}</p>
                <p class="subtitle is-6">#{SessionController.currentUser.email}</p>
              </div>
+             <div class="media-left">
+              <p class="title is-4">#{SessionController.currentUser.role}</p>
+              <p class="subtitle is-6">0 Decacoins</p>
+             </div>
            </div>
            <br/>
-           <div class="box">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-              <a href="#">#css</a> <a href="#">#responsive</a>
-              <br/>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-           </div>
-           <div class="box">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-              <a href="#">#css</a> <a href="#">#responsive</a>
-              <br/>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-           </div>
            
+           <div class="box">
+             <div class="content">
+               <h1 class="title">User Profile</h1>
+
+               <div class="box">
+               <div class="field is-horizontal">
+                 <div class="field-label is-normal">
+                   <label class="label">Email Address:</label>
+                 </div>
+                 <div class="field-body">
+                   <div class="field has-text-centered">
+                    <h:outputText value="#{SessionController.currentUser.email}" />
+                   </div>
+                   <div class="field">
+                     <p:commandButton value="Edit" icon="pi pi-pencil" styleClass="button is-success is-fullwidth" onclick="PF('editEmailDialog').show()" />
+                   </div>
+                 </div>
+               </div>
+               </div>
+               
+               <br/>
+               <br/>
+               <br/>
+               
+               <div class="field">
+                 <p:commandButton value="Change Password" icon="pi pi-key" styleClass="button is-danger is-fullwidth" onclick="PF('changePasswordDialog').show()" />
+               </div>
+
+               <p:dialog id="editEmailDialog" class="has-text-centered" header="Edit Email" widgetVar="editEmailDialog" modal="true" showEffect="fade" hideEffect="fade">
+                 <h:form id="editEmailForm">
+                  <div class="notification has-text-centered">
+                  <div class="columns">
+                   <div class="column">
+                     <h:outputLabel class="label is-fullwidth">Password:</h:outputLabel>
+                     <p:password id="password" class="password input is-fullwidth" value="#{SessionController.password}" feedback="true" rendered="#{SessionController.hasPassword}" />
+                   </div>
+                   </div>
+                    <div class="columns">
+                     <div class="column">
+                       <h:outputLabel class="label is-fullwidth">New Email:</h:outputLabel>
+                       <p:inputText id="newEmail" class="input is-fullwidth" value="#{SessionController.newEmail}"/>
+                     </div>
+                    </div>
+                   <div class="columns">
+                    <div class="column">
+                      <div class="buttons is-centered">
+                        <p:commandButton value=" Save " styleClass="button is-small is-rounded is-success is-fullwidth is-responsive" onclick="PF('editEmailDialog').hide()" actionListener="#{SessionController.updateEmail()}" update="editEmailForm" />
+                        <p:commandButton value="Cancel" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive" onclick="PF('editEmailDialog').hide()"/>
+                      </div>
+                    </div>
+                    </div>
+                   </div>
+                 </h:form>
+               </p:dialog>
+
+               <p:dialog id="changePasswordDialog" class="has-text-centered" header="Change Password" widgetVar="changePasswordDialog" modal="true" showEffect="fade" hideEffect="fade">
+                 <h:form id="changePasswordForm">
+                  <div class="notification has-text-centered">
+                  <div class="columns">
+                   <div class="column">
+                    <div class="field" rendered="#{SessionController.hasPassword}">
+                     <h:outputText class="label is-fullwidth" value="Old Password:"/>
+                     <p:password class="password input is-fullwidth" id="oldPassword" value="#{SessionController.oldPassword}" feedback="true" />
+                   </div>
+                   </div>
+                   </div>
+                    
+                    <div class="columns">
+                   <div class="column">
+                    <div class="field" rendered="#{not SessionController.hasPassword}">
+                     <h:outputText class="label is-fullwidth" value="Auth Code:"/>
+                     <p:inputText class="input is-fullwidth" id="authCode" value="#{SessionController.authCode}" />
+                   </div>
+                   </div>
+                   </div>
+                    
+                    <div class="columns">
+                   <div class="column">
+                    <div class="field">
+                     <h:outputText class="label" value="New Password:"/>
+                     <p:password class="password input is-fullwidth" id="newPassword" value="#{SessionController.newPassword}" feedback="true" />
+                   </div>
+                   </div>
+                   </div>
+                    
+                   <div class="columns">
+                   <div class="column">
+                    <div class="field">
+                     <h:outputText class="label" value="Confirm New Password:"/>
+                     <p:password class="password input is-fullwidth" id="confirmPassword" value="#{SessionController.confirmPassword}" feedback="true" />
+                   </div>
+                   </div>
+                   </div>
+                    
+                    <div class="columns">
+                   <div class="column">
+                    <div class="buttons is-centered">
+                     <p:commandButton value="Save" actionListener="#{SessionController.updatePassword()}" styleClass="button is-small is-success is-rounded is-fullwidth is-responsive" onclick="PF('changePasswordDialog').hide()" update="changePasswordForm" />
+                     <p:commandButton value="Cancel" onclick="PF('changePasswordDialog').hide()" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive"/>
+                   </div>
+                   </div>
+                   </div>
+                    
+                   </div>
+                 </h:form>
+               </p:dialog>
+             </div>
+           </div>
           </div>
          </div>
        </div>

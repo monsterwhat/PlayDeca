@@ -153,8 +153,8 @@
                                      styleClass="button is-link is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
                 </p>
               
-              <p:dialog id="postDialogCreate" header="Create Post" widgetVar="postDialogCreate" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
-                 <div class="notification">
+              <p:dialog id="postDialogCreate" header="Create Post" class="has-text-centered" widgetVar="postDialogCreate" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+                 <div class="notification has-text-centered">
                      <div class="columns">
                          <div class="column">
                              <h:outputLabel styleClass="label is-centered" for="title" value="Post Title: "/>
@@ -165,6 +165,7 @@
                              <p:inputText class="input" id="title" value="#{PostController.newPost.title}" required="true" />
                     </div>
                    </div>
+                   
                    <div class="columns">
                          <div class="column">
                              <h:outputLabel styleClass="label is-centered" for="body" value="Body: " />
