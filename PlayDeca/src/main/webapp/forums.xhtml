@@ -113,14 +113,22 @@
                    <p:column headerText="Post Title">
                       <div class="media">
                        <div class="media-left">
-                        <p:commandButton rendered="#{SessionController.isAdmin()}" styleClass="button is-rounded is-danger is-small"
-                             icon="pi pi-trash" title="Delete" action="#{PostController.deletePost(thepost)}" 
-                             update="postsTable" process="@this" />
+                        <p:commandButton rendered="#{PostController.isModifiable(thepost)}"
+                            styleClass="button is-rounded is-info is-small"
+                            icon="pi pi-pencil" title="Modify"
+                            process="@this"
+                            update=":ModifyPost:postDialogModify"
+                            oncomplete="PF('postDialogModify').show();">
+                            <f:setPropertyActionListener target="#{PostController.selectedPost}" value="#{thepost}" />
+                        </p:commandButton>
+
+
                        </div>
                         <div class="media-content">
                           <h:outputText class="title is-4" value="#{thepost.title}"/>
                           <br/>
-                          <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        </div>
+                          <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        
+                        </div>
                         <div class="media-right">
                          <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
                          <br/>
@@ -148,46 +156,97 @@
                   </p:dialog>
                 </div>
               </div>
+              
                 <p class="control">
                     <p:commandButton value="New Post" onclick="PF('postDialogCreate').show();" 
                                      styleClass="button is-link is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
                 </p>
               
-              <p:dialog id="postDialogCreate" header="Create Post" class="has-text-centered" widgetVar="postDialogCreate" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
-                 <div class="notification has-text-centered">
-                     <div class="columns">
-                         <div class="column">
-                             <h:outputLabel styleClass="label is-centered" for="title" value="Post Title: "/>
+                <p:dialog id="postDialogCreate" header="Create Post" class="has-text-centered" widgetVar="postDialogCreate" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+                     <div class="notification has-text-centered">
+                         <div class="columns">
+                             <div class="column">
+                                 <h:outputLabel styleClass="label is-centered" for="PostTitle" value="Post Title: "/>
+                             </div>
+                          </div>
+                       <div class="columns">
+                        <div class="column">
+                                 <p:inputText class="input" id="PostTitle" value="#{PostController.newPost.title}" required="true" />
+                        </div>
+                       </div>
+
+                       <div class="columns">
+                             <div class="column">
+                                 <h:outputLabel styleClass="label is-centered" for="PostBody" value="Body: " />
+                             </div>
                          </div>
-                      </div>
-                   <div class="columns">
-                    <div class="column">
-                             <p:inputText class="input" id="title" value="#{PostController.newPost.title}" required="true" />
-                    </div>
-                   </div>
-                   
-                   <div class="columns">
-                         <div class="column">
-                             <h:outputLabel styleClass="label is-centered" for="body" value="Body: " />
-                         </div>
+                       <div class="columns">
+                        <div class="column">
+                                 <p:inputTextarea class="textarea" id="PostBody" autoResize="true" value="#{PostController.newPost.body}" required="true" />
+                        </div>
+                       </div>
+                       <div class="buttons is-centered">
+                             <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" action="#{PostController.createPost}" onclick="PF('postDialogCreate').hide();" update="postsTable"/>
+                             <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel" onclick="PF('postDialogCreate').hide();" />
+                       </div>
                      </div>
-                   <div class="columns">
-                    <div class="column">
-                             <p:inputTextarea class="textarea" id="body" autoResize="true" value="#{PostController.newPost.body}" required="true" />
-                    </div>
-                   </div>
-                   <div class="buttons is-centered">
-                         <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" action="#{PostController.createPost}" onclick="PF('postDialogCreate').hide();" update="postsTable"/>
-                         <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel" onclick="PF('postDialogCreate').hide();" />
-                   </div>
-                 </div>
-             </p:dialog>
+                </p:dialog>
             </div>
          </div>         
        </div>
       </div>
      </div>
     </section>
+    </h:form>
+    <h:form id="ModifyPost">
+        <p:dialog id="postDialogModify" header="Modify Post" class="has-text-centered" widgetVar="postDialogModify" modal="true" responsive="true" showEffect="fade" hideEffect="fade">                    
+            <div class="notification has-text-centered">
+                <div class="columns">
+                    <div class="column">
+                        <h:outputLabel styleClass="label is-centered" for="Updatedtitle" value="Post Title: "/>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p:inputText class="input" id="Updatedtitle" value="#{PostController.selectedPost.title}" required="true" />
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <h:outputLabel styleClass="label is-centered" for="Updatedbody" value="Body: " />
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p:inputTextarea class="textarea" id="Updatedbody" autoResize="true" value="#{PostController.selectedPost.body}" required="true" />
+                    </div>
+                </div>
+                <div class="buttons is-centered">
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Save"
+                                     action="#{PostController.savePost}" onclick="PF('postDialogModify').hide();"
+                                     update=":formPost:postsTable" icon="fa fa-save" iconPos="right">
+                    </p:commandButton>
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel"
+                                     onclick="PF('postDialogModify').hide();" icon="fa fa-times" iconPos="right">
+                    </p:commandButton>
+                </div>
+                <div class="buttons is-centered">
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Delete"
+                                      onclick="PF('confirmDeleteDialog').show();" icon="fa fa-trash" iconPos="right">
+                    </p:commandButton>
+                </div>
+            </div>
+        </p:dialog>
+    </h:form>
+    <h:form id="confirmDeleteForm">
+        <p:confirmDialog id="confirmDeleteDialog" message="Are you sure you want to delete this post?"
+                     header="Confirmation" severity="alert" widgetVar="confirmDeleteDialog">
+        <p:commandButton value="Yes" styleClass="button is-primary is-rounded"
+                         action="#{PostController.deletePost(PostController.selectedPost)}"
+                         update=":formPost:postsTable" icon="fa fa-check" onclick="PF('postDialogModify').hide(); PF('confirmDeleteDialog').hide();"/>
+            <p:commandButton value="No" styleClass="button is-danger is-rounded"
+                             onclick="PF('confirmDeleteDialog').hide();" />
+        </p:confirmDialog>
     </h:form>
   </h:body>
 </html>

@@ -61,8 +61,41 @@ public class SessionController implements Serializable{
         return currentUser != null;
     }
     
-    public void updateEmail(){
-        
+    public void updateEmail() {
+        if (confirmPassword.equals(currentUser.getPassword())) {
+            if (!newEmail.equals(currentUser.getEmail())) {
+                currentUser.setEmail(newEmail);
+                UserService.updateUser(currentUser);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Email updated successfully."));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "New email is same as current email."));
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect password."));
+        }
+    }
+    
+    public void updatePassword(){
+        if(oldPassword.equals(currentUser.getPassword())){
+            if(AuthCode.equals(AuthCode)){
+                if(newPassword.equals(confirmPassword)){
+                    currentUser.setPassword(newPassword);
+                    
+                    //UserService.updateUser(currentUser);
+                    System.out.println("Success");
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Password updated successfully."));
+                }else{
+                System.out.println("password dont match");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Passwords do not match."));
+                }
+            }else{
+            System.out.println("wrong auth code");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect Authentication Code."));
+            }
+        }else{
+        System.out.println("wrong password");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect password."));
+        }
     }
     
     public boolean isAdmin(){
@@ -87,22 +120,6 @@ public class SessionController implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Users getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(Users currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public UserService getUserService() {
-        return UserService;
-    }
-
-    public void setUserService(UserService UserService) {
-        this.UserService = UserService;
     }
 
     public String getOldPassword() {
@@ -152,7 +169,21 @@ public class SessionController implements Serializable{
     public void setHasPassword(boolean hasPassword) {
         this.hasPassword = hasPassword;
     }
-    
-    
+
+    public Users getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Users currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public UserService getUserService() {
+        return UserService;
+    }
+
+    public void setUserService(UserService UserService) {
+        this.UserService = UserService;
+    }
 
 }

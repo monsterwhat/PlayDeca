@@ -80,4 +80,11 @@ public class PostService implements Serializable
                 System.out.println("Error: " + e.toString());
             }
         }
+
+    public void savePost(Posts updatedPost) {
+        try {
+            em.merge(updatedPost);
+        } catch (Exception e) {
+        }
+    }
 }

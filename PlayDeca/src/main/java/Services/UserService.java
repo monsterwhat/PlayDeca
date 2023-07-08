@@ -107,4 +107,11 @@ public class UserService implements Serializable{
         }
     }
 
+    public void updateUser(Users updatedUser) {
+        try {
+            em.merge(updatedUser);
+        } catch (Exception e) {
+        }
+    }
+
 }

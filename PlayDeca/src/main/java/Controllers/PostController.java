@@ -6,6 +6,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,16 +16,20 @@ import java.util.List;
 @Named(value = "PostController")
 @ViewScoped
 public class PostController implements Serializable{
-
+    
+    private List<Posts> cachedPosts;
+    private boolean isCacheValid;
+    
     public PostController() {
+        cachedPosts = new ArrayList<>();
+        isCacheValid = false;
     }
     
     @Inject PostService PostService;
     
     @Inject SessionController SessionController;
     
-    
-    String UserID = null;
+    private String UserID = null;
         
     private Posts selectedPost = new Posts();
     
@@ -33,17 +38,35 @@ public class PostController implements Serializable{
     private List<Posts> filteredList;
     
     public List<Posts> getList() {
-        List<Posts> List = PostService.listAll();
-        return List;
+        if(!isCacheValid){
+            cachedPosts = PostService.listAll();
+            isCacheValid=true;
+        }
+        return cachedPosts;
+    }
+    
+    public boolean isModifiable(Posts thePost){
+        return SessionController.isAdmin() || thePost.getUser() == SessionController.getCurrentUser();
     }
     
     public void deletePost(Posts post){
         PostService.deletePost(post);
+        invalidateCache();
     }
     
     public void createPost(){
-            PostService.addPost(newPost);
-            newPost = new Posts();
+        PostService.addPost(newPost);
+        newPost = new Posts();
+        invalidateCache();
+    }
+    
+    public void savePost(){
+        PostService.savePost(selectedPost);
+        invalidateCache();
+    }
+    
+    private void invalidateCache() {
+        isCacheValid = false;
     }
 
     public Posts getSelectedPost() {

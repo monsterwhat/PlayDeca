@@ -16,116 +16,125 @@
 </h:head>
 
 <h:body>
-  <section class="hero is-fullheight">
-    <nav class="navbar is-danger">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="https://playdeca.com/">
-          <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28" />
-        </a>
-        <div class="navbar-burger burger" data-target="navbarMain">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navbarMain" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" href="/"> Home </a>
-          <a class="navbar-item" href="info.xhtml"> Information </a>
-          <a class="navbar-item" href="vote.xhtml"> Vote </a>
-          <a class="navbar-item" href="forums.xhtml"> Forum </a>
-          <a class="navbar-item" href="donate.xhtml"> Donate </a>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <p class="control">
-                <a class="button is-info" href="https://discord.com/invite/4KtEsPF">
-                  <span class="icon">
-                    <i class="fab fa-discord"></i>
-                  </span>
+    <h:form id="NavForm">
+        <section class="hero is-fullheight">
+            <nav class="navbar is-danger">
+              <div class="navbar-brand">
+                <a class="navbar-item" href="https://playdeca.com/">
+                  <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28" />
                 </a>
-              </p>
-              <p class="control">
-                <a class="button is-info" href="https://playdeca.com:8123">
-                  <span class="icon">
-                    <i class="fas fa-map"></i>
-                  </span>
-                  <span>Dynmap</span>
-                </a>
-              </p>
-              
-              <p:outputPanel rendered="#{not SessionController.isValid()}">
-              <p class="control">
-                <a class="button is-info" href="login.xhtml">
-                  <span class="icon">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                  </span>
-                  <span>Log In / Register</span>
-                </a>
-              </p>
-              </p:outputPanel>
-              
-              <p:outputPanel rendered="#{SessionController.isValid()}">
-                  <p class="control">
-                      <p:commandButton action="#{SessionController.logOut()}" value="Log out" icon="fa-solid fa-right-from-bracket" styleClass="button is-warning" />
-                  </p>
-              </p:outputPanel>
+                <div class="navbar-burger burger" data-target="navbarMain">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
 
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </nav>
-  </section>
+              <div id="navbarMain" class="navbar-menu">
+                <div class="navbar-start">
+                  <a class="navbar-item" href="/"> Home </a>
+                  <a class="navbar-item" href="info.xhtml"> Information </a>
+                  <a class="navbar-item" href="vote.xhtml"> Vote </a>
+                  <a class="navbar-item" href="forums.xhtml"> Forum </a>
+                  <a class="navbar-item" href="donate.xhtml"> Donate </a>
+                </div>
+
+                <div class="navbar-end">
+                  <div class="navbar-item">
+                    <div class="field is-grouped">
+                      <p class="control">
+                        <a class="button is-info" href="https://discord.com/invite/4KtEsPF">
+                          <span class="icon">
+                            <i class="fab fa-discord"></i>
+                          </span>
+                        </a>
+                      </p>
+                      <p class="control">
+                        <a class="button is-info" href="https://playdeca.com:8123">
+                          <span class="icon">
+                            <i class="fas fa-map"></i>
+                          </span>
+                          <span>Dynmap</span>
+                        </a>
+                      </p>
+
+                      <p:outputPanel rendered="#{not SessionController.isValid()}">
+                      <p class="control">
+                        <a class="button is-info" href="login.xhtml">
+                          <span class="icon">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                          </span>
+                          <span>Log In / Register</span>
+                        </a>
+                      </p>
+                      </p:outputPanel>
+
+                      <p:outputPanel rendered="#{SessionController.isValid()}">
+                          <p class="control">
+                              <p:commandButton action="#{SessionController.logOut()}" value="Log out" icon="fa-solid fa-right-from-bracket" styleClass="button is-warning" />
+                          </p>
+                      </p:outputPanel>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </nav>
+          </section>
+    </h:form>
   
-      <section class="section is-overlay">
+    <section class="section is-overlay">
      <div class="container" style="top: 100px">
       <div class="columns is-centered">
        <div class="column is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
         <div class="notification">
           
          <div class="card-content">
-           <div class="media">
-             <div class="media-left">
-               <figure class="image is-64x64">
-                  <img src="#{ 'https://crafthead.net/avatar/'.concat(SessionController.currentUser.UUID) }" alt="Player's Head"/>
-               </figure>
-             </div>
-             <div class="media-content">
-               <p class="title is-4">#{SessionController.currentUser.username}</p>
-               <p class="subtitle is-6">#{SessionController.currentUser.email}</p>
-             </div>
-             <div class="media-left">
-              <p class="title is-4">#{SessionController.currentUser.role}</p>
-              <p class="subtitle is-6">0 Decacoins</p>
-             </div>
-           </div>
-           <br/>
+             
+            <h:form id="userDetails">
+                 
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="#{ 'https://crafthead.net/avatar/'.concat(SessionController.currentUser.UUID) }" alt="Player's Head"/>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4">#{SessionController.currentUser.username}</p>
+                    <p class="subtitle is-6">#{SessionController.currentUser.email}</p>
+                </div>
+                <div class="media-left">
+                    <p class="title is-4">#{SessionController.currentUser.role}</p>
+                    <p class="subtitle is-6">0 Decacoins</p>
+                    <p:outputPanel rendered="#{SessionController.isAdmin()}">
+                        <p:commandButton action="admin-dashboard.xhtml?faces-redirect=true" value="Dashboard" icon="fa-solid fa-right-from-bracket" styleClass="button is-small is-warning is-fullwidth" />
+                    </p:outputPanel>
+                </div>
+            </div>
+                 
+            <br/>
            
-           <div class="box">
-             <div class="content">
-               <h1 class="title">User Profile</h1>
+            </h:form>
 
-               <div class="box">
-               <div class="field is-horizontal">
-                 <div class="field-label is-normal">
-                   <label class="label">Email Address:</label>
-                 </div>
-                 <div class="field-body">
-                   <div class="field has-text-centered">
-                    <h:outputText value="#{SessionController.currentUser.email}" />
-                   </div>
-                   <div class="field">
-                     <p:commandButton value="Edit" icon="pi pi-pencil" styleClass="button is-success is-fullwidth" onclick="PF('editEmailDialog').show()" />
-                   </div>
-                 </div>
-               </div>
-               </div>
+                <div class="box">
+                <div class="content">
+                    <h1 class="title">User Profile</h1>
+                    <div class="box">
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Email Address:</label>
+                            </div>
+                            <div class="field-body">
+                                 <div class="field has-text-centered">
+                                  <h:outputText value="#{SessionController.currentUser.email}" />
+                                 </div>
+                                 <div class="field">
+                                   <p:commandButton value="Edit" icon="pi pi-pencil" styleClass="button is-success is-fullwidth" onclick="PF('editEmailDialog').show()" />
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
                
                <br/>
                <br/>
@@ -134,93 +143,97 @@
                <div class="field">
                  <p:commandButton value="Change Password" icon="pi pi-key" styleClass="button is-danger is-fullwidth" onclick="PF('changePasswordDialog').show()" />
                </div>
+               
+                        <h:form id="editEmailForm">
+                            <p:dialog id="editEmailDialog" class="has-text-centered" header="Edit Email" widgetVar="editEmailDialog" modal="true" showEffect="fade" hideEffect="fade">
+                                <div class="notification has-text-centered">
 
-               <p:dialog id="editEmailDialog" class="has-text-centered" header="Edit Email" widgetVar="editEmailDialog" modal="true" showEffect="fade" hideEffect="fade">
-                 <h:form id="editEmailForm">
-                  <div class="notification has-text-centered">
-                  <div class="columns">
-                   <div class="column">
-                     <h:outputLabel class="label is-fullwidth">Password:</h:outputLabel>
-                     <p:password id="password" class="password input is-fullwidth" value="#{SessionController.password}" feedback="true" rendered="#{SessionController.hasPassword}" />
-                   </div>
-                   </div>
-                    <div class="columns">
-                     <div class="column">
-                       <h:outputLabel class="label is-fullwidth">New Email:</h:outputLabel>
-                       <p:inputText id="newEmail" class="input is-fullwidth" value="#{SessionController.newEmail}"/>
-                     </div>
-                    </div>
-                   <div class="columns">
-                    <div class="column">
-                      <div class="buttons is-centered">
-                        <p:commandButton value=" Save " styleClass="button is-small is-rounded is-success is-fullwidth is-responsive" onclick="PF('editEmailDialog').hide()" actionListener="#{SessionController.updateEmail()}" update="editEmailForm" />
-                        <p:commandButton value="Cancel" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive" onclick="PF('editEmailDialog').hide()"/>
-                      </div>
-                    </div>
-                    </div>
-                   </div>
-                 </h:form>
-               </p:dialog>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <h:outputLabel styleClass="label is-fullwidth">Password:</h:outputLabel>
+                                            <p:password id="password" class="password input is-fullwidth" value="#{SessionController.confirmPassword}" feedback="true" rendered="#{SessionController.hasPassword}" />
+                                        </div>
+                                    </div>
 
-               <p:dialog id="changePasswordDialog" class="has-text-centered" header="Change Password" widgetVar="changePasswordDialog" modal="true" showEffect="fade" hideEffect="fade">
-                 <h:form id="changePasswordForm">
-                  <div class="notification has-text-centered">
-                  <div class="columns">
-                   <div class="column">
-                    <div class="field" rendered="#{SessionController.hasPassword}">
-                     <h:outputText class="label is-fullwidth" value="Old Password:"/>
-                     <p:password class="password input is-fullwidth" id="oldPassword" value="#{SessionController.oldPassword}" feedback="true" />
-                   </div>
-                   </div>
-                   </div>
-                    
-                    <div class="columns">
-                   <div class="column">
-                    <div class="field" rendered="#{not SessionController.hasPassword}">
-                     <h:outputText class="label is-fullwidth" value="Auth Code:"/>
-                     <p:inputText class="input is-fullwidth" id="authCode" value="#{SessionController.authCode}" />
-                   </div>
-                   </div>
-                   </div>
-                    
-                    <div class="columns">
-                   <div class="column">
-                    <div class="field">
-                     <h:outputText class="label" value="New Password:"/>
-                     <p:password class="password input is-fullwidth" id="newPassword" value="#{SessionController.newPassword}" feedback="true" />
-                   </div>
-                   </div>
-                   </div>
-                    
-                   <div class="columns">
-                   <div class="column">
-                    <div class="field">
-                     <h:outputText class="label" value="Confirm New Password:"/>
-                     <p:password class="password input is-fullwidth" id="confirmPassword" value="#{SessionController.confirmPassword}" feedback="true" />
-                   </div>
-                   </div>
-                   </div>
-                    
-                    <div class="columns">
-                   <div class="column">
-                    <div class="buttons is-centered">
-                     <p:commandButton value="Save" actionListener="#{SessionController.updatePassword()}" styleClass="button is-small is-success is-rounded is-fullwidth is-responsive" onclick="PF('changePasswordDialog').hide()" update="changePasswordForm" />
-                     <p:commandButton value="Cancel" onclick="PF('changePasswordDialog').hide()" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive"/>
-                   </div>
-                   </div>
-                   </div>
-                    
-                   </div>
-                 </h:form>
-               </p:dialog>
-             </div>
-           </div>
+                                    <div class="columns">
+                                        <div class="column">
+                                            <h:outputLabel class="label is-fullwidth">New Email:</h:outputLabel>
+                                            <p:inputText id="newEmail" class="input is-fullwidth" value="#{SessionController.newEmail}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="columns">
+                                        <div class="column">
+                                            <div class="buttons is-centered">
+                                                <p:commandButton value=" Save " action="user-profile.xhtml?faces-redirect=true" styleClass="button is-small is-rounded is-success is-fullwidth is-responsive" onclick="PF('editEmailDialog').hide()" actionListener="#{SessionController.updateEmail()}" update="editEmailForm" />
+                                                <p:commandButton value="Cancel" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive" onclick="PF('editEmailDialog').hide()"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                 </div>
+                            </p:dialog>
+                        </h:form>
+
+                        <h:form id="changePasswordForm">
+                            <p:dialog id="changePasswordDialog" class="has-text-centered" header="Change Password" widgetVar="changePasswordDialog" modal="true" showEffect="fade" hideEffect="fade">
+                                <div class="notification has-text-centered">
+
+                                    <div class="columns">
+                                        <div class="column">
+                                            <div class="field">
+                                             <h:outputText class="label" value="Password:"/>
+                                             <p:password class="password input is-fullwidth" id="Password" value="#{SessionController.oldPassword}" feedback="true" />
+                                           </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="columns">
+                                        <div class="column">
+                                             <div class="field">
+                                              <h:outputText class="label is-fullwidth" value="Auth Code:"/>
+                                              <p:inputNumber class="input is-fullwidth" decimalSeparator="" thousandSeparator="" decimalPlaces="0" id="authCode" value="#{SessionController.authCode}" />
+                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="columns">
+                                        <div class="column">
+                                            <div class="field">
+                                             <h:outputText class="label" value="New Password:"/>
+                                             <p:password class="password input is-fullwidth" id="newPassword" value="#{SessionController.newPassword}" feedback="true" />
+                                           </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="columns">
+                                        <div class="column">
+                                            <div class="field">
+                                             <h:outputText class="label" value="Confirm New Password:"/>
+                                             <p:password class="password input is-fullwidth" id="confirmPassword" value="#{SessionController.confirmPassword}" feedback="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="columns">
+                                        <div class="column">
+                                            <div class="buttons is-centered">
+                                             <p:commandButton value="Save" actionListener="#{SessionController.updatePassword()}" styleClass="button is-small is-success is-rounded is-fullwidth is-responsive" onclick="PF('changePasswordDialog').hide()" update="changePasswordForm" />
+                                             <p:commandButton value="Cancel" onclick="PF('changePasswordDialog').hide()" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                </div>
+                            </p:dialog>
+                        </h:form>
+                    </div>
+                </div>
           </div>
          </div>
        </div>
       </div>
      </div>
     </section>
-  
   </h:body>
 </html>
