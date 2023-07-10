@@ -31,7 +31,7 @@ public class PostController implements Serializable{
     
     private String UserID = null;
         
-    private Posts selectedPost = new Posts();
+    private Posts selectedPost;
     
     private Posts newPost = new Posts();
     
@@ -49,20 +49,32 @@ public class PostController implements Serializable{
         return SessionController.isAdmin() || thePost.getUser() == SessionController.getCurrentUser();
     }
     
-    public void deletePost(Posts post){
-        PostService.deletePost(post);
-        invalidateCache();
+    public void deletePost(){
+        if(selectedPost!=null){
+            PostService.deletePost(selectedPost);
+            SessionController.getLogger().createLog("Deleted Post", "Successfully deleted Post: "+ selectedPost.getPostId() +"", SessionController.getCurrentUser());
+            invalidateCache();
+        }
     }
     
     public void createPost(){
         PostService.addPost(newPost);
-        newPost = new Posts();
+        SessionController.getLogger().createLog("Created Post", "Successfully created Post: "+ newPost.getPostId() +"", SessionController.getCurrentUser());
         invalidateCache();
     }
     
     public void savePost(){
         PostService.savePost(selectedPost);
+        SessionController.getLogger().createLog("Updated Post", "Successfully updated Post: "+ selectedPost.getPostId() +"", SessionController.getCurrentUser());
         invalidateCache();
+    }
+    
+    public void openNewPost() {
+        newPost = new Posts();
+    }
+    
+    public boolean hasSelectedPost() {
+        return selectedPost != null;
     }
     
     private void invalidateCache() {

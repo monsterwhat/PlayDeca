@@ -87,4 +87,10 @@ public class PostService implements Serializable
         } catch (Exception e) {
         }
     }
+    
+    public void createPost(Posts post){
+        post.setUser(SessionController.getCurrentUser());
+        post.setThread(thread);
+        em.persist(post);
+    }
 }

@@ -1,8 +1,11 @@
 package Services;
 
+import Controllers.SessionController;
+import Models.Posts;
 import Models.Users;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -26,10 +29,11 @@ import java.util.List;
 @Transactional
 public class UserService implements Serializable{
     
-    @PersistenceContext()
-    EntityManager em;
+    @PersistenceContext() EntityManager em;
     
     @Resource UserTransaction userTransaction;
+    
+    @Inject SessionController session;
     
     public UserService() {
     }
@@ -50,7 +54,7 @@ public class UserService implements Serializable{
 
             if (existingUsers.isEmpty()) {
                 Users user = new Users();
-                user.setUsername("Admin");
+                user.setUsername(username);
                 user.setPassword("password123");
                 user.setUUID("e6fc0ebdfd7e4e86ad0ffce099a0a9b4");
                 user.setEmail("admin@playdeca.com");
@@ -67,7 +71,6 @@ public class UserService implements Serializable{
         } catch (HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException | IllegalStateException | SecurityException e) {
             System.out.println("Error in InsertAdmin! Error: " + e.toString());
         }
-
     }
     
     public boolean login(String username, String password) {
@@ -107,11 +110,48 @@ public class UserService implements Serializable{
         }
     }
 
-    public void updateUser(Users updatedUser) {
+    public void updateUser(Users user) {
         try {
-            em.merge(updatedUser);
+            em.merge(user);
+            session.getLogger().createLog("Updated User", "Successfully updated User: "+ user.getUserID() +"", session.getCurrentUser());
         } catch (Exception e) {
         }
     }
+    
+    public void createUser(Users user){
+        try {
+            user.setRegistrationDate(new Date());
+            em.persist(user);
+            session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", session.getCurrentUser());
+        } catch (Exception e) {
+        }
+    }
+    
+    public void deleteUser(Users user){
+        try {
+            if (!em.contains(user)) {
+                // Entity is detached, obtain a managed instance
+                user = em.find(Users.class, user.getUserID());
+            }
 
+            if (user != null) {
+                em.remove(user);
+                session.getLogger().createLog("Deleted User", "Successfully deleted User: "+ user.getUserID() +"", session.getCurrentUser());
+            } else {
+                System.out.println("Post not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
+    }
+
+    public List<Users> listAll() {
+        try {
+            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u", Users.class); 
+            return query.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Users;
+import Services.LogsService;
 import Services.UserService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
@@ -33,8 +34,9 @@ public class SessionController implements Serializable{
     
     private Users currentUser;
     
-    @Inject
-    private UserService UserService;
+    @Inject private LogsService logger;
+
+    @Inject private UserService UserService;
         
     public String login(){
         boolean isValid = UserService.login(username, password);
@@ -44,6 +46,7 @@ public class SessionController implements Serializable{
             this.username = null;
             this.password = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Login successful!"));
+            logger.createLog("User: "+currentUser.getUsername()+" logged In","Successfull user Login",currentUser);
             return "index.xhtml?faces-redirect=true";
         }else{
             return null;
@@ -51,6 +54,7 @@ public class SessionController implements Serializable{
     }
     
     public String logOut(){
+        logger.createLog("User: "+currentUser.getUsername()+" logged out","User Logged Out",currentUser);
         this.currentUser = null;
         this.hasPassword=false;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
@@ -67,11 +71,14 @@ public class SessionController implements Serializable{
                 currentUser.setEmail(newEmail);
                 UserService.updateUser(currentUser);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Email updated successfully."));
+                logger.createLog("Updated Email", "", currentUser);
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "New email is same as current email."));
+                logger.createLog("Failed to update Email", "Used the same email", currentUser);
             }
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect password."));
+            logger.createLog("Failed to update Email", "User inputted incorrect password", currentUser);
         }
     }
     
@@ -82,18 +89,18 @@ public class SessionController implements Serializable{
                     currentUser.setPassword(newPassword);
                     
                     //UserService.updateUser(currentUser);
-                    System.out.println("Success");
+                    logger.createLog("Updated password", "User: "+ currentUser.getUsername() +" updated password", currentUser);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Password updated successfully."));
                 }else{
-                System.out.println("password dont match");
+                logger.createLog("Tried to update password", "Incorrect password", currentUser);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Passwords do not match."));
                 }
             }else{
-            System.out.println("wrong auth code");
+            logger.createLog("Tried to update password", "Incorrect authCode", currentUser);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect Authentication Code."));
             }
         }else{
-        System.out.println("wrong password");
+        logger.createLog("Tried to update password", "Incorrect Auth Password", currentUser);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect password."));
         }
     }
@@ -186,4 +193,14 @@ public class SessionController implements Serializable{
         this.UserService = UserService;
     }
 
+    public LogsService getLogger() {
+        return logger;
+    }
+
+    public void setLogger(LogsService logger) {
+        this.logger = logger;
+    }
+
+    
+    
 }
