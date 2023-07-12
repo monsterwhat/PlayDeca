@@ -29,13 +29,10 @@ public class SessionController implements Serializable{
     private String confirmPassword;
     private String newEmail;
     private String AuthCode;
-    
     private boolean hasPassword;
-    
     private Users currentUser;
     
     @Inject private LogsService logger;
-
     @Inject private UserService UserService;
         
     public String login(){

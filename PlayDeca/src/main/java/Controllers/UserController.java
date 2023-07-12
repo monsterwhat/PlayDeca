@@ -20,7 +20,6 @@ import java.util.List;
 public class UserController implements Serializable{
 
     @Inject private UserService UserService;
-    @Inject private SessionController session;
 
     private List<Users> users;
     private Users selectedUser;

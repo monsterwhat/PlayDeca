@@ -19,23 +19,18 @@ public class PostController implements Serializable{
     
     private List<Posts> cachedPosts;
     private boolean isCacheValid;
+    private String UserID = null;
+    private Posts selectedPost;
+    private Posts newPost = new Posts();
+    private List<Posts> filteredList;
+    
+    @Inject PostService PostService;
+    @Inject SessionController SessionController;
     
     public PostController() {
         cachedPosts = new ArrayList<>();
         isCacheValid = false;
     }
-    
-    @Inject PostService PostService;
-    
-    @Inject SessionController SessionController;
-    
-    private String UserID = null;
-        
-    private Posts selectedPost;
-    
-    private Posts newPost = new Posts();
-    
-    private List<Posts> filteredList;
     
     public List<Posts> getList() {
         if(!isCacheValid){

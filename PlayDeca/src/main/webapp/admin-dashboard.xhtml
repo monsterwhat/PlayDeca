@@ -96,7 +96,7 @@
              <div class="column is-3">
                    <aside class="menu is-hidden-mobile">
                        <p class="menu-label"> CRUD's </p>
-                        <div class="buttons has-addons is-centered">
+                        <div class="buttons is-centered">
                               <button class="button is-rounded is-link is-outlined" onclick="PF('UsersTable').show()">
                                 Users
                               </button>
@@ -105,6 +105,9 @@
                               </button>
                               <button class="button is-rounded is-link is-outlined">
                                 Store
+                              </button>
+                              <button class="button is-rounded is-link is-outlined">
+                                Orders
                               </button>
                         </div>
                        
@@ -172,17 +175,13 @@
                                     <p class="title">500</p>
                                     <p class="subtitle">Registered Users</p>
                             </button>
-                            <button class="column box is-full-mobile">
+                            <button class="column box is-full-mobile" onclick="PF('ProductsTable').show()">
                                     <p class="title">32</p>
                                     <p class="subtitle">Products</p>
                             </button>
                             <button class="column box is-full-mobile" onclick="PF('PostsTable').show()">
                                     <p class="title">125</p>
                                     <p class="subtitle">Forum Posts</p>
-                            </button>
-                            <button class="column box is-full-mobile">
-                                    <p class="title">3</p>
-                                    <p class="subtitle">Exceptions</p>
                             </button>
                             <button class="column box is-full-mobile">
                                     <p class="title">Online</p>
@@ -351,7 +350,45 @@
         </p:dataTable>
     </p:dialog>
         
-        
+        <p:dialog header="Products Table" widgetVar="ProductsTable" modal="true" showEffect="fade" hideEffect="fade"
+        resizable="false">
+            
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="New Post" icon="pi pi-plus" actionListener="#{PostController.openNewPost}"
+                    update=":dialogs:createProductPanel" oncomplete="PF('createProductDialog').show()"
+                    styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:createProductPanel" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            
+        <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{ProductsController.getList()}" reflow="true"
+            styleClass="posts-table" selection="#{ProductsController.selectedProduct}" rowKey="#{product.productId}"
+            paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+            
+            <!--
+            <p:column headerText="User Name" sortBy="#{post.user.username}" filterBy="#{post.user.username}">
+                <h:outputText value="#{post.user.username}" />
+            </p:column>
+            -->
+            
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:createProductPanel"
+                    oncomplete="PF('manageProductsDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                    <p:resetInput target=":dialogs:createProductPanel" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deleteProductDialog').show()">
+                    <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                </p:commandButton>
+            </p:column>
+            
+        </p:dataTable>
+    </p:dialog>
             
     </h:form>
     
@@ -524,6 +561,46 @@
                 class="ui-button-secondary button is-rounded"/>
             </f:facet>
         </p:dialog>
+        
+        <p:dialog header="Product Details" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+                  responsive="true" resizable="false">
+            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty ProductController.selectedProduct}">
+                    <!--
+                    <div class="field">
+                        <p:outputLabel for="username">Username</p:outputLabel>
+                        <p:inputText id="username" value="#{ProductController.selectedProduct.username}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="email">Email</p:outputLabel>
+                        <p:inputText id="email" value="#{ProductController.selectedProduct.email}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="role">Role</p:outputLabel>
+                        <p:inputText id="role" value="#{ProductController.selectedProduct.role}" required="true" />
+                    </div>
+                    -->
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{ProductController.saveProduct}"
+                    update="manage-product-content :CRUDs:dt-products" process="manage-products-content @this" 
+                    onclick="PF('manageProductsDialog').hide()" styleClass="button is-rounded"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductsDialog').hide()"
+                    class="ui-button-secondary button is-rounded"/>
+            </f:facet>
+        </p:dialog>
+
+        <!--Delete Confirmation for Product-->
+        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+            message="Delete the product?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{ProductController.deleteProduct}"
+                process="@this" update=":CRUDs:dt-products" styleClass="button is-rounded"
+                oncomplete="PF('deleteProductDialog').hide()" />
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
+                onclick="PF('deleteProductDialog').hide()" />
+        </p:confirmDialog>
     
     </h:form>
     
