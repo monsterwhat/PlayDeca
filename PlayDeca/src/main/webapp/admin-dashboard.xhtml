@@ -103,8 +103,8 @@
                               <button class="button is-rounded is-link is-outlined" onclick="PF('PostsTable').show()">
                                 Posts
                               </button>
-                              <button class="button is-rounded is-link is-outlined">
-                                Store
+                              <button class="button is-rounded is-link is-outlined" onclick="PF('ProductsTable').show()">
+                                Products
                               </button>
                               <button class="button is-rounded is-link is-outlined">
                                 Orders
@@ -114,19 +114,16 @@
                         <hr/>
 
                         <p class="menu-label"> Server Stats </p>
-                      
                         <button class="button is-rounded is-info is-fullwidth">
                           Server Stats
                         </button>
 
                         <p class="menu-label"> Manage Plugins </p>
-                      
                         <button class="button is-rounded is-info is-fullwidth">
                           Manage Plugins
                         </button>
 
                         <p class="menu-label"> Server Console </p>
-                      
                         <button class="button is-rounded is-info is-fullwidth">
                           Server Console
                         </button>
@@ -142,7 +139,6 @@
 
                     -->
                         <p class="menu-label"> Server Logs </p>
-
                         <button class="button is-rounded is-warning is-fullwidth">
                           Server Logs
                         </button>
@@ -179,14 +175,19 @@
                                     <p class="title">32</p>
                                     <p class="subtitle">Products</p>
                             </button>
+                            <button class="column box is-full-mobile">
+                                    <p class="title">Online</p>
+                                    <p class="subtitle">Server Status</p>
+                            </button>
                             <button class="column box is-full-mobile" onclick="PF('PostsTable').show()">
                                     <p class="title">125</p>
                                     <p class="subtitle">Forum Posts</p>
                             </button>
                             <button class="column box is-full-mobile">
-                                    <p class="title">Online</p>
-                                    <p class="subtitle">Server Status</p>
+                                    <p class="title">23</p>
+                                    <p class="subtitle">Orders</p>
                             </button>
+
                         </div>
                     </div>
                 </section>
@@ -350,12 +351,12 @@
         </p:dataTable>
     </p:dialog>
         
-        <p:dialog header="Products Table" widgetVar="ProductsTable" modal="true" showEffect="fade" hideEffect="fade"
-        resizable="false">
+    <p:dialog header="Products Table" widgetVar="ProductsTable" modal="true" showEffect="fade" hideEffect="fade"
+    resizable="false">
             
         <p:toolbar>
             <p:toolbarGroup>
-                <p:commandButton value="New Post" icon="pi pi-plus" actionListener="#{PostController.openNewPost}"
+                <p:commandButton value="New Product" icon="pi pi-plus" actionListener="#{ProductsController.openNewProduct}"
                     update=":dialogs:createProductPanel" oncomplete="PF('createProductDialog').show()"
                     styleClass="ui-button-success" style="margin-right: .5rem">
                     <p:resetInput target=":dialogs:createProductPanel" />
@@ -374,11 +375,11 @@
             -->
             
             <p:column>
-                <p:commandButton icon="pi pi-pencil" update=":dialogs:createProductPanel"
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
                     oncomplete="PF('manageProductsDialog').show()"
                     styleClass="edit-button rounded-button ui-button-success" process="@this">
                     <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
-                    <p:resetInput target=":dialogs:createProductPanel" />
+                    <p:resetInput target=":dialogs:manage-product-content" />
                 </p:commandButton>
                 <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                  process="@this"
@@ -431,6 +432,48 @@
             </f:facet>
         </p:dialog>
 
+        <!--User Creation Dialog-->
+        <p:dialog header="Create User" widgetVar="createUserDialog" modal="true" showEffect="fade" 
+                  resizable="false" hideEffect="fade">
+            <p:outputPanel id="createUserPanel" rendered="#{not empty UserController.newUser}">
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="username">Username</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newusername" value="#{UserController.newUser.username}" required="true" />
+                    </div>
+                </div>
+                    
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="email">Email</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newemail" value="#{UserController.newUser.email}" required="true" />
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="role">Role</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newrole" value="#{UserController.newUser.role}" required="true" />
+                    </div>
+                </div>
+                    
+            </p:outputPanel>
+            <f:facet name="footer">
+            <p:commandButton value="Create" icon="pi pi-check" actionListener="#{UserController.createUser}"
+                update=":CRUDs:dt-users" process="@this createUserPanel" styleClass="button is-rounded"
+                onclick="PF('createUserDialog').hide()"/>
+            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('createUserDialog').hide()"
+                styleClass="ui-button-secondary button is-rounded"/>
+            </f:facet>
+        </p:dialog>
+        
         <!--Delete Confirmation for User-->
         <p:confirmDialog widgetVar="deleteUserDialog" showEffect="fade" width="300"
             message="Delete the user?" header="Confirm" severity="warn">
@@ -478,59 +521,7 @@
             </f:facet>
         </p:dialog>
 
-        <!--Delete Confirmation for Posts-->
-        <p:confirmDialog widgetVar="deletePostDialog" showEffect="fade" width="300"
-            message="Delete the post?" header="Confirm" severity="warn">
-            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{PostController.deletePost}"
-                process="@this" update=":CRUDs:dt-posts" oncomplete="PF('deletePostDialog').hide()" 
-                styleClass="button is-rounded"/>
-            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
-                onclick="PF('deletePostDialog').hide()" />
-        </p:confirmDialog>
-
-        <!-- User Creation Dialog -->
-        <p:dialog header="Create User" widgetVar="createUserDialog" modal="true" showEffect="fade" 
-                  resizable="false" hideEffect="fade">
-            <p:outputPanel id="createUserPanel" rendered="#{not empty UserController.newUser}">
-                
-                <div class="columns">
-                    <div class="column">
-                        <p:outputLabel for="username">Username</p:outputLabel>
-                    </div>
-                    <div class="column">
-                        <p:inputText id="newusername" value="#{UserController.newUser.username}" required="true" />
-                    </div>
-                </div>
-                    
-                <div class="columns">
-                    <div class="column">
-                        <p:outputLabel for="email">Email</p:outputLabel>
-                    </div>
-                    <div class="column">
-                        <p:inputText id="newemail" value="#{UserController.newUser.email}" required="true" />
-                    </div>
-                </div>
-
-                <div class="columns">
-                    <div class="column">
-                        <p:outputLabel for="role">Role</p:outputLabel>
-                    </div>
-                    <div class="column">
-                        <p:inputText id="newrole" value="#{UserController.newUser.role}" required="true" />
-                    </div>
-                </div>
-                    
-            </p:outputPanel>
-            <f:facet name="footer">
-            <p:commandButton value="Create" icon="pi pi-check" actionListener="#{UserController.createUser}"
-                update=":CRUDs:dt-users" process="@this createUserPanel" styleClass="button is-rounded"
-                onclick="PF('createUserDialog').hide()"/>
-            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('createUserDialog').hide()"
-                styleClass="ui-button-secondary button is-rounded"/>
-            </f:facet>
-        </p:dialog>
-
-        <!-- Post Creation Dialog -->
+        <!--Post Creation Dialog-->
         <p:dialog header="Create Post" widgetVar="createPostDialog" modal="true" showEffect="fade" 
                   hideEffect="fade" resizable="false">
             <p:outputPanel id="createPostPanel" rendered="#{not empty PostController.newPost}">
@@ -562,30 +553,135 @@
             </f:facet>
         </p:dialog>
         
+        <!--Delete Confirmation for Posts-->
+        <p:confirmDialog widgetVar="deletePostDialog" showEffect="fade" width="300"
+            message="Delete the post?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{PostController.deletePost}"
+                process="@this" update=":CRUDs:dt-posts" oncomplete="PF('deletePostDialog').hide()" 
+                styleClass="button is-rounded"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
+                onclick="PF('deletePostDialog').hide()" />
+        </p:confirmDialog>
+
+        <!-- Product Creation Dialog -->
+        <p:dialog header="Create Product" widgetVar="createProductDialog" modal="true" showEffect="fade" 
+                  resizable="false" hideEffect="fade">
+            <p:outputPanel id="createProductPanel" rendered="#{not empty ProductsController.newProduct}">
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newProductName">Product Name</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newProductName" value="#{ProductsController.newProduct.name}" required="true" />
+                    </div>
+                </div>
+                    
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newDescription">Product Description</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newDescription" value="#{ProductsController.newProduct.description}" required="true" />
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newprice">Price</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputNumber id="newprice" value="#{ProductsController.newProduct.price}" required="true" />
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newCategory">Category</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newCategory" value="#{ProductsController.newProduct.category}" required="true" />
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newImg">Img Url</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newImg" value="#{ProductsController.newProduct.imageUrl}" required="true" />
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newSalePrice">Sale Price</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputNumber id="newSalePrice" value="#{ProductsController.newProduct.salePrice}" required="true" />
+                    </div>
+                </div>
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newDiscountPercentage">Discount Percentage</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputNumber id="newDiscountPercentage" value="#{ProductsController.newProduct.discountPercentage}" required="true" />
+                    </div>
+                </div>
+                
+            </p:outputPanel>
+            <f:facet name="footer">
+            <p:commandButton value="Create" icon="pi pi-check" actionListener="#{ProductsController.createProduct}"
+                update=":CRUDs:dt-products" process="@this createProductPanel" styleClass="button is-rounded"
+                onclick="PF('createProductDialog').hide()"/>
+            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('createProductDialog').hide()"
+                styleClass="ui-button-secondary button is-rounded"/>
+            </f:facet>
+        </p:dialog>
+        
+        <!-- Product Details Dialog -->
         <p:dialog header="Product Details" showEffect="fade" modal="true" widgetVar="manageProductDialog"
                   responsive="true" resizable="false">
             <p:outputPanel id="manage-product-content" class="ui-fluid">
-                <p:outputPanel rendered="#{not empty ProductController.selectedProduct}">
-                    <!--
+                <p:outputPanel rendered="#{not empty ProductsController.selectedProduct}">
+                    
                     <div class="field">
-                        <p:outputLabel for="username">Username</p:outputLabel>
-                        <p:inputText id="username" value="#{ProductController.selectedProduct.username}" required="true" />
+                        <p:outputLabel for="productName">Product Name</p:outputLabel>
+                        <p:inputText id="productName" value="#{ProductsController.selectedProduct.name}" required="true" />
                     </div>
                     <div class="field">
-                        <p:outputLabel for="email">Email</p:outputLabel>
-                        <p:inputText id="email" value="#{ProductController.selectedProduct.email}" required="true" />
+                        <p:outputLabel for="productDescription">Product Description</p:outputLabel>
+                        <p:inputText id="productDescription" value="#{ProductsController.selectedProduct.description}" required="true" />
                     </div>
                     <div class="field">
-                        <p:outputLabel for="role">Role</p:outputLabel>
-                        <p:inputText id="role" value="#{ProductController.selectedProduct.role}" required="true" />
+                        <p:outputLabel for="productPrice">Price</p:outputLabel>
+                        <p:inputText id="productPrice" value="#{ProductsController.selectedProduct.price}" required="true" />
                     </div>
-                    -->
+                    <div class="field">
+                        <p:outputLabel for="productCategory">Category</p:outputLabel>
+                        <p:inputText id="productCategory" value="#{ProductsController.selectedProduct.category}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productImage">Image Url</p:outputLabel>
+                        <p:inputText id="productImage" value="#{ProductsController.selectedProduct.imageUrl}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productSalePrice">Sale Price</p:outputLabel>
+                        <p:inputText id="productSalePrice" value="#{ProductsController.selectedProduct.salePrice}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productDiscountPercentage">Discount Percentage</p:outputLabel>
+                        <p:inputText id="productDiscountPercentage" value="#{ProductsController.selectedProduct.discountPercentage}" required="true" />
+                    </div>
+                    
                 </p:outputPanel>
             </p:outputPanel>
 
             <f:facet name="footer">
-                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{ProductController.saveProduct}"
-                    update="manage-product-content :CRUDs:dt-products" process="manage-products-content @this" 
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{ProductsController.saveProduct}"
+                    update="manage-product-content :CRUDs:dt-products" process="manage-product-content @this" 
                     onclick="PF('manageProductsDialog').hide()" styleClass="button is-rounded"/>
                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductsDialog').hide()"
                     class="ui-button-secondary button is-rounded"/>
@@ -595,7 +691,7 @@
         <!--Delete Confirmation for Product-->
         <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
             message="Delete the product?" header="Confirm" severity="warn">
-            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{ProductController.deleteProduct}"
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{ProductsController.deleteProduct}"
                 process="@this" update=":CRUDs:dt-products" styleClass="button is-rounded"
                 oncomplete="PF('deleteProductDialog').hide()" />
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"

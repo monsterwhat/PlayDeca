@@ -23,6 +23,11 @@ public class ProductsController implements Serializable{
     private Products newProduct = new Products();
     boolean isCacheValid;
 
+    public ProductsController() {
+        cachedProducts = new ArrayList<>();
+        isCacheValid = false;
+    }
+    
     public List<Products> getList() {
         if(!isCacheValid){
             cachedProducts = productsService.listAll();
@@ -30,13 +35,29 @@ public class ProductsController implements Serializable{
         }
         return cachedProducts;
     }
+    
+    public void openNewProduct(){
+        newProduct = new Products();
+    }
+    
+    public void saveProduct(){
+        productsService.updateProduct(selectedProduct);
+        invalidateCache();
+    }
+    
+    public void deleteProduct(){
+        if(selectedProduct !=null){
+            productsService.deleteProduct(selectedProduct);
+            invalidateCache();
+        }
+    }
+    
+    public void createProduct(){
+        productsService.createProduct(newProduct);
+        invalidateCache();
+    }
         
     private void invalidateCache() {
-        isCacheValid = false;
-    }
-
-    public ProductsController() {
-        cachedProducts = new ArrayList<>();
         isCacheValid = false;
     }
 
@@ -79,6 +100,7 @@ public class ProductsController implements Serializable{
     public void setIsCacheValid(boolean isCacheValid) {
         this.isCacheValid = isCacheValid;
     }
-        
+       
+    
     
 }

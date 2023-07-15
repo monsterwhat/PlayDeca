@@ -6,6 +6,7 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
         <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+        <property name="jakarta.persistence.sql-load-script-source" value="META-INF/startup-script.sql"/>
         <property name="eclipselink.logging.level" value="INFO"/>
         <property name="eclipselink.logging.level.sql" value="FINE"/>
         <property name="eclipselink.logging.parameters" value="true"/>
