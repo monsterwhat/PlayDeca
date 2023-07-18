@@ -23,6 +23,11 @@ public class OrdersController implements Serializable {
     private Orders newOrder = new Orders();
     boolean isCacheValid;
     
+    public OrdersController() {
+        cachedOrders = new ArrayList<>();
+        isCacheValid = false;
+    }
+    
     public List<Orders> getList() {
         if(!isCacheValid){
             cachedOrders = ordersService.listAll();
@@ -34,29 +39,21 @@ public class OrdersController implements Serializable {
     private void invalidateCache() {
         isCacheValid = false;
     }
-
-    public OrdersController() {
-        cachedOrders = new ArrayList<>();
-        isCacheValid = false;
-    }
     
     public void deleteOrder(){
         if(selectedOrder!=null){
             ordersService.deleteOrder(selectedOrder);
-            //SessionController.getLogger().createLog("Deleted Post", "Successfully deleted Post: "+ selectedPost.getPostId() +"", SessionController.getCurrentUser());
             invalidateCache();
         }
     }
     
     public void createOrder(){
         ordersService.createOrder(newOrder);
-        //SessionController.getLogger().createLog("Created Post", "Successfully created Post: "+ newPost.getPostId() +"", SessionController.getCurrentUser());
         invalidateCache();
     }
     
     public void saveOrder(){
         ordersService.updateOrder(selectedOrder);
-        //SessionController.getLogger().createLog("Updated Post", "Successfully updated Post: "+ selectedPost.getPostId() +"", SessionController.getCurrentUser());
         invalidateCache();
     }
     
@@ -107,7 +104,5 @@ public class OrdersController implements Serializable {
     public void setIsCacheValid(boolean isCacheValid) {
         this.isCacheValid = isCacheValid;
     }
-    
-    
-    
+
 }

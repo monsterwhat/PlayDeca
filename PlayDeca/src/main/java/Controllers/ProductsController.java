@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author Al
  */
+
 @Named(value="ProductsController")
 @ViewScoped
 public class ProductsController implements Serializable{
@@ -36,13 +37,8 @@ public class ProductsController implements Serializable{
         return cachedProducts;
     }
     
-    public void openNewProduct(){
-        newProduct = new Products();
-    }
-    
-    public void saveProduct(){
-        productsService.updateProduct(selectedProduct);
-        invalidateCache();
+    private void invalidateCache() {
+        isCacheValid = false;
     }
     
     public void deleteProduct(){
@@ -51,14 +47,23 @@ public class ProductsController implements Serializable{
             invalidateCache();
         }
     }
-    
+        
     public void createProduct(){
         productsService.createProduct(newProduct);
         invalidateCache();
     }
         
-    private void invalidateCache() {
-        isCacheValid = false;
+    public void saveProduct(){
+        productsService.updateProduct(selectedProduct);
+        invalidateCache();
+    }
+    
+    public void openNewProduct(){
+        newProduct = new Products();
+    }
+    
+    public boolean hasSelectedProduct() {
+        return selectedProduct != null;
     }
 
     public ProductsService getProductsService() {

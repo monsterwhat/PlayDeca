@@ -100,5 +100,10 @@ public class Users implements Serializable{
     public void setRole(String role) {
         this.role = role;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Users{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", UUID=" + UUID + ", email=" + email + ", role=" + role + ", registrationDate=" + registrationDate + '}';
+    }
+
 }

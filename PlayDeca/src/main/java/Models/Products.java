@@ -122,7 +122,11 @@ public class Products implements Serializable {
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Products{" + "productId=" + productId + ", name=" + name + ", description=" + description + ", price=" + price + ", category=" + category + ", imageUrl=" + imageUrl + ", salePrice=" + salePrice + ", discountPercentage=" + discountPercentage + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + '}';
+    }
+
     
 }

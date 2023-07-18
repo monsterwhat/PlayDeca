@@ -40,7 +40,6 @@ public class Orders implements Serializable {
     private Date orderDate;
 
     public Orders() {
-        // Default constructor
     }
 
     public Long getOrderId() {

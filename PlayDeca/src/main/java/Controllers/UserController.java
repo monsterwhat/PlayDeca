@@ -96,4 +96,6 @@ public class UserController implements Serializable{
     public void setNewUser(Users newUser) {
         this.newUser = newUser;
     }
+    
+    
 }

@@ -106,7 +106,7 @@
                               <button class="button is-rounded is-link is-outlined" onclick="PF('ProductsTable').show()">
                                 Products
                               </button>
-                              <button class="button is-rounded is-link is-outlined">
+                              <button class="button is-rounded is-link is-outlined" onclick="PF('OrdersTable').show()">
                                 Orders
                               </button>
                         </div>
@@ -183,11 +183,10 @@
                                     <p class="title">125</p>
                                     <p class="subtitle">Forum Posts</p>
                             </button>
-                            <button class="column box is-full-mobile">
+                            <button class="column box is-full-mobile" onclick="PF('OrdersTable').show()">
                                     <p class="title">23</p>
                                     <p class="subtitle">Orders</p>
                             </button>
-
                         </div>
                     </div>
                 </section>
@@ -250,7 +249,7 @@
     </h:form>
     
     <h:form id="CRUDs">
-        
+        <!--Users Table-->
         <p:dialog header="Users Table" widgetVar="UsersTable" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             
             <p:toolbar>
@@ -297,6 +296,7 @@
         </p:dataTable>
         </p:dialog>
             
+        <!--Posts Table-->
         <p:dialog header="Posts Table" widgetVar="PostsTable" modal="true" showEffect="fade" hideEffect="fade"
         resizable="false">
             
@@ -350,7 +350,8 @@
             
         </p:dataTable>
     </p:dialog>
-        
+    
+        <!--Products Table-->
     <p:dialog header="Products Table" widgetVar="ProductsTable" modal="true" showEffect="fade" hideEffect="fade"
     resizable="false">
             
@@ -385,6 +386,56 @@
                                  process="@this"
                                  oncomplete="PF('deleteProductDialog').show()">
                     <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                </p:commandButton>
+            </p:column>
+            
+        </p:dataTable>
+    </p:dialog>
+      
+        <!-- Orders Table-->
+    <p:dialog header="Orders Table" widgetVar="OrdersTable" modal="true" showEffect="fade" hideEffect="fade"
+        resizable="false">
+            
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="New Order" icon="pi pi-plus" actionListener="#{OrdersController.openNewOrder}"
+                    update=":dialogs:createOrderPanel" oncomplete="PF('createOrderDialog').show()"
+                    styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:createOrderPanel" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            
+        <p:dataTable id="dt-orders" widgetVar="dtOrders" var="order" value="#{OrdersController.getList()}" reflow="true"
+            styleClass="posts-table" selection="#{OrdersController.selectedOrder}" rowKey="#{order.orderId}"
+            paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+            
+            
+            <p:column headerText="Order ID:" sortBy="#{order.orderId}" filterBy="#{order.orderId}">
+                <h:outputText value="#{order.orderId}" />
+            </p:column>
+            <p:column headerText="Order by User:" sortBy="#{order.user.username}" filterBy="#{order.user.username}">
+                <h:outputText value="#{order.user.username}" />
+            </p:column>
+            <p:column headerText="Products" sortBy="#{order.products.toString()}" filterBy="#{order.products}">
+                <h:outputText value="#{order.products.toString()}" />
+            </p:column>
+            <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{post.user.username}">
+                <h:outputText value="#{post.user.username}" />
+            </p:column>
+            
+            
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-order-content"
+                    oncomplete="PF('manageOrdersDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{order}" target="#{OrdersController.selectedOrder}" />
+                    <p:resetInput target=":dialogs:manage-order-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deleteOrderDialog').show()">
+                    <f:setPropertyActionListener value="#{order}" target="#{OrdersController.selectedOrder}" />
                 </p:commandButton>
             </p:column>
             
@@ -696,6 +747,84 @@
                 oncomplete="PF('deleteProductDialog').hide()" />
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
                 onclick="PF('deleteProductDialog').hide()" />
+        </p:confirmDialog>
+        
+        <!--Order Details-->
+        <p:dialog header="Order Details" showEffect="fade" modal="true" widgetVar="manageOrderDialog" 
+                  responsive="true" resizable="false">
+            <p:outputPanel id="manage-order-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty OrdersController.selectedOrder}">
+                    <div class="field">
+                        <p:outputLabel for="orderId">Order Id</p:outputLabel>
+                        <p:inputText id="orderId" value="#{OrdersController.selectedOrder.orderId}" disabled="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="user">User</p:outputLabel>
+                        <p:inputTextarea id="user" value="#{OrdersController.selectedOrder.user.toString()}" disabled="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="products">Product List</p:outputLabel>
+                        <p:inputTextarea id="products" value="#{OrdersController.selectedOrder.products.toString()}" disabled="true"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="orderDate">Order Date</p:outputLabel>
+                        <p:inputText id="orderDutTexate" value="#{OrdersController.selectedOrder.orderDate}" disabled="true" />
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{OrdersController.saveOrder}"
+                    update="manage-order-content :CRUDs:dt-orders" process="manage-order-content @this" 
+                    onclick="PF('manageOrderDialog').hide()" styleClass="button is-rounded"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageOrderDialog').hide()"
+                    styleClass="ui-button-secondary button is-rounded"/>
+            </f:facet>
+        </p:dialog>
+
+        <!--Order Creation Dialog-->
+        <p:dialog header="Create Order" widgetVar="createOrderDialog" modal="true" showEffect="fade" 
+                  hideEffect="fade" resizable="false">
+            <p:outputPanel id="createOrderPanel" rendered="#{not empty OrdersController.newOrder}">
+                
+                    <div class="columns is-multiline is-centered">
+
+                        <div class="column">
+                            <div class="field">
+                                <p:outputLabel for="newOrderUser">User </p:outputLabel>                                
+                                <p:selectOneMenu id="newOrderUser" value="#{OrdersController.newOrder.user}" style="width:150px">
+                                <f:selectItem itemLabel="Select User" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{UserController.users}" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <p:outputLabel for="newOrderProducts">Product List </p:outputLabel>
+                                <p:inputTextarea id="newOrderProducts" value="#{OrdersController.selectedOrder.products.toString()}"/>
+                            </div>
+                    </div>
+                </div>
+            
+                
+            </p:outputPanel>
+            <f:facet name="footer">
+                <p:commandButton value="Create" icon="pi pi-check" actionListener="#{OrdersController.createOrder}"
+                update=":CRUDs:dt-orders" process="@this createOrderPanel" styleClass="button is-rounded"
+                onclick="PF('createOrderDialog').hide()"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('createOrderDialog').hide()"
+                class="ui-button-secondary button is-rounded"/>
+            </f:facet>
+        </p:dialog>
+        
+        <!--Delete Confirmation for Order-->
+        <p:confirmDialog widgetVar="deleteOrderDialog" showEffect="fade" width="300"
+            message="Delete the Order?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{OrdersController.deleteOrder}"
+                process="@this" update=":CRUDs:dt-orders" oncomplete="PF('deleteOrderDialog').hide()" 
+                styleClass="button is-rounded"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
+                onclick="PF('deleteOrderDialog').hide()" />
         </p:confirmDialog>
     
     </h:form>
