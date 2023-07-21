@@ -36,6 +36,10 @@ public class OrdersController implements Serializable {
         return cachedOrders;
     }
     
+    public long getOrdersCount(){
+        return ordersService.ordersCount();
+    }
+    
     private void invalidateCache() {
         isCacheValid = false;
     }

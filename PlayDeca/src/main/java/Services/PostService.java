@@ -93,4 +93,16 @@ public class PostService implements Serializable
         post.setThread(thread);
         em.persist(post);
     }
+    
+    public Long postCount(){
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(p) FROM Posts p",Long.class);
+            Long postsCount = query.getSingleResult();
+            return postsCount;
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getLocalizedMessage());
+            return null;
+        }
+    }
+    
 }

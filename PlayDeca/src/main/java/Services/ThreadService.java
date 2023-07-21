@@ -55,4 +55,15 @@ public class ThreadService implements Serializable{
         }
     }
     
+    public Long threadCount(){
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(t) FROM Threads t",Long.class);
+            Long threadCount = query.getSingleResult();
+            return threadCount;
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getLocalizedMessage());
+            return null;
+        }
+    }
+    
 }

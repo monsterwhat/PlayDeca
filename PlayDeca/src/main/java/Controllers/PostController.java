@@ -27,6 +27,10 @@ public class PostController implements Serializable{
     @Inject PostService PostService;
     @Inject SessionController SessionController;
     
+    public long getPostsCount(){
+        return PostService.postCount();
+    }
+    
     public PostController() {
         cachedPosts = new ArrayList<>();
         isCacheValid = false;

@@ -154,4 +154,15 @@ public class UserService implements Serializable{
         }
     }
     
+    public Long userCount(){
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM Users u",Long.class);
+            Long userCount = query.getSingleResult();
+            return userCount;
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getLocalizedMessage());
+            return null;
+        }
+    }
+    
 }

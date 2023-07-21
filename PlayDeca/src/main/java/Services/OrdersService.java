@@ -62,4 +62,15 @@ public class OrdersService implements Serializable{
             System.out.println("Error: " + e.toString());
         }
     }
+    
+    public Long ordersCount(){
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(o) FROM Orders o",Long.class);
+            Long ordersCount = query.getSingleResult();
+            return ordersCount;
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getLocalizedMessage());
+            return null;
+        }
+    }
 }

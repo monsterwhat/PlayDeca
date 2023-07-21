@@ -41,6 +41,10 @@ public class ProductsController implements Serializable{
         isCacheValid = false;
     }
     
+    public long getProductsCount(){
+        return productsService.productCount();
+    }
+    
     public void deleteProduct(){
         if(selectedProduct !=null){
             productsService.deleteProduct(selectedProduct);

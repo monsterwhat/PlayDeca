@@ -42,6 +42,10 @@ public class UserController implements Serializable{
         return users;
     }
     
+    public long getUsersCount(){
+        return UserService.userCount();
+    }
+    
     public void openNewUser() {
         newUser = new Users();
     }
@@ -96,6 +100,7 @@ public class UserController implements Serializable{
     public void setNewUser(Users newUser) {
         this.newUser = newUser;
     }
+    
     
     
 }

@@ -62,5 +62,16 @@ public class ProductsService implements Serializable{
             System.out.println("Error: " + e.toString());
         }
     }
+    
+    public Long productCount(){
+        try {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(p) FROM Products p",Long.class);
+            Long productCount = query.getSingleResult();
+            return productCount;
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getLocalizedMessage());
+            return null;
+        }
+    }
         
 }

@@ -168,24 +168,28 @@
                     <div class="column">
                         <div class="columns has-text-centered">
                             <button class="column box is-full-mobile" onclick="PF('UsersTable').show()">
-                                    <p class="title">500</p>
-                                    <p class="subtitle">Registered Users</p>
+                                    <p:outputLabel styleClass="title" value="#{UserController.getUsersCount()}"/>
+                                    <br/>
+                                    <p:outputLabel styleClass="subtitle" value=" Registered Users"/>
                             </button>
                             <button class="column box is-full-mobile" onclick="PF('ProductsTable').show()">
-                                    <p class="title">32</p>
-                                    <p class="subtitle">Products</p>
+                                    <p:outputLabel class="title" value="#{ProductsController.getProductsCount()}"/>
+                                    <br/>
+                                    <p:outputLabel class="subtitle" value=" Products"/>
                             </button>
                             <button class="column box is-full-mobile">
                                     <p class="title">Online</p>
                                     <p class="subtitle">Server Status</p>
                             </button>
                             <button class="column box is-full-mobile" onclick="PF('PostsTable').show()">
-                                    <p class="title">125</p>
-                                    <p class="subtitle">Forum Posts</p>
+                                    <p:outputLabel class="title" value="#{PostController.getPostsCount()}"/>
+                                    <br/>
+                                    <p:outputLabel class="subtitle" value=" Forum Posts"/>
                             </button>
                             <button class="column box is-full-mobile" onclick="PF('OrdersTable').show()">
-                                    <p class="title">23</p>
-                                    <p class="subtitle">Orders</p>
+                                    <p:outputLabel class="title" value="#{OrdersController.getOrdersCount()}"/>
+                                    <br/>
+                                    <p:outputLabel class="subtitle" value=" Orders"/>
                             </button>
                         </div>
                     </div>
