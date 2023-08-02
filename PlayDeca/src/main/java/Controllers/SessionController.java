@@ -5,6 +5,7 @@ import Services.LogsService;
 import Services.UserService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -110,6 +111,18 @@ public class SessionController implements Serializable{
         }
     }
 
+    public void navigateToAdminDashboard() {
+    if (isAdmin()) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        NavigationHandler navHandler = context.getApplication().getNavigationHandler();
+        navHandler.handleNavigation(context, null, "admin-dashboard.xhtml?faces-redirect=true");
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Access denied. You need admin privileges."));
+        }
+    }
+
+    
     public String getUsername() {
         return username;
     }

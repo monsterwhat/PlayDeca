@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
  
  <h:head>
   <meta charset="utf-8"/>
@@ -17,76 +18,7 @@
  </h:head>
 
  <h:body>
-  <section class="hero is-fullheight">
-    <nav class="navbar is-danger">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="https://playdeca.com/">
-          <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28" />
-        </a>
-        <div class="navbar-burger burger" data-target="navbarMain">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <div id="navbarMain" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" href="/"> Home </a>
-          <a class="navbar-item" href="info.xhtml"> Information </a>
-          <a class="navbar-item" href="vote.xhtml"> Vote </a>
-          <a class="navbar-item" href="forums.xhtml"> Forum </a>
-          <a class="navbar-item" href="donate.xhtml"> Donate </a>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <p class="control">
-                <a class="button is-info" href="https://discord.com/invite/4KtEsPF">
-                  <span class="icon">
-                    <i class="fab fa-discord"></i>
-                  </span>
-                </a>
-              </p>
-              <p class="control">
-                <a class="button is-info" href="https://playdeca.com:8123">
-                  <span class="icon">
-                    <i class="fas fa-map"></i>
-                  </span>
-                  <span>Dynmap</span>
-                </a>
-              </p>
-            
-              <p:outputPanel rendered="#{not SessionController.isValid()}">
-              <p class="control">
-                <a class="button is-info" href="login.xhtml">
-                  <span class="icon">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                  </span>
-                  <span>Log In / Register</span>
-                </a>
-              </p>
-              </p:outputPanel>
-              
-              <p:outputPanel rendered="#{SessionController.isValid()}">
-                <p class="control">
-                  <a class="button is-info" href="user-profile.xhtml">
-                    <span class="icon">
-                      <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span>Profile</span>
-                  </a>
-                </p>
-              </p:outputPanel>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </nav>
-  </section>
+    <ui:include src="components/navbar.xhtml"/>
 
    <!-- This is the main Container info -->
     <section class="section is-overlay">
