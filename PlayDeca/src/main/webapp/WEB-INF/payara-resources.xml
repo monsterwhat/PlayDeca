@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE resources PUBLIC "-//Payara.fish//DTD Payara Server 6 Resource Definitions//EN" 
-"https://raw.githubusercontent.com/payara/Payara-Server-Documentation/master/schemas/payara-resources_6.dtd">
+<!DOCTYPE resources PUBLIC "-//Payara.fish//DTD Payara Server 4 Resource Definitions//EN" "https://raw.githubusercontent.com/payara/Payara-Documentation/master/docs/modules/ROOT/pages/Appendix/Schemas/payara-resources_1_7.dtd">
 <resources>
-    <jdbc-resource jndi-name="jdbc/MySQL" pool-name="MySQLPool"/>
-    <jdbc-connection-pool name="MySQLPool" datasource-classname="com.mysql.cj.jdbc.MysqlDataSource">
-    <property name="URL" value="jdbc:mysql://localhost:3306/jakarta?usessl=false?allowPublicKeyRetrieval=true"/>  
-    <property name="Password" value="Jakarta@1!"/>
+    <jdbc-resource jndi-name="jdbc/mySQL" pool-name="MySQLPool"/>
+    <jdbc-connection-pool datasource-classname="com.mysql.cj.jdbc.MysqlDataSource" name="MySQLPool">
+        <property name="URL" value="jdbc:mysql://localhost:3306/jakarta"/>
+        <property name="User" value="jakarta"/>
+        <property name="Password" value="Jakarta@1!"/>
     </jdbc-connection-pool>
+
 </resources>

@@ -9,13 +9,19 @@ import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.security.enterprise.SecurityContext;
+import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import java.security.Principal;
 
 /**
  *
  * @author Al
  */
 
+@BasicAuthenticationMechanismDefinition(
+  realmName = "jdbcRealm")
 @Named(value = "SessionController")
 @SessionScoped
 public class SessionController implements Serializable{
@@ -33,22 +39,37 @@ public class SessionController implements Serializable{
     private boolean hasPassword;
     private Users currentUser;
     
+    @Inject
+    SecurityContext securityContext;
+    
     @Inject private LogsService logger;
     @Inject private UserService UserService;
-        
+            
     public String login(){
-        boolean isValid = UserService.login(username, password);
-        if(isValid){
+
+        try {
+            Principal principal = securityContext.getCallerPrincipal();
+            if (null == principal) {
+            // User not authenticated, attempt to log in using provided username and password.
             currentUser = UserService.getSession(username, password);
-            this.hasPassword = true;
-            this.username = null;
-            this.password = null;
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Login successful!"));
-            logger.createLog("User: "+currentUser.getUsername()+" logged In","Successfull user Login",currentUser);
-            return "index.xhtml?faces-redirect=true";
-        }else{
-            return null;
+
+            if (currentUser != null) {
+                this.hasPassword = true;
+                this.username = null;
+                this.password = null;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Login successful!"));
+                logger.createLog("User: " + currentUser.getUsername() + " logged In", "Successful user Login", currentUser);
+                return "index.xhtml?faces-redirect=true";
+            } else {
+                // Authentication failed
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid username or password."));
+                logger.createLog("Failed login attempt", "Invalid username or password", null);
+            }
         }
+        } catch (Exception e) {
+            System.out.println("Error: "+ e.getLocalizedMessage());
+        }
+        return null;
     }
     
     public String logOut(){
@@ -104,7 +125,7 @@ public class SessionController implements Serializable{
     }
     
     public boolean isAdmin(){
-        if(isValid() && "Administrator".equals(currentUser.getRole())){
+        if(isValid() && "Admin".equals(currentUser.getRank().getGroupName())){
             return true;
         }else{
             return false;

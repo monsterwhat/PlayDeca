@@ -1,7 +1,7 @@
 package Services;
 
 import Controllers.SessionController;
-import Models.Posts;
+import Models.Ranks;
 import Models.Users;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -48,6 +48,9 @@ public class UserService implements Serializable{
             this.userTransaction.begin();
             String username = "Admin";
 
+            Ranks adminRank = new Ranks("Admin");
+            em.persist(adminRank);
+            
             TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", username);
             List<Users> existingUsers = query.getResultList();
@@ -59,7 +62,7 @@ public class UserService implements Serializable{
                 user.setUUID("e6fc0ebdfd7e4e86ad0ffce099a0a9b4");
                 user.setEmail("admin@playdeca.com");
                 user.setRegistrationDate(new Date());
-                user.setRole("Administrator");
+                user.setRank(adminRank);
 
                 em.persist(user);
                 this.userTransaction.commit();

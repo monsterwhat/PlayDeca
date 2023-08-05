@@ -3,9 +3,11 @@ package Controllers;
 import Models.ServerLogs;
 import Services.LogsService;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ import org.primefaces.model.charts.line.LineChartModel;
 
 @Named(value="DashboardController")
 @ViewScoped
+//@ServletSecurity(@HttpConstraint(rolesAllowed = "admin"))
+@RolesAllowed(value = "Admin")
 public class DashboardController implements Serializable{
     
     private LineChartModel lineModel;

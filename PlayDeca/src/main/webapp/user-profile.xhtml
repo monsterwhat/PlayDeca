@@ -42,7 +42,7 @@
                     <p class="subtitle is-6">#{SessionController.currentUser.email}</p>
                 </div>
                 <div class="media-left">
-                    <p class="title is-4">#{SessionController.currentUser.role}</p>
+                    <p class="title is-4">#{SessionController.currentUser.rank.groupName}</p>
                     <p class="subtitle is-6">0 Decacoins</p>
                     <p:outputPanel rendered="#{SessionController.isAdmin()}">
                         <p:commandButton actionListener="#{SessionController.navigateToAdminDashboard}" value="Dashboard" icon="fa-solid fa-right-from-bracket" styleClass="button is-small is-warning is-fullwidth" />
