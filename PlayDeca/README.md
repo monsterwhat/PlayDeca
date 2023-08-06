@@ -81,6 +81,7 @@ Follow the steps below to install and set up the required components:
 
    - **Pool Name**: MySQLPool
    - **Resource Type**: javax.sql.DataSource
+   - **Datasource Class name**: com.mysql.cj.jdbc.MysqlDataSource
    - **Database Driver Vendor**: MySQL
 
 10. Click **Next** and scroll down to **Additional Properties**.
