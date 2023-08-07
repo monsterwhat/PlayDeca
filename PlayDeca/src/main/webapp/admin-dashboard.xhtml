@@ -46,17 +46,17 @@
                         <hr/>
 
                         <p class="menu-label"> Server Stats </p>
-                        <button class="button is-rounded is-info is-fullwidth">
+                        <button class="button is-rounded is-info is-fullwidth" disabled="true">
                           Server Stats
                         </button>
 
                         <p class="menu-label"> Manage Plugins </p>
-                        <button class="button is-rounded is-info is-fullwidth">
+                        <button class="button is-rounded is-info is-fullwidth" disabled="true">
                           Manage Plugins
                         </button>
 
                         <p class="menu-label"> Server Console </p>
-                        <button class="button is-rounded is-info is-fullwidth">
+                        <button class="button is-rounded is-info is-fullwidth" disabled="true">
                           Server Console
                         </button>
                         
@@ -71,7 +71,7 @@
 
                     -->
                         <p class="menu-label"> Server Logs </p>
-                        <button class="button is-rounded is-warning is-fullwidth">
+                        <button class="button is-rounded is-warning is-fullwidth" disabled="true">
                           Server Logs
                         </button>
                         
@@ -208,8 +208,8 @@
             <p:column headerText="Email" sortBy="#{user.email}" filterBy="#{user.email}">
                 <h:outputText value="#{user.email}" />
             </p:column>
-            <p:column headerText="Role" sortBy="#{user.role}" filterBy="#{user.role}">
-                <h:outputText value="#{user.role}" />
+            <p:column headerText="Role" sortBy="#{user.userGroup}" filterBy="#{user.userGroup}">
+                <h:outputText value="#{user.userGroup}" />
             </p:column>
             <p:column headerText="Registration Date" sortBy="#{user.registrationDate}">
                 <h:outputText value="#{user.registrationDate}">
@@ -405,7 +405,7 @@
                     </div>
                     <div class="field">
                         <p:outputLabel for="role">Role</p:outputLabel>
-                        <p:inputText id="role" value="#{UserController.selectedUser.role}" required="true" />
+                        <p:inputText id="role" value="#{UserController.selectedUser.userGroup}" required="true" />
                     </div>
                 </p:outputPanel>
             </p:outputPanel>
@@ -426,16 +426,25 @@
                 
                 <div class="columns">
                     <div class="column">
-                        <p:outputLabel for="username">Username</p:outputLabel>
+                        <p:outputLabel for="newusername">Username</p:outputLabel>
                     </div>
                     <div class="column">
                         <p:inputText id="newusername" value="#{UserController.newUser.username}" required="true" />
                     </div>
                 </div>
+                
+                <div class="columns">
+                    <div class="column">
+                        <p:outputLabel for="newpassword">Password</p:outputLabel>
+                    </div>
+                    <div class="column">
+                        <p:inputText id="newpassword" type="password" value="#{UserController.newUser.password}" required="true" />
+                    </div>
+                </div>
                     
                 <div class="columns">
                     <div class="column">
-                        <p:outputLabel for="email">Email</p:outputLabel>
+                        <p:outputLabel for="newemail">Email</p:outputLabel>
                     </div>
                     <div class="column">
                         <p:inputText id="newemail" value="#{UserController.newUser.email}" required="true" />
@@ -444,10 +453,10 @@
 
                 <div class="columns">
                     <div class="column">
-                        <p:outputLabel for="role">Role</p:outputLabel>
+                        <p:outputLabel for="newrole">Role</p:outputLabel>
                     </div>
                     <div class="column">
-                        <p:inputText id="newrole" value="#{UserController.newUser.role}" required="true" />
+                        <p:inputText id="newrole" value="#{UserController.newUser.userGroup}" required="true" />
                     </div>
                 </div>
                     

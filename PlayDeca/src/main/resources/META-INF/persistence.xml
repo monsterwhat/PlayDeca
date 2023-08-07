@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/MySQL</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
         <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
         <property name="jakarta.persistence.sql-load-script-source" value="META-INF/startup-script.sql"/>

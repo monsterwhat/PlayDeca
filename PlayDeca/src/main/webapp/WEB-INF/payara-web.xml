@@ -4,12 +4,12 @@
   <context-root>/</context-root>
   
   <security-role-mapping>
-    <role-name>Admin</role-name>
-    <group-name>Admin</group-name>
+    <role-name>admin</role-name>
+    <group-name>admin</group-name>
   </security-role-mapping>
   <security-role-mapping>
-      <role-name>Users</role-name>
-      <group-name>Users</group-name>
+      <role-name>user</role-name>
+      <group-name>user</group-name>
   </security-role-mapping>
   
   <class-loader delegate="true"/>

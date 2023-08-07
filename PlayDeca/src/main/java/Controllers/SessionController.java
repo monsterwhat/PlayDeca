@@ -6,22 +6,30 @@ import Services.UserService;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.security.enterprise.AuthenticationStatus;
+import static jakarta.security.enterprise.AuthenticationStatus.SEND_CONTINUE;
+import static jakarta.security.enterprise.AuthenticationStatus.SEND_FAILURE;
+import static jakarta.security.enterprise.AuthenticationStatus.SUCCESS;
 import jakarta.security.enterprise.SecurityContext;
-import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
+import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotEmpty;
+import java.io.IOException;
 import java.io.Serializable;
-import java.security.Principal;
 
 /**
  *
  * @author Al
  */
 
-@BasicAuthenticationMechanismDefinition(
-  realmName = "jdbcRealm")
 @Named(value = "SessionController")
 @SessionScoped
 public class SessionController implements Serializable{
@@ -29,63 +37,82 @@ public class SessionController implements Serializable{
     public SessionController() {
     }
     
-    private String username;
-    private String password;
+    @NotEmpty private String username;
+    @NotEmpty private String password;
     private String oldPassword;
     private String newPassword;
     private String confirmPassword;
     private String newEmail;
     private String AuthCode;
-    private boolean hasPassword;
+    private String UUID;
     private Users currentUser;
-    
-    @Inject
-    SecurityContext securityContext;
+    private boolean hasPassword;
     
     @Inject private LogsService logger;
     @Inject private UserService UserService;
-            
-    public String login(){
+    
+    @Inject FacesContext facesContext;
+    @Inject SecurityContext securityContext;
 
+    public void executeLogin(){
         try {
-            Principal principal = securityContext.getCallerPrincipal();
-            if (null == principal) {
-            // User not authenticated, attempt to log in using provided username and password.
-            currentUser = UserService.getSession(username, password);
-
-            if (currentUser != null) {
-                this.hasPassword = true;
-                this.username = null;
-                this.password = null;
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Login successful!"));
-                logger.createLog("User: " + currentUser.getUsername() + " logged In", "Successful user Login", currentUser);
-                return "index.xhtml?faces-redirect=true";
-            } else {
-                // Authentication failed
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid username or password."));
-                logger.createLog("Failed login attempt", "Invalid username or password", null);
+            switch (processAuthentication()) {
+                case SEND_CONTINUE:
+                    facesContext.responseComplete();
+                    break;
+                case SEND_FAILURE:
+                    logger.createLog("Failed login attempt", "Invalid username or password", null);
+                    facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid username or password."));
+                    break;
+                case SUCCESS:
+                    currentUser = UserService.getSession(username, password);
+                    this.hasPassword = true;
+                    logger.createLog("User: " + currentUser.getUsername() + " logged In", "Successful user Login", currentUser);
+                    getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/");
+                    break;
+                default:
+                    throw new AssertionError();
             }
+            
+        } catch (IOException e) {
+            System.out.println("Error logging in " + e.getLocalizedMessage());
         }
-        } catch (Exception e) {
-            System.out.println("Error: "+ e.getLocalizedMessage());
-        }
-        return null;
     }
     
     public String logOut(){
-        logger.createLog("User: "+currentUser.getUsername()+" logged out","User Logged Out",currentUser);
-        this.currentUser = null;
-        this.hasPassword=false;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
-        return "index.xhtml?faces-redirect=true";
+        try {
+            logger.createLog("User: "+currentUser.getUsername()+" logged out","User Logged Out",currentUser);
+            this.currentUser = null;
+            this.hasPassword=false;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
+            ExternalContext ec = facesContext.getExternalContext();
+            ((HttpServletRequest)ec.getRequest()).logout();
+            return "/index.xhtml?faces-redirect=true";
+        } catch (ServletException e) {
+            
+        }
+        return null;
     }
     
     public boolean isValid(){
         return currentUser != null;
     }
     
+    public void updateUUID(){
+        if(UUID != null){
+            currentUser.setUUID(UUID);
+            UserService.updateUser(currentUser);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "UUID updated successfully."));
+            logger.createLog("Updated UUID", "", currentUser);
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Warning", "UUID cannot be null."));
+            logger.createLog("Tried to update UUID", "Null UUID given", currentUser);
+        }
+    }
+    
     public void updateEmail() {
-        if (confirmPassword.equals(currentUser.getPassword())) {
+        var verified = UserService.verifyPassword(confirmPassword.toCharArray(), currentUser.getPassword());
+        if (verified) {
             if (!newEmail.equals(currentUser.getEmail())) {
                 currentUser.setEmail(newEmail);
                 UserService.updateUser(currentUser);
@@ -102,7 +129,8 @@ public class SessionController implements Serializable{
     }
     
     public void updatePassword(){
-        if(oldPassword.equals(currentUser.getPassword())){
+        var verified = UserService.verifyPassword(confirmPassword.toCharArray(), currentUser.getPassword());
+        if(verified){
             if(AuthCode.equals(AuthCode)){
                 if(newPassword.equals(confirmPassword)){
                     currentUser.setPassword(newPassword);
@@ -125,7 +153,7 @@ public class SessionController implements Serializable{
     }
     
     public boolean isAdmin(){
-        if(isValid() && "Admin".equals(currentUser.getRank().getGroupName())){
+        if(isValid() && "admin".equals(currentUser.getUserGroup())){
             return true;
         }else{
             return false;
@@ -143,7 +171,26 @@ public class SessionController implements Serializable{
         }
     }
 
+    private AuthenticationStatus processAuthentication(){
+        ExternalContext ec = getExternalContext();
+        return securityContext.authenticate(
+                (HttpServletRequest)ec.getRequest(),
+                (HttpServletResponse)ec.getResponse(),
+                AuthenticationParameters.withParams().credential(new UsernamePasswordCredential(username,password)));
+    }
     
+    private ExternalContext getExternalContext(){
+     return facesContext.getExternalContext();
+    }
+
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
+    }
+        
     public String getUsername() {
         return username;
     }
@@ -199,7 +246,7 @@ public class SessionController implements Serializable{
     public void setAuthCode(String AuthCode) {
         this.AuthCode = AuthCode;
     }
-
+    
     public boolean isHasPassword() {
         return hasPassword;
     }

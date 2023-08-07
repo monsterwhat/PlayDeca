@@ -41,7 +41,7 @@
                     
                   <p:ajax event="rowSelect" update=":formPost:postDetail" oncomplete="PF('postDialog').show()"/>
                     
-                   <p:column headerText="Post Title">
+                  <p:column headerText="Post Title">
                       <div class="media">
                        <div class="media-left">
                         <p:commandButton rendered="#{PostController.isModifiable(thepost)}"
@@ -60,11 +60,13 @@
                           <br/>
                           <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        
                         </div>
+                        <!--
                         <div class="media-right">
-                         <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
+                            <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
                          <br/>
-                          <h:outputText class="subtitle is-6 pi pi-thumbs-down" value=" #{thepost.downvotes}"/>
+                            <h:outputText class="subtitle is-6 pi pi-thumbs-down" value=" #{thepost.downvotes}"/>
                         </div>
+                        -->
                       </div>
                     </p:column>
                   </p:dataTable>

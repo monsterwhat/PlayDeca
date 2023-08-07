@@ -21,10 +21,10 @@
       <div id="navbarMain" class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" href="/"> Home </a>
-          <a class="navbar-item" href="info.xhtml"> Information </a>
-          <a class="navbar-item" href="vote.xhtml"> Vote </a>
-          <a class="navbar-item" href="forums.xhtml"> Forum </a>
-          <a class="navbar-item" href="donate.xhtml"> Donate </a>
+          <a class="navbar-item" href="info"> Information </a>
+          <a class="navbar-item" href="vote"> Vote </a>
+          <a class="navbar-item" href="forums"> Forum </a>
+          <a class="navbar-item" href="donate"> Donate </a>
         </div>
 
         <div class="navbar-end">
@@ -48,7 +48,7 @@
               
               <p:outputPanel rendered="#{not SessionController.isValid()}">
               <p class="control">
-                <a class="button is-info" href="login.xhtml">
+                <a class="button is-info" href="login">
                   <span class="icon">
                     <i class="fa-solid fa-right-to-bracket"></i>
                   </span>
@@ -59,7 +59,7 @@
               
               <p:outputPanel rendered="#{SessionController.isValid()}">
                 <p class="control">
-                  <a class="button is-info" href="user-profile.xhtml">
+                  <a class="button is-info" href="user-profile">
                     <span class="icon">
                       <i class="fa-solid fa-user"></i>
                     </span>

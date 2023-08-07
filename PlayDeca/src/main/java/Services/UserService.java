@@ -1,7 +1,6 @@
 package Services;
 
 import Controllers.SessionController;
-import Models.Ranks;
 import Models.Users;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -10,6 +9,7 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import jakarta.transaction.HeuristicMixedException;
 import jakarta.transaction.HeuristicRollbackException;
 import jakarta.transaction.NotSupportedException;
@@ -35,6 +35,8 @@ public class UserService implements Serializable{
     
     @Inject SessionController session;
     
+    @Inject Pbkdf2PasswordHash passwordHasher;
+    
     public UserService() {
     }
     
@@ -47,9 +49,6 @@ public class UserService implements Serializable{
         try {
             this.userTransaction.begin();
             String username = "Admin";
-
-            Ranks adminRank = new Ranks("Admin");
-            em.persist(adminRank);
             
             TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", username);
@@ -58,11 +57,11 @@ public class UserService implements Serializable{
             if (existingUsers.isEmpty()) {
                 Users user = new Users();
                 user.setUsername(username);
-                user.setPassword("password123");
+                user.setPassword(passwordHasher.generate("password123".toCharArray()));
                 user.setUUID("e6fc0ebdfd7e4e86ad0ffce099a0a9b4");
                 user.setEmail("admin@playdeca.com");
                 user.setRegistrationDate(new Date());
-                user.setRank(adminRank);
+                user.setUserGroup("admin");
 
                 em.persist(user);
                 this.userTransaction.commit();
@@ -78,26 +77,33 @@ public class UserService implements Serializable{
     
     public boolean login(String username, String password) {
         try {
-            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM Users u WHERE u.username = :username AND u.password = :password", Long.class);
+            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", username);
-            query.setParameter("password", password);
 
-            Long count = query.getSingleResult();
+            List<Users> resultList = query.getResultList();
 
-            System.out.println(count);
-            return count > 0;
+            if (!resultList.isEmpty()) {
+                Users user = resultList.get(0);
+                String hashedPassword = user.getPassword();
+
+                // Verify the provided password against the hashed password in the database
+                if (passwordHasher.verify(password.toCharArray(), hashedPassword)) {
+                    return true;
+                }
+            }
+
         } catch (IllegalStateException | SecurityException e) {
             System.out.println("Error: ");
             System.out.println(e);
             return false;
         }
+        return false;
     }
  
     public Users getSession(String username, String password) {
         try {
-            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username AND u.password = :password", Users.class);
+            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", username);
-            query.setParameter("password", password);
 
             List<Users> resultList = query.getResultList();
 
@@ -124,6 +130,9 @@ public class UserService implements Serializable{
     public void createUser(Users user){
         try {
             user.setRegistrationDate(new Date());
+            var unHashedPassword = user.getPassword();
+            var HashedPassword = passwordHasher.generate(unHashedPassword.toCharArray());
+            user.setPassword(HashedPassword);
             em.persist(user);
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", session.getCurrentUser());
         } catch (Exception e) {
@@ -166,6 +175,10 @@ public class UserService implements Serializable{
             System.out.println("Error: "+e.getLocalizedMessage());
             return null;
         }
+    }
+    
+    public boolean verifyPassword(char[] password, String hashedPassword){
+        return passwordHasher.verify(password, hashedPassword);
     }
     
 }

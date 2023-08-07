@@ -26,7 +26,8 @@
       <div class="is-overlay has-text-centered " style="top: 82px;">
         <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="Server Banner" width="512" height="512"/>
       </div>
-     
+        
+    <br/>
      
       <div class="container" style="top: 50px;">
         <div class="columns is-centered">
@@ -34,16 +35,17 @@
             <div class="notification">
               <hr />
               <div class="columns is-centered">
-               
+                <p:growl id="growl" showDetail="true" />
+
                 <h:form rendered="#{not sessionController.isValid()}">
-                 
+
                 <h2 class="has-text-centered title has-text-success" >Login</h2>
                 <p class="has-text-centered">Please enter your credentials:</p>
                 <br/>
                  
                 <div class="field">
                  <p class="control has-icons-left has-icons-right">
-                   <p:inputText class="input is-primary is-rounded" value="#{SessionController.username}" type="text" placeholder="Username"/>
+                     <p:inputText class="input is-primary is-rounded" validatorMessage="The Username field cannot be empty" value="#{SessionController.username}" type="text" placeholder="Username"/>
                    <span class="icon is-small is-left">
                      <i class="fas fa-user"></i>
                    </span>
@@ -54,7 +56,7 @@
                </div>
                <div class="field">
                  <p class="control has-icons-left">
-                   <p:password class="input is-primary is-rounded" value="#{SessionController.password}" placeholder="Password" feedback="true"/>
+                   <p:password class="input is-primary is-rounded" validatorMessage="The Password field cannot be empty" value="#{SessionController.password}" placeholder="Password" feedback="true"/>
                    <span class="icon is-small is-left">
                      <i class="fas fa-lock"></i>
                    </span>
@@ -62,10 +64,9 @@
                </div>
                <div class="field">
                  <p class="control">
-                  <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Login" action="#{SessionController.login()}" />
+                  <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Login" action="#{SessionController.executeLogin()}" ajax="false"/>
                  </p>
                </div>
-                  <p:growl id="growl" showDetail="true" />
                 </h:form>
                
               </div>

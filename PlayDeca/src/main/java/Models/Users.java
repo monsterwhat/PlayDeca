@@ -1,13 +1,10 @@
 package Models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -29,34 +26,31 @@ public class Users implements Serializable{
     private String password;
     private String UUID;
     private String email;
+    private String userGroup;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "RegistrationDate")
     private Date registrationDate;
-    
-    @ManyToOne
-    @JoinColumn(name = "groupId")
-    private Ranks rank;
 
     public Users() {
     }
 
-    public Users(Long userID, String username, String password, String UUID, String email, Date registrationDate, Ranks rank) {
+    public Users(Long userID, String username, String password, String UUID, String email, String userGroup, Date registrationDate) {
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.UUID = UUID;
         this.email = email;
+        this.userGroup = userGroup;
         this.registrationDate = registrationDate;
-        this.rank = rank;
     }
 
-    public Ranks getRank() {
-        return rank;
+    public String getUserGroup() {
+        return userGroup;
     }
 
-    public void setRank(Ranks rank) {
-        this.rank = rank;
+    public void setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
     }
     
     public Long getUserID() {
@@ -109,7 +103,8 @@ public class Users implements Serializable{
 
     @Override
     public String toString() {
-        return "Users{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", UUID=" + UUID + ", email=" + email + ", registrationDate=" + registrationDate + ", rank=" + rank + '}';
+        return "Users{" + "userID=" + userID + ", username=" + username + ", password=" + password + ", UUID=" + UUID + ", email=" + email + ", userGroup=" + userGroup + ", registrationDate=" + registrationDate + '}';
     }
+
 
 }
