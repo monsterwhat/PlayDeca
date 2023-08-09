@@ -8,8 +8,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +22,11 @@ public class LogsService implements Serializable{
 
     public List<ServerLogs> listAll() {
         try {
-            TypedQuery<ServerLogs> query = em.createQuery("SELECT l FROM ServerLogs l", ServerLogs.class); 
+            TypedQuery<ServerLogs> query = em.createQuery("SELECT l FROM ServerLogs l ORDER BY l.date DESC", ServerLogs.class);
             return query.getResultList();
-            } catch (Exception e) {
-                return null;
-            }
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     public void createLog(String LogName, String LogDescription, Users User) {

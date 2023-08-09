@@ -52,14 +52,14 @@
                             oncomplete="PF('postDialogModify').show();">
                             <f:setPropertyActionListener target="#{PostController.selectedPost}" value="#{thepost}" />
                         </p:commandButton>
-
-
                        </div>
+                              
                         <div class="media-content">
                           <h:outputText class="title is-4" value="#{thepost.title}"/>
                           <br/>
                           <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        
                         </div>
+                        
                         <!--
                         <div class="media-right">
                             <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
@@ -67,6 +67,7 @@
                             <h:outputText class="subtitle is-6 pi pi-thumbs-down" value=" #{thepost.downvotes}"/>
                         </div>
                         -->
+                        
                       </div>
                     </p:column>
                   </p:dataTable>
@@ -175,7 +176,7 @@
         <p:confirmDialog id="confirmDeleteDialog" message="Are you sure you want to delete this post?"
                      header="Confirmation" severity="alert" widgetVar="confirmDeleteDialog">
         <p:commandButton value="Yes" styleClass="button is-primary is-rounded"
-                         action="#{PostController.deletePost(PostController.selectedPost)}"
+                         action="#{PostController.deletePost()}"
                          update=":formPost:postsTable" icon="fa fa-check" onclick="PF('postDialogModify').hide(); PF('confirmDeleteDialog').hide();"/>
             <p:commandButton value="No" styleClass="button is-danger is-rounded"
                              onclick="PF('confirmDeleteDialog').hide();" />

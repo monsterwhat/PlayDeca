@@ -175,9 +175,14 @@
             <p:outputPanel id="LogsDetail">
                 <p:column rendered="#{not empty DashboardController.selectedLog}">
                     <div class="field">
-                        <div class="control">
-                            <p:inputTextarea readonly="true" disabled="true" value="#{DashboardController.selectedLog.description}"/>
-                        </div>
+                            <div class="columns">
+                                <div class="control column">
+                                <p:inputTextarea readonly="true" disabled="true" value="#{DashboardController.selectedLog.description}"/>
+                                </div>
+                                <div class="control column">
+                                    <p:inputTextarea readonly="true" disabled="true" value="#{DashboardController.selectedLog.user.username}"/>
+                                </div>
+                            </div>
                     </div>
                 </p:column>
             </p:outputPanel>
