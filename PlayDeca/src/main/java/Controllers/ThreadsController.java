@@ -42,7 +42,7 @@ public class ThreadsController implements Serializable{
     }
     
     public long getThreadCount(){
-        return ThreadService.threadCount();
+        return ThreadService.count();
     }
     
 }

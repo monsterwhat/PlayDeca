@@ -37,7 +37,7 @@ public class OrdersController implements Serializable {
     }
     
     public long getOrdersCount(){
-        return ordersService.ordersCount();
+        return ordersService.count();
     }
     
     private void invalidateCache() {
@@ -46,18 +46,18 @@ public class OrdersController implements Serializable {
     
     public void deleteOrder(){
         if(selectedOrder!=null){
-            ordersService.deleteOrder(selectedOrder);
+            ordersService.delete(selectedOrder);
             invalidateCache();
         }
     }
     
     public void createOrder(){
-        ordersService.createOrder(newOrder);
+        ordersService.create(newOrder);
         invalidateCache();
     }
     
     public void saveOrder(){
-        ordersService.updateOrder(selectedOrder);
+        ordersService.update(selectedOrder);
         invalidateCache();
     }
     

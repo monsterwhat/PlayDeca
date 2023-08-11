@@ -42,23 +42,23 @@ public class ProductsController implements Serializable{
     }
     
     public long getProductsCount(){
-        return productsService.productCount();
+        return productsService.count();
     }
     
     public void deleteProduct(){
         if(selectedProduct !=null){
-            productsService.deleteProduct(selectedProduct);
+            productsService.delete(selectedProduct);
             invalidateCache();
         }
     }
         
     public void createProduct(){
-        productsService.createProduct(newProduct);
+        productsService.create(newProduct);
         invalidateCache();
     }
         
     public void saveProduct(){
-        productsService.updateProduct(selectedProduct);
+        productsService.update(selectedProduct);
         invalidateCache();
     }
     

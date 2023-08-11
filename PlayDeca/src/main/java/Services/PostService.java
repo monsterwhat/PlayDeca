@@ -6,13 +6,8 @@ import Models.Threads;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -20,9 +15,12 @@ import java.util.List;
  */
 @Named
 @Transactional
-public class PostService implements Serializable
-{
-    @PersistenceContext EntityManager em;
+public class PostService extends GService<Posts>{
+    
+    @Override
+    protected Class<Posts> getEntityClass(){
+        return Posts.class;
+    }
     
     @Inject SessionController SessionController;
     
@@ -37,20 +35,12 @@ public class PostService implements Serializable
     void init(){
     }
     
-    public List<Posts> listAll() {
-        try {
-            TypedQuery<Posts> query = em.createQuery("SELECT p FROM Posts p", Posts.class); 
-            return query.getResultList();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    
     public void getThread(){
        thread = ThreadService.getThreadByID(1);
     }
     
-    public void addPost(Posts post) {
+    @Override
+    public void create(Posts post) {
         try {
             post.setUser(SessionController.getCurrentUser());
             post.setDate(new Date());
@@ -61,47 +51,6 @@ public class PostService implements Serializable
             System.out.println("Post added successfully!");
         } catch (IllegalStateException | SecurityException e) {
             System.out.println("Error adding post: " + e.toString());
-        }
-    }
-
-        public void deletePost(Posts post) {
-            try {
-                if (!em.contains(post)) {
-                    // Entity is detached, obtain a managed instance
-                    post = em.find(Posts.class, post.getPostId());
-                }
-
-                if (post != null) {
-                    em.remove(post);
-                } else {
-                    System.out.println("Post not found");
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.toString());
-            }
-        }
-
-    public void savePost(Posts updatedPost) {
-        try {
-            em.merge(updatedPost);
-        } catch (Exception e) {
-        }
-    }
-    
-    public void createPost(Posts post){
-        post.setUser(SessionController.getCurrentUser());
-        post.setThread(thread);
-        em.persist(post);
-    }
-    
-    public Long postCount(){
-        try {
-            TypedQuery<Long> query = em.createQuery("SELECT COUNT(p) FROM Posts p",Long.class);
-            Long postsCount = query.getSingleResult();
-            return postsCount;
-        } catch (Exception e) {
-            System.out.println("Error: "+e.getLocalizedMessage());
-            return null;
         }
     }
     

@@ -1,6 +1,7 @@
 package Services;
 
 import Controllers.SessionController;
+import Models.Products;
 import Models.Users;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -27,9 +28,12 @@ import java.util.List;
  */
 @Named
 @Transactional
-public class UserService implements Serializable{
+public class UserService extends GService<Users>{
     
-    @PersistenceContext() EntityManager em;
+    @Override
+    protected Class<Users> getEntityClass(){
+        return Users.class;
+    }
     
     @Resource UserTransaction userTransaction;
     
@@ -118,16 +122,9 @@ public class UserService implements Serializable{
             return null;
         }
     }
-
-    public void updateUser(Users user) {
-        try {
-            em.merge(user);
-            session.getLogger().createLog("Updated User", "Successfully updated User: "+ user.getUserID() +"", session.getCurrentUser());
-        } catch (Exception e) {
-        }
-    }
     
-    public void createUser(Users user){
+    @Override
+    public void create(Users user){
         try {
             user.setRegistrationDate(new Date());
             var unHashedPassword = user.getPassword();
@@ -136,44 +133,6 @@ public class UserService implements Serializable{
             em.persist(user);
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", session.getCurrentUser());
         } catch (Exception e) {
-        }
-    }
-    
-    public void deleteUser(Users user){
-        try {
-            if (!em.contains(user)) {
-                // Entity is detached, obtain a managed instance
-                user = em.find(Users.class, user.getUserID());
-            }
-
-            if (user != null) {
-                em.remove(user);
-                session.getLogger().createLog("Deleted User", "Successfully deleted User: "+ user.getUserID() +"", session.getCurrentUser());
-            } else {
-                System.out.println("Post not found");
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.toString());
-        }
-    }
-
-    public List<Users> listAll() {
-        try {
-            TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u", Users.class); 
-            return query.getResultList();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    
-    public Long userCount(){
-        try {
-            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM Users u",Long.class);
-            Long userCount = query.getSingleResult();
-            return userCount;
-        } catch (Exception e) {
-            System.out.println("Error: "+e.getLocalizedMessage());
-            return null;
         }
     }
     

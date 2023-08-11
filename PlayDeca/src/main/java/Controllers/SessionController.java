@@ -17,7 +17,6 @@ import static jakarta.security.enterprise.AuthenticationStatus.SUCCESS;
 import jakarta.security.enterprise.SecurityContext;
 import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import jakarta.security.enterprise.credential.UsernamePasswordCredential;
-import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -101,7 +100,7 @@ public class SessionController implements Serializable{
     public void updateUUID(){
         if(UUID != null){
             currentUser.setUUID(UUID);
-            UserService.updateUser(currentUser);
+            UserService.update(currentUser);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "UUID updated successfully."));
             logger.createLog("Updated UUID", "", currentUser);
         }else{
@@ -115,7 +114,7 @@ public class SessionController implements Serializable{
         if (verified) {
             if (!newEmail.equals(currentUser.getEmail())) {
                 currentUser.setEmail(newEmail);
-                UserService.updateUser(currentUser);
+                UserService.update(currentUser);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Email updated successfully."));
                 logger.createLog("Updated Email", "", currentUser);
             } else {

@@ -28,7 +28,7 @@ public class PostController implements Serializable{
     @Inject SessionController SessionController;
     
     public long getPostsCount(){
-        return PostService.postCount();
+        return PostService.count();
     }
     
     public PostController() {
@@ -50,20 +50,20 @@ public class PostController implements Serializable{
     
     public void deletePost(){
         if(selectedPost!=null){
-            PostService.deletePost(selectedPost);
+            PostService.delete(selectedPost);
             SessionController.getLogger().createLog("Deleted Post", "Successfully deleted Post: "+ selectedPost.getPostId() +"", SessionController.getCurrentUser());
             invalidateCache();
         }
     }
     
     public void createPost(){
-        PostService.addPost(newPost);
+        PostService.create(newPost);
         SessionController.getLogger().createLog("Created Post", "Successfully created Post: "+ newPost.getPostId() +"", SessionController.getCurrentUser());
         invalidateCache();
     }
     
     public void savePost(){
-        PostService.savePost(selectedPost);
+        PostService.update(selectedPost);
         SessionController.getLogger().createLog("Updated Post", "Successfully updated Post: "+ selectedPost.getPostId() +"", SessionController.getCurrentUser());
         invalidateCache();
     }

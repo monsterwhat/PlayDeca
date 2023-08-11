@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.Users;
-import Services.LogsService;
 import Services.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
@@ -43,7 +42,7 @@ public class UserController implements Serializable{
     }
     
     public long getUsersCount(){
-        return UserService.userCount();
+        return UserService.count();
     }
     
     public void openNewUser() {
@@ -59,18 +58,18 @@ public class UserController implements Serializable{
     }
     
     public void saveUser() {
-        UserService.updateUser(selectedUser);
+        UserService.update(selectedUser);
         clearSelectedUser();
     }
     
     public void createUser(){
-        UserService.createUser(newUser);
+        UserService.create(newUser);
         clearSelectedUser();
     }
 
     public void deleteUser() {
         if(selectedUser !=null){
-            UserService.deleteUser(selectedUser);
+            UserService.delete(selectedUser);
             clearSelectedUser();
         }
     }
