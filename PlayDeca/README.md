@@ -131,4 +131,4 @@ Follow the steps below to install and set up the required components:
 
 Once all the above steps are completed, you can open your project in NetBeans. Make sure there are no issues related to the Java Platform. You should now be able to run your project, and NetBeans will handle deploying the application to the Payara server.
 
-The web application should be available at [http://localhost:8080/Jakarta10/index.xhtml](http://localhost:8080/Jakarta10/index.xhtml).
+The web application should be available at [http://localhost:8080/index](http://localhost:8080/index).
