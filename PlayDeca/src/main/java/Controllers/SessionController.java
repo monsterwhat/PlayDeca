@@ -56,21 +56,20 @@ public class SessionController implements Serializable{
     public void executeLogin(){
         try {
             switch (processAuthentication()) {
-                case SEND_CONTINUE:
-                    facesContext.responseComplete();
-                    break;
-                case SEND_FAILURE:
+                case SEND_CONTINUE -> facesContext.responseComplete();
+                case SEND_FAILURE -> {
                     logger.createLog("Failed login attempt", "Invalid username or password", null);
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid username or password."));
-                    break;
-                case SUCCESS:
+                }
+                case SUCCESS -> {
                     currentUser = UserService.getSession(username, password);
                     this.hasPassword = true;
                     logger.createLog("User: " + currentUser.getUsername() + " logged In", "Successful user Login", currentUser);
                     getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/");
-                    break;
-                default:
-                    throw new AssertionError();
+                }
+                case NOT_DONE -> {
+                }
+                default -> throw new AssertionError();
             }
             
         } catch (IOException e) {

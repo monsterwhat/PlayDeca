@@ -3,7 +3,6 @@ package Services;
 import Models.Threads;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Named;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 /**

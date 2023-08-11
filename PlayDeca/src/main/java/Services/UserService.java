@@ -1,14 +1,11 @@
 package Services;
 
 import Controllers.SessionController;
-import Models.Products;
 import Models.Users;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import jakarta.transaction.HeuristicMixedException;
@@ -18,7 +15,6 @@ import jakarta.transaction.RollbackException;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.Transactional;
 import jakarta.transaction.UserTransaction;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
