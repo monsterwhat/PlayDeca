@@ -13,8 +13,8 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
 
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "jdbc/MySQL",
-        callerQuery = "select password from users where username = ?",
-        groupsQuery = "select userGroup from users where username = ?"
+        callerQuery = "select password from Users where username = ?",
+        groupsQuery = "select userGroup from Users where username = ?"
 )
 @CustomFormAuthenticationMechanismDefinition(
         loginToContinue = @LoginToContinue(

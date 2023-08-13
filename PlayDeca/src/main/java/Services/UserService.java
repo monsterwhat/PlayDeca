@@ -100,7 +100,7 @@ public class UserService extends GService<Users>{
         return false;
     }
  
-    public Users getSession(String username, String password) {
+    public Users getSession(String username) {
         try {
             TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
             query.setParameter("username", username);

@@ -37,7 +37,7 @@
               <div class="columns is-centered">
                 <p:growl id="growl" showDetail="true" />
 
-                <h:form rendered="#{not sessionController.isValid()}">
+                <h:form rendered="#{not SessionController.isValid()}">
 
                 <h2 class="has-text-centered title has-text-success" >Login</h2>
                 <p class="has-text-centered">Please enter your credentials:</p>
@@ -67,6 +67,12 @@
                   <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Login" action="#{SessionController.executeLogin()}" ajax="false"/>
                  </p>
                </div>
+                </h:form>
+                
+                <h:form rendered="#{SessionController.isValid()}">
+                    <h2 class="has-text-centered title has-text-success" >Oops!</h2>
+                    <p class="has-text-centered">You are already logged in Silly goose!</p>
+                    <br/>
                 </h:form>
                
               </div>

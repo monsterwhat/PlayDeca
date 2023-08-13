@@ -45,7 +45,6 @@ public class SessionController implements Serializable{
     private String AuthCode;
     private String UUID;
     private Users currentUser;
-    private boolean hasPassword;
     
     @Inject private LogsService logger;
     @Inject private UserService UserService;
@@ -62,8 +61,7 @@ public class SessionController implements Serializable{
                     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Invalid username or password."));
                 }
                 case SUCCESS -> {
-                    currentUser = UserService.getSession(username, password);
-                    this.hasPassword = true;
+                    currentUser = UserService.getSession(securityContext.getCallerPrincipal().getName());
                     logger.createLog("User: " + currentUser.getUsername() + " logged In", "Successful user Login", currentUser);
                     getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/");
                 }
@@ -81,7 +79,6 @@ public class SessionController implements Serializable{
         try {
             logger.createLog("User: "+currentUser.getUsername()+" logged out","User Logged Out",currentUser);
             this.currentUser = null;
-            this.hasPassword=false;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
             ExternalContext ec = facesContext.getExternalContext();
             ((HttpServletRequest)ec.getRequest()).logout();
@@ -243,14 +240,6 @@ public class SessionController implements Serializable{
 
     public void setAuthCode(String AuthCode) {
         this.AuthCode = AuthCode;
-    }
-    
-    public boolean isHasPassword() {
-        return hasPassword;
-    }
-
-    public void setHasPassword(boolean hasPassword) {
-        this.hasPassword = hasPassword;
     }
 
     public Users getCurrentUser() {
