@@ -49,14 +49,6 @@ public class UserController implements Serializable{
         newUser = new Users();
     }
     
-    public UserService getUserService() {
-        return UserService;
-    }
-
-    public void setUserService(UserService UserService) {
-        this.UserService = UserService;
-    }
-    
     public void saveUser() {
         UserService.update(selectedUser);
         clearSelectedUser();
@@ -68,7 +60,7 @@ public class UserController implements Serializable{
     }
 
     public void deleteUser() {
-        if(selectedUser !=null){
+        if(selectedUser != null){
             UserService.delete(selectedUser);
             clearSelectedUser();
         }
