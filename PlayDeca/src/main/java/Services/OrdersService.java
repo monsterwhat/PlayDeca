@@ -18,4 +18,21 @@ public class OrdersService extends GService<Orders>{
         return Orders.class;
     }
     
+    @Override
+    public void delete(Orders order) {
+        try {
+            if (!em.contains(order)) {
+                order = em.find(getEntityClass(), order.getOrderId());
+            }
+
+            if (order != null) {
+                em.remove(order);
+            } else {
+                System.out.println("Entity not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
+    }
+    
 }

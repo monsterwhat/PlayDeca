@@ -34,4 +34,21 @@ public class ThreadService extends GService<Threads>{
         }
     }
     
+    @Override
+    public void delete(Threads thread) {
+        try {
+            if (!em.contains(thread)) {
+                thread = em.find(getEntityClass(), thread.getThreadId());
+            }
+
+            if (thread != null) {
+                em.remove(thread);
+            } else {
+                System.out.println("Entity not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
+    }
+    
 }

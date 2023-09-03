@@ -2,6 +2,8 @@ package Controllers;
 
 import Models.ServerLogs;
 import Services.LogsService;
+import Utils.ServerInfo;
+import Utils.ServerInfoStorage;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.faces.view.ViewScoped;
@@ -27,19 +29,22 @@ public class DashboardController implements Serializable{
     private LineChartModel lineModel;
     private List<ServerLogs> logsList;
     private ServerLogs selectedLog;
+    private List<ServerInfo> serverInfoStats;
+    private List<String> Plugins;
     
-    @Inject
-    LogsService logService;
-    
+    @Inject LogsService logService;
+    @Inject ServerInfoStorage serverStats;
+           
     @PostConstruct
     public void init() {
         createLineModel();
-        loadLogs();
+        loadData();
     }
-    
-    public void loadLogs(){
+        
+    public void loadData(){
         logsList = new ArrayList<>();
         logsList = logService.listAll();
+        serverInfoStats = serverStats.getServerInfoHistory();
     }
     
     public void createLineModel() {

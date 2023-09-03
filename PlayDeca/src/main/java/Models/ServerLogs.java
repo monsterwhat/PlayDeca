@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,7 +27,11 @@ public class ServerLogs implements Serializable{
 
     private String name;
     private String description;
+    
+    @ManyToOne
+    @JoinColumn(name = "userID") // Adjust the column name as needed
     private Users user;
+
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "RegistrationDate")

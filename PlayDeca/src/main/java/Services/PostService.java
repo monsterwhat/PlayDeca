@@ -54,4 +54,21 @@ public class PostService extends GService<Posts>{
         }
     }
     
+    @Override
+    public void delete(Posts post) {
+        try {
+            if (!em.contains(post)) {
+                post = em.find(getEntityClass(), post.getPostId());
+            }
+
+            if (post != null) {
+                em.remove(post);
+            } else {
+                System.out.println("Entity not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
+    }
+    
 }

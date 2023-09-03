@@ -25,13 +25,18 @@ public class UserController implements Serializable{
     private Users newUser;
     
     public UserController() {
-        
     }
     
     @PostConstruct
     public void init(){
         newUser = new Users();
         selectedUser = new Users();
+    }
+    
+    public void InsertFirstUser(){
+        if(UserService.count() < 1){
+            UserService.InsertAdmin();
+        }
     }
     
     public List<Users> getUsers() {
@@ -91,7 +96,5 @@ public class UserController implements Serializable{
     public void setNewUser(Users newUser) {
         this.newUser = newUser;
     }
-    
-    
     
 }

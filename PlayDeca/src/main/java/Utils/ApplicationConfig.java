@@ -2,20 +2,17 @@ package Utils;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.annotation.FacesConfig;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.security.enterprise.authentication.mechanism.http.CustomFormAuthenticationMechanismDefinition;
 import jakarta.security.enterprise.authentication.mechanism.http.LoginToContinue;
-import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
+import java.io.Serializable;
 
 /**
  *
  * @author Al
  */
 
-@DatabaseIdentityStoreDefinition(
-        dataSourceLookup = "jdbc/MySQL",
-        callerQuery = "select password from Users where username = ?",
-        groupsQuery = "select userGroup from Users where username = ?"
-)
 @CustomFormAuthenticationMechanismDefinition(
         loginToContinue = @LoginToContinue(
         loginPage = "/login",
@@ -23,7 +20,13 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
         useForwardToLogin = false)
 )
 @FacesConfig
+@Named
 @ApplicationScoped
-public class ApplicationConfig {
+public class ApplicationConfig implements Serializable{
+
+    public ApplicationConfig() {
+    }
     
+    
+
 }

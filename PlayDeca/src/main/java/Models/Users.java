@@ -1,20 +1,24 @@
 package Models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author Al
  */
+
 @Entity
 @Table(name = "Users")
 public class Users implements Serializable{
@@ -27,6 +31,9 @@ public class Users implements Serializable{
     private String UUID;
     private String email;
     private String userGroup;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<ServerLogs> ServerLogs;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "RegistrationDate")

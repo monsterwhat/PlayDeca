@@ -17,6 +17,7 @@ import static jakarta.security.enterprise.AuthenticationStatus.SUCCESS;
 import jakarta.security.enterprise.SecurityContext;
 import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -78,11 +79,25 @@ public class SessionController implements Serializable{
     public String logOut(){
         try {
             logger.createLog("User: "+currentUser.getUsername()+" logged out","User Logged Out",currentUser);
+            
             this.currentUser = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
             ExternalContext ec = facesContext.getExternalContext();
             ((HttpServletRequest)ec.getRequest()).logout();
-            return "/index.xhtml?faces-redirect=true";
+            return "/index?faces-redirect=true";
+        } catch (ServletException e) {
+            
+        }
+        return null;
+    }
+    
+    public String loglessOut(){
+        try {          
+            this.currentUser = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Logout successful!"));
+            ExternalContext ec = facesContext.getExternalContext();
+            ((HttpServletRequest)ec.getRequest()).logout();
+            return "/index?faces-redirect=true";
         } catch (ServletException e) {
             
         }

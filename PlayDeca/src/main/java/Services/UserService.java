@@ -2,6 +2,8 @@ package Services;
 
 import Controllers.SessionController;
 import Models.Users;
+import Utils.ApplicationConfig;
+import Utils.IdentityStoreConfig;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.inject.Inject;
@@ -37,12 +39,21 @@ public class UserService extends GService<Users>{
     
     @Inject Pbkdf2PasswordHash passwordHasher;
     
+    @Inject private IdentityStoreConfig.IdentityStoreConfigProvider ISCP;
+    
     public UserService() {
     }
     
     @PostConstruct
     void init(){
-        InsertAdmin();
+        if(count() < 1){
+            InsertAdmin();
+        }
+    }
+    
+    public void refreshIdentityStoreConfig() {
+        // Recreate or reinitialize the IdentityStoreConfigProvider here
+        ISCP = new IdentityStoreConfig.IdentityStoreConfigProvider();
     }
     
     public void InsertAdmin(){  
@@ -128,8 +139,45 @@ public class UserService extends GService<Users>{
             user.setPassword(HashedPassword);
             em.persist(user);
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", session.getCurrentUser());
+           
         } catch (Exception e) {
         }
+        refreshIdentityStoreConfig();
+    }
+    
+    @Override
+    public void delete(Users user) {
+        // Check if the user to delete is the currently logged-in user
+        Users loggedInUser = session.getCurrentUser();
+        
+        if (loggedInUser != null && loggedInUser.getUserID().equals(user.getUserID())) {
+            // Invalidate the user's session (log them out)
+            session.loglessOut();
+        }
+        
+        try {
+            if (!em.contains(user)) {
+                user = em.find(getEntityClass(), user.getUserID());
+            }
+
+            if (user != null) {
+                em.remove(user);
+            } else {
+                System.out.println("Entity not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
+        refreshIdentityStoreConfig();
+    }
+    
+    @Override    
+    public void update(Users user) {
+        try {
+            em.merge(user);
+        } catch (Exception e) {
+        }
+        refreshIdentityStoreConfig();
     }
     
     public boolean verifyPassword(char[] password, String hashedPassword){

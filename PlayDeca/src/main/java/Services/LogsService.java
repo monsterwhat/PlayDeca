@@ -28,4 +28,20 @@ public class LogsService extends GService<ServerLogs>{
         em.persist(log);
     }
     
+    public void delete(ServerLogs logs) {
+        try {
+            if (!em.contains(logs)) {
+                logs = em.find(getEntityClass(), logs.getId());
+            }
+
+            if (logs != null) {
+                em.remove(logs);
+            } else {
+                System.out.println("Entity not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+        }
+    }
+    
 }
