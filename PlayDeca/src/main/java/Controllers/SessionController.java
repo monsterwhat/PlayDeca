@@ -17,13 +17,14 @@ import static jakarta.security.enterprise.AuthenticationStatus.SUCCESS;
 import jakarta.security.enterprise.SecurityContext;
 import jakarta.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import jakarta.security.enterprise.credential.UsernamePasswordCredential;
-import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -46,6 +47,13 @@ public class SessionController implements Serializable{
     private String AuthCode;
     private String UUID;
     private Users currentUser;
+    
+    private String selectedOption = "login";
+
+    @NotEmpty private String newUserUsername;
+    @NotEmpty private String newUserEmail;
+    @NotEmpty private String newUserPassword;
+    @NotEmpty private String newUserVerifyPassword;
     
     @Inject private LogsService logger;
     @Inject private UserService UserService;
@@ -161,6 +169,92 @@ public class SessionController implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Incorrect password."));
         }
     }
+    
+    public void selectLogin(){
+        selectedOption = "login";
+    }
+    
+    public void selectRegister(){
+        selectedOption = "register";
+    }
+    
+    public void registerUser(){
+        try {
+            if(verifyRegisteredUserData()){
+            Users newUser = new Users();
+            newUser.setUsername(newUserUsername);
+            newUser.setEmail(newUserEmail);
+            newUser.setPassword(newUserPassword);
+            newUser.setUserGroup("user");
+            
+            UserService.register(newUser);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered!"));
+
+            getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/");
+            }
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    public boolean verifyRegisteredUserData() {
+        String password = newUserPassword;
+        String passwordV = newUserVerifyPassword;
+        String username = newUserUsername;
+        String email = newUserEmail;
+
+        List<String> warnMessages = new ArrayList<>();
+        List<String> errorMessages = new ArrayList<>();
+        
+        // Check if the email is already registered
+        if (UserService.doesEmailAlreadyExists(email)) {
+            errorMessages.add("Email is already registered.");
+        }
+
+        // Check if the username already exists
+        if (UserService.doesUsernameAlreadyExists(username)) {
+            errorMessages.add("Username already exists.");
+        }
+
+        // Check if any of the required fields is null
+        if (password == null || passwordV == null || username == null || email == null) {
+            warnMessages.add("Please fill out all of the fields.");
+        }
+
+        // Check if the passwords match
+        if (!password.equals(passwordV)) {
+            warnMessages.add("Passwords do not match.");
+        }
+
+        // Check if the password meets the criteria
+        if (!password.matches(".*[A-Z].*") || // At least one capital letter
+            !password.matches(".*[0-9].*") || // At least one digit
+            !password.matches(".*[!@#$%^&*()].*")) { // At least one special character
+            warnMessages.add("Password format is incorrect. Please verify that your password contains at least one capital letter, digit, and a special character:'!@#$%^&*()'.");
+        }
+
+        // Check if the email follows the *@*.* format using a regular expression
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            warnMessages.add("Invalid email format. Please enter a valid email address.");
+        }
+
+        // Add all messages to the FacesContext
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        for (String errorMessage : errorMessages) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validation Error",errorMessage));
+        }
+
+        // If there are any other error messages, add them to the FacesContext with SEVERITY_WARN
+        if (!warnMessages.isEmpty() || !errorMessages.isEmpty()) {
+            for (String errorMessage : warnMessages) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Validation Error", errorMessage));
+            }
+            return false;
+        }
+
+        return true;    
+    }
+
     
     public boolean isAdmin(){
         if(isValid() && "admin".equals(currentUser.getUserGroup())){
@@ -281,6 +375,46 @@ public class SessionController implements Serializable{
         this.logger = logger;
     }
 
+    public String getNewUserUsername() {
+        return newUserUsername;
+    }
+
+    public void setNewUserUsername(String newUserUsername) {
+        this.newUserUsername = newUserUsername;
+    }
+
+    public String getNewUserEmail() {
+        return newUserEmail;
+    }
+
+    public void setNewUserEmail(String newUserEmail) {
+        this.newUserEmail = newUserEmail;
+    }
+
+    public String getNewUserPassword() {
+        return newUserPassword;
+    }
+
+    public void setNewUserPassword(String newUserPassword) {
+        this.newUserPassword = newUserPassword;
+    }
+
+    public String getNewUserVerifyPassword() {
+        return newUserVerifyPassword;
+    }
+
+    public void setNewUserVerifyPassword(String newUserVerifyPassword) {
+        this.newUserVerifyPassword = newUserVerifyPassword;
+    }
+
+    public String getSelectedOption() {
+        return selectedOption;
+    }
+
+    public void setSelectedOption(String selectedOption) {
+        this.selectedOption = selectedOption;
+    }
+
     
-    
+
 }

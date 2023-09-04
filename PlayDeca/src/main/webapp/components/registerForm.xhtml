@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:form>
+
+        <h2 class="has-text-centered title has-text-success" >Register</h2>
+        <p class="has-text-centered">Remember to use a unique password!</p>
+        <br/>
+
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <p:inputText class="input is-primary is-rounded" label="Username" requiredMessage="The Username field cannot be empty" value="#{SessionController.newUserUsername}" type="text" placeholder="Username" required="true" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <p:inputText class="input is-primary is-rounded" label="Email" requiredMessage="The Email field cannot be empty" value="#{SessionController.newUserEmail}" type="email" placeholder="Email" required="true"/>
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <p:password class="input is-primary is-rounded" label="Password" requiredMessage="The Password field cannot be empty" value="#{SessionController.newUserPassword}" placeholder="Password" feedback="true" required="true"/>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <p:password class="input is-primary is-rounded" label="PasswordVerification" requiredMessage="The Password Verification field cannot be empty" value="#{SessionController.newUserVerifyPassword}" placeholder="Password" required="true"/>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control">
+             <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Register" action="#{SessionController.registerUser()}"/>
+            </p>
+        </div>
+        <p:commandLink class="has-text-link" value="I already have an account..." update="dynamicContent" process="@this" actionListener="#{SessionController.selectLogin()}" />
+    </h:form>
+    
+</ui:composition>

@@ -145,6 +145,20 @@ public class UserService extends GService<Users>{
         refreshIdentityStoreConfig();
     }
     
+    public void register(Users user){
+        try {
+            user.setRegistrationDate(new Date());
+            var unHashedPassword = user.getPassword();
+            var HashedPassword = passwordHasher.generate(unHashedPassword.toCharArray());
+            user.setPassword(HashedPassword);
+            em.persist(user);
+            session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", user);
+           
+        } catch (Exception e) {
+        }
+        refreshIdentityStoreConfig();
+    }
+    
     @Override
     public void delete(Users user) {
         // Check if the user to delete is the currently logged-in user
@@ -183,5 +197,24 @@ public class UserService extends GService<Users>{
     public boolean verifyPassword(char[] password, String hashedPassword){
         return passwordHasher.verify(password, hashedPassword);
     }
+    
+    public boolean doesEmailAlreadyExists(String email) {
+    TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.email = :email", Users.class);
+    query.setParameter("email", email);
+
+    List<Users> resultList = query.getResultList();
+
+    return !resultList.isEmpty();
+    }
+
+    public boolean doesUsernameAlreadyExists(String username) {
+    TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
+    query.setParameter("username", username);
+
+    List<Users> resultList = query.getResultList();
+
+    return !resultList.isEmpty();
+    }
+
     
 }
