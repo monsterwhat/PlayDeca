@@ -1,0 +1,34 @@
+ <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+     <h:form id="editUUIDForm">
+                <p:dialog id="editUUIDDialog" class="has-text-centered" header="Edit UUID" widgetVar="editUUIDDialog" modal="true" showEffect="fade" hideEffect="fade">
+                    <div class="notification has-text-centered">
+
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                 <h:outputText class="label" value="UUID:"/>
+                                 <p:inputText class="input is-fullwidth" id="UUID" value="#{SessionController.UUID}"/>
+                               </div>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column">
+                                <div class="buttons is-centered">
+                                 <p:commandButton value="Save" actionListener="#{SessionController.updateUUID()}" styleClass="button is-small is-success is-rounded is-fullwidth is-responsive" onclick="PF('editUUIDDialog').hide()" update="editUUIDForm" />
+                                 <p:commandButton value="Cancel" onclick="PF('editUUIDDialog').hide()" styleClass="button is-small is-warning is-rounded is-fullwidth is-responsive"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </p:dialog>
+            </h:form>
+     
+ </ui:composition>

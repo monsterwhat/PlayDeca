@@ -16,6 +16,9 @@ public class ProductsService extends GService<Products>{
     protected Class<Products> getEntityClass(){
         return Products.class;
     }
+
+    public ProductsService() {
+    }
     
     @Override
     public void delete(Products product) {

@@ -1,6 +1,7 @@
 /* background */
 .hero {
     background: black url("../assets/images/backgrounds/1080U.jpeg") center / cover;
+    background-attachment: fixed;
 }
 
 @media (max-width: 1920px) { .hero { background: black url(../assets/images/backgrounds/banner.png) center / cover; } }
@@ -13,6 +14,31 @@
         font-size: 90%;
     }
 }
+
+/* background */
+body {
+    background: black url("../assets/images/backgrounds/1080U.jpeg") center / cover;
+    background-attachment: fixed;
+}
+
+@media (max-width: 1920px) {
+    body {
+        background: black url(../assets/images/backgrounds/banner.png) center / cover;
+    }
+}
+
+@media (max-width: 1024px) {
+    body {
+        background: black url(../assets/images/backgrounds/banner.jpg) center / cover;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background: black url(../assets/images/backgrounds/banner.jpg) center / cover;
+    }
+}
+
 
 .center, .center-column, .top, .right, .bottom, .left {
     display: flex;

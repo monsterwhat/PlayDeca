@@ -2,7 +2,6 @@ package Services;
 
 import Controllers.SessionController;
 import Models.Users;
-import Utils.ApplicationConfig;
 import Utils.IdentityStoreConfig;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -24,6 +23,7 @@ import java.util.List;
  *
  * @author Al
  */
+
 @Named
 @Transactional
 public class UserService extends GService<Users>{

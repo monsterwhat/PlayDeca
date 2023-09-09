@@ -40,11 +40,11 @@
                 <p:outputPanel id="dynamicContent">
                     
                     <ui:fragment rendered="#{SessionController.selectedOption eq 'login'}">
-                        <ui:include src="./components/loginForm.xhtml"/>
+                        <ui:include src="./components/user/loginForm.xhtml"/>
                     </ui:fragment>
                     
                     <ui:fragment rendered="#{SessionController.selectedOption eq 'register'}">
-                        <ui:include src="./components/registerForm.xhtml"/>
+                        <ui:include src="./components/user/registerForm.xhtml"/>
                     </ui:fragment>
 
                 </p:outputPanel>               

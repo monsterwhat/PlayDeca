@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form id="formPost">
+
+    <div class="box">
+      <h1 class="title center">General Discussion</h1>
+      <p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="5" 
+                    paginator="true" paginatorPosition="bottom" reflow="true" id="postsTable" 
+                    emptyMessage="No posts available" selectionMode="single" rowKey="#{thepost.postId}"
+                    selection="#{PostController.selectedPost}" filteredValue="#{PostController.filteredList}">
+
+      <p:ajax event="rowSelect" update=":formPost:postDetail" oncomplete="PF('postDialog').show()"/>
+
+      <p:column headerText="Post Title" class="center">
+            <div class="media">
+                <div class="media-left">
+                    <p:commandButton rendered="#{PostController.isModifiable(thepost)}"
+                        styleClass="button is-rounded is-info is-small"
+                        icon="pi pi-pencil" title="Modify"
+                        process="@this"
+                        update=":ModifyPost:postDialogModify"
+                        oncomplete="PF('postDialogModify').show();">
+                        <f:setPropertyActionListener target="#{PostController.selectedPost}" value="#{thepost}" />
+                    </p:commandButton>
+                </div>
+
+                <div class="media-content">
+                    <h:outputText class="title is-4" value="#{thepost.title}"/>
+                    <br/>
+                    <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        
+                </div>
+
+                <!--
+                <div class="media-right">
+                    <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
+                 <br/>
+                    <h:outputText class="subtitle is-6 pi pi-thumbs-down" value=" #{thepost.downvotes}"/>
+                </div>
+                -->
+
+            </div>
+        </p:column>
+      </p:dataTable>
+
+        <p:dialog id="postDialog" header="Post Details" widgetVar="postDialog" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+            <p:outputPanel id="postDetail">
+                <div class="notification">
+                    <div class="columns">
+                        <div class="column">
+                            <h:outputText class="title is-4" value="#{PostController.selectedPost.title}"></h:outputText>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <h:outputText class="subtitle is-6" value="#{PostController.selectedPost.body}"></h:outputText>
+                        </div>
+                    </div>
+                </div>
+            </p:outputPanel>
+        </p:dialog>
+    </div>
+        
+    <p class="control">
+    <p:commandButton value="New Post" onclick="PF('postDialogCreate').show();" 
+                     styleClass="button is-link is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
+    </p>
+        
+    </h:form>
+    
+</ui:composition>

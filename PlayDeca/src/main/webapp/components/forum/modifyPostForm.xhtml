@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form id="ModifyPost">
+        <p:dialog id="postDialogModify" header="Modify Post" class="has-text-centered" widgetVar="postDialogModify" modal="true" responsive="true" showEffect="fade" hideEffect="fade">                    
+            <div class="notification has-text-centered">
+                <div class="columns">
+                    <div class="column">
+                        <h:outputLabel styleClass="label is-centered" for="Updatedtitle" value="Post Title: "/>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p:inputText class="input" id="Updatedtitle" value="#{PostController.selectedPost.title}" required="true" />
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <h:outputLabel styleClass="label is-centered" for="Updatedbody" value="Body: " />
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p:inputTextarea class="textarea" id="Updatedbody" autoResize="true" value="#{PostController.selectedPost.body}" required="true" />
+                    </div>
+                </div>
+                <div class="buttons is-centered">
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Save"
+                                     action="#{PostController.savePost}" onclick="PF('postDialogModify').hide();"
+                                     update=":formPost:postsTable" icon="fa fa-save" iconPos="right">
+                    </p:commandButton>
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel"
+                                     onclick="PF('postDialogModify').hide();" icon="fa fa-times" iconPos="right">
+                    </p:commandButton>
+                </div>
+                <div class="buttons is-centered">
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Delete"
+                                      onclick="PF('confirmDeleteDialog').show();" icon="fa fa-trash" iconPos="right">
+                    </p:commandButton>
+                </div>
+            </div>
+        </p:dialog>
+    </h:form>
+    
+</ui:composition>

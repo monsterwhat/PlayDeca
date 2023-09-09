@@ -21,10 +21,6 @@ public class ThreadService extends GService<Threads>{
     public ThreadService() {
     }
     
-    @PostConstruct
-    void init(){
-    }
-    
     public Threads getThreadByID(int threadId){
         try {
             return em.find(Threads.class, threadId);

@@ -31,10 +31,6 @@ public class PostService extends GService<Posts>{
     public PostService() {
     }
     
-    @PostConstruct
-    void init(){
-    }
-    
     public void getThread(){
        thread = ThreadService.getThreadByID(1);
     }

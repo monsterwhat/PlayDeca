@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <div class="box">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Email Address:</label>
+            </div>
+            <div class="field-body">
+                 <div class="field has-text-centered">
+                  <h:outputText value="#{SessionController.currentUser.email}" />
+                 </div>
+            </div>
+            <div class="field-right">
+                <div class="field">
+                    <p:commandButton value="Edit" icon="pi pi-pencil" styleClass="button is-success is-fullwidth" onclick="PF('editEmailDialog').show()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="box">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">UUID:</label>
+            </div>
+            <div class="field-body">
+                 <div class="field has-text-centered">
+                  <h:outputText value="#{SessionController.currentUser.UUID}" />
+                 </div>
+            </div>
+            <div class="field-right">
+                <div class="field">
+                    <p:commandButton value="Edit" icon="pi pi-pencil" styleClass="button is-success is-fullwidth" onclick="PF('editUUIDDialog').show()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <br/>
+    <br/>
+    <br/>
+    
+    <div class="box">
+        <div class="field">
+            <p:commandButton value="Change Password" icon="pi pi-key" styleClass="button is-danger is-fullwidth" onclick="PF('changePasswordDialog').show()" />
+        </div>
+    </div>
+
+
+</ui:composition>
