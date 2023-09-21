@@ -26,6 +26,8 @@ public class LogsService extends GService<ServerLogs>{
         log.setUser(User);
         log.setDate(new Date());
         em.persist(log);
+        em.flush();
+
     }
     
     public void delete(ServerLogs logs) {
@@ -36,6 +38,8 @@ public class LogsService extends GService<ServerLogs>{
 
             if (logs != null) {
                 em.remove(logs);
+                em.flush();
+
             } else {
                 System.out.println("Entity not found");
             }

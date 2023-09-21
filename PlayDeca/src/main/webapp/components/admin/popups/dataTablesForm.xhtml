@@ -1,0 +1,244 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form id="tables">
+        <!--Users Table-->
+        <p:dialog header="Users Table" widgetVar="UsersTable" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="New User" icon="pi pi-plus" actionListener="#{UserController.openNewUser()}"
+                        update=":dialogs:createUserPanel dt-users" oncomplete="PF('createUserDialog').show()"
+                        styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":dialogs:createUserPanel" />
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="dt-users" widgetVar="dtUsers" var="user" value="#{UserController.users}"
+            reflow="true" styleClass="users-table" selection="#{UserController.selectedUser}"
+            rowKey="#{user.userID}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+            <p:column headerText="Username" sortBy="#{user.username}" filterBy="#{user.username}">
+                <h:outputText value="#{user.username}" />
+            </p:column>
+            <p:column headerText="Email" sortBy="#{user.email}" filterBy="#{user.email}">
+                <h:outputText value="#{user.email}" />
+            </p:column>
+            <p:column headerText="Role" sortBy="#{user.userGroup}" filterBy="#{user.userGroup}">
+                <h:outputText value="#{user.userGroup}" />
+            </p:column>
+            <p:column headerText="Registration Date" sortBy="#{user.registrationDate}">
+                <h:outputText value="#{user.registrationDate}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-user-content"
+                    oncomplete="PF('manageUserDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{user}" target="#{UserController.selectedUser}" />
+                    <p:resetInput target=":dialogs:manage-user-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deleteUserDialog').show()">
+                    <f:setPropertyActionListener value="#{user}" target="#{UserController.selectedUser}" />
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+        </p:dialog>
+            
+        <!--Threads Table-->
+        <p:dialog header="Threads Table" widgetVar="ThreadsTable" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="New Thread" icon="pi pi-plus" actionListener="#{ThreadsController.openNewThread()}"
+                        update=":dialogs:createThreadPanel dt-threads" oncomplete="PF('createThreadDialog').show()"
+                        styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":dialogs:createThreadPanel" />
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="dt-threads" widgetVar="dtThreads" var="thread" value="#{ThreadsController.list}"
+            reflow="true" styleClass="threads-table" selection="#{ThreadsController.selectedThread}"
+            rowKey="#{thread.threadId}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+            <p:column headerText="User" sortBy="#{thread.user}" filterBy="#{thread.user}">
+                <h:outputText value="#{thread.user}" />
+            </p:column>
+            <p:column headerText="Title" sortBy="#{thread.title}" filterBy="#{thread.title}">
+                <h:outputText value="#{thread.title}" />
+            </p:column>
+                
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-thread-content"
+                    oncomplete="PF('manageThreadDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{thread}" target="#{ThreadsController.selectedThread}" />
+                    <p:resetInput target=":dialogs:manage-thread-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deleteThreadDialog').show()">
+                    <f:setPropertyActionListener value="#{thread}" target="#{ThreadsController.selectedThread}" />
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+        </p:dialog>
+        
+        <!--Posts Table-->
+        <p:dialog header="Posts Table" widgetVar="PostsTable" modal="true" showEffect="fade" hideEffect="fade"
+        resizable="false">
+            
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="New Post" icon="pi pi-plus" actionListener="#{PostController.openNewPost}"
+                    update=":dialogs:createPostPanel" oncomplete="PF('createPostDialog').show()"
+                    styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:createPostPanel" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            
+        <p:dataTable id="dt-posts" widgetVar="dtPosts" var="post" value="#{PostController.getList()}" reflow="true"
+            styleClass="posts-table" selection="#{PostController.selectedPost}" rowKey="#{post.postId}"
+            paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+            <p:column headerText="User Name" sortBy="#{post.user.username}" filterBy="#{post.user.username}">
+                <h:outputText value="#{post.user.username}" />
+            </p:column>
+            <p:column headerText="Date" sortBy="#{post.date}" filterBy="#{post.date}">
+                <h:outputText value="#{post.date}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Title" sortBy="#{post.title}" filterBy="#{post.title}">
+                <h:outputText value="#{post.title}" />
+            </p:column>
+            <p:column headerText="Body" sortBy="#{post.body}" filterBy="#{post.body}">
+                <h:outputText value="#{post.body}" />
+            </p:column>
+            <p:column headerText="Upvotes" sortBy="#{post.upvotes}" filterBy="#{post.upvotes}">
+                <h:outputText value="#{post.upvotes}" />
+            </p:column>
+            <p:column headerText="Downvotes" sortBy="#{post.downvotes}" filterBy="#{post.downvotes}">
+                <h:outputText value="#{post.downvotes}" />
+            </p:column>
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-post-content"
+                    oncomplete="PF('managePostDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{post}" target="#{PostController.selectedPost}" />
+                    <p:resetInput target=":dialogs:manage-post-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deletePostDialog').show()">
+                    <f:setPropertyActionListener value="#{post}" target="#{PostController.selectedPost}" />
+                </p:commandButton>
+            </p:column>
+            
+        </p:dataTable>
+    </p:dialog>
+    
+    <!--Products Table-->
+    <p:dialog header="Products Table" widgetVar="ProductsTable" modal="true" showEffect="fade" hideEffect="fade"
+    resizable="false">
+            
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="New Product" icon="pi pi-plus" actionListener="#{ProductsController.openNewProduct}"
+                    update=":dialogs:createProductPanel" oncomplete="PF('createProductDialog').show()"
+                    styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:createProductPanel" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            
+        <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{ProductsController.getList()}" reflow="true"
+            styleClass="posts-table" selection="#{ProductsController.selectedProduct}" rowKey="#{product.productId}"
+            paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+            
+            <!--
+            <p:column headerText="User Name" sortBy="#{post.user.username}" filterBy="#{post.user.username}">
+                <h:outputText value="#{post.user.username}" />
+            </p:column>
+            -->
+            
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                    oncomplete="PF('manageProductsDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                    <p:resetInput target=":dialogs:manage-product-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deleteProductDialog').show()">
+                    <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                </p:commandButton>
+            </p:column>
+            
+        </p:dataTable>
+    </p:dialog>
+      
+    <!-- Orders Table-->
+    <p:dialog header="Orders Table" widgetVar="OrdersTable" modal="true" showEffect="fade" hideEffect="fade"
+        resizable="false">
+            
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="New Order" icon="pi pi-plus" actionListener="#{OrdersController.openNewOrder}"
+                    update=":dialogs:createOrderPanel" oncomplete="PF('createOrderDialog').show()"
+                    styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:createOrderPanel" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            
+        <p:dataTable id="dt-orders" widgetVar="dtOrders" var="order" value="#{OrdersController.getList()}" reflow="true"
+            styleClass="posts-table" selection="#{OrdersController.selectedOrder}" rowKey="#{order.orderId}"
+            paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+            
+            
+            <p:column headerText="Order ID:" sortBy="#{order.orderId}" filterBy="#{order.orderId}">
+                <h:outputText value="#{order.orderId}" />
+            </p:column>
+            <p:column headerText="Order by User:" sortBy="#{order.user.username}" filterBy="#{order.user.username}">
+                <h:outputText value="#{order.user.username}" />
+            </p:column>
+            <p:column headerText="Products" sortBy="#{order.products.toString()}" filterBy="#{order.products}">
+                <h:outputText value="#{order.products.toString()}" />
+            </p:column>
+            <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{post.user.username}">
+                <h:outputText value="#{post.user.username}" />
+            </p:column>
+            
+            
+            <p:column>
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-order-content"
+                    oncomplete="PF('manageOrdersDialog').show()"
+                    styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{order}" target="#{OrdersController.selectedOrder}" />
+                    <p:resetInput target=":dialogs:manage-order-content" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this"
+                                 oncomplete="PF('deleteOrderDialog').show()">
+                    <f:setPropertyActionListener value="#{order}" target="#{OrdersController.selectedOrder}" />
+                </p:commandButton>
+            </p:column>
+            
+        </p:dataTable>
+    </p:dialog>
+            
+    </h:form>
+    
+</ui:composition>

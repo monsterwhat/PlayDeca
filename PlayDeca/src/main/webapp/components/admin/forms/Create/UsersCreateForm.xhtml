@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        <!--User Creation Dialog-->
+            <p:outputPanel id="createUserPanel" rendered="#{not empty UserController.newUser}">
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box center">
+                            <h1 class="title">
+                                Create a User Panel
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="Username">Username</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="Username" value="#{UserController.newUser.username}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="Password">Password</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="Password" type="password" value="#{UserController.newUser.password}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="Email">Email</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="Email" value="#{UserController.newUser.email}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="Role">Role</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="Role" value="#{UserController.newUser.userGroup}" required="true" />
+                                </div>
+                            </div>
+
+                            <br/>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:commandButton value="Create" icon="pi pi-check" update="AdminMain" 
+                                                     process="@this createUserPanel" class="button is-success is-rounded is-fullwidth">
+                                                    <f:actionListener binding="#{UserController.createUser()}" />
+                                                    <f:actionListener binding="#{DashboardController.switchViewToForm('UsersTable')}" />
+                                    </p:commandButton>
+                                        <br/>
+                                    <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('UsersTable')}"
+                                                     class="button is-dark is-rounded is-fullwidth" update="AdminMain" immediate="true"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </p:outputPanel>
+        
+    </h:form>
+    
+</ui:composition>

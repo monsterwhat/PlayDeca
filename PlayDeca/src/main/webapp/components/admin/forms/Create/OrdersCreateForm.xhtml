@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        
+        <!--Order Creation Dialog-->
+            <p:outputPanel id="createOrderPanel" rendered="#{not empty OrdersController.newOrder}">
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box center">
+                            <h1 class="title">
+                                Create a Order Panel
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box">
+                            <div class="columns is-multiline is-centered">
+
+                                <div class="column">
+                                    <div class="field">
+                                        <p:outputLabel for="newOrderUser">User </p:outputLabel>                                
+                                        <p:selectOneMenu id="newOrderUser" var="user" value="#{OrdersController.newOrder.user}" style="width:150px">
+                                        <f:selectItem itemLabel="Select User" itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{UserController.users}" itemLabel="#{user.username}" itemValue="#{user}"  />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field">
+                                        <p:outputLabel for="newOrderProducts">Product List </p:outputLabel>
+                                        <p:inputTextarea id="newOrderProducts" value="#{OrdersController.selectedOrder.products.toString()}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    <div class="columns">
+                        <div class="column">
+                            <p:commandButton value="Create" icon="pi pi-check"
+                            update="AdminMain" process="@this createOrderPanel" class="button is-success is-rounded is-fullwidth">
+                                <f:actionListener binding="#{OrdersController.createOrder()}"/>
+                                <f:actionListener binding="#{DashboardController.switchViewToForm('OrdersTable')}" />
+                            </p:commandButton>
+                                <br/>
+                            <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('OrdersTable')}"
+                                class="button is-dark is-rounded is-fullwidth" update="AdminMain" immediate="true"/>
+                            </div>
+                        </div>
+                            
+                    </div>
+                </div>
+                
+            </p:outputPanel>
+            
+    </h:form>
+    
+</ui:composition>

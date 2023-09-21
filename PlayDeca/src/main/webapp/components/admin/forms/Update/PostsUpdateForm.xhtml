@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        <!--Posts Details-->
+            <p:outputPanel id="manage-post-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty PostController.selectedPost}">
+                    
+                <div class="box center">
+                    <h1 class="title">
+                        Update a Post Panel
+                    </h1>
+                </div>
+                    
+                    <div class="box">
+                        
+                    <div class="field">
+                        <p:outputLabel for="Date">Date</p:outputLabel>
+                        <p:calendar id="Date" value="#{PostController.selectedPost.date}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="Title">Title</p:outputLabel>
+                        <p:inputText id="Title" value="#{PostController.selectedPost.title}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="Body">Body</p:outputLabel>
+                        <p:inputTextarea id="Body" value="#{PostController.selectedPost.body}" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="Upvotes">Upvotes</p:outputLabel>
+                        <p:inputText id="Upvotes" value="#{PostController.selectedPost.upvotes}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="Downvotes">Downvotes</p:outputLabel>
+                        <p:inputText id="Downvotes" value="#{PostController.selectedPost.downvotes}" required="true" />
+                    </div>
+                        
+                    </div>
+                        
+                    <div class="box">
+                        <div class="columns">
+                            <div class="column">
+                                <p:commandButton value="Save" icon="pi pi-check"
+                                update="manage-post-content dt-posts" process="manage-post-content @this" 
+                                styleClass="button is-rounded">
+                                <f:actionListener binding="#{PostController.savePost()}" />
+                                <f:actionListener binding="#{DashboardController.switchViewToForm('PostsTable')}" />
+                                </p:commandButton>
+                                <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('PostsTable')}"
+                                    styleClass="ui-button-secondary button is-rounded"/>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </p:outputPanel>
+            </p:outputPanel>
+    </h:form>
+    
+</ui:composition>

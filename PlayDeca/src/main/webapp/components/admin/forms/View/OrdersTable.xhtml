@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+        <h:form>
+        
+        <div class="columns">
+            <div class="column">
+                <p:commandButton value="Return to Main Menu" icon="pi pi-back" actionListener="#{DashboardController.switchViewToForm('Home')}"
+                    class="button is-dark is-outlined is-fullwidth" update="AdminMain">
+                </p:commandButton>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <!-- Orders Table-->
+                    <p:dataTable id="dt-orders" widgetVar="dtOrders" var="order" value="#{OrdersController.getList()}" reflow="true"
+                        styleClass="posts-table" selection="#{OrdersController.selectedOrder}" rowKey="#{order.orderId}"
+                        paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+
+                        <p:column headerText="Order ID:" sortBy="#{order.orderId}" filterBy="#{order.orderId}">
+                            <h:outputText value="#{order.orderId}" />
+                        </p:column>
+                        <p:column headerText="Order by User:" sortBy="#{order.user.username}" filterBy="#{order.user.username}">
+                            <h:outputText value="#{order.user.username}" />
+                        </p:column>
+                        <p:column headerText="Products" sortBy="#{order.products.toString()}" filterBy="#{order.products}">
+                            <h:outputText value="#{order.products.toString()}" />
+                        </p:column>
+                        <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{post.user.username}">
+                            <h:outputText value="#{post.user.username}" />
+                        </p:column>
+
+
+                        <p:column>
+                            <p:commandButton icon="pi pi-pencil" update=""
+                                oncomplete=""
+                                styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                <f:setPropertyActionListener value="#{order}" target="#{OrdersController.selectedOrder}" />
+                            </p:commandButton>
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                             process="@this"
+                                             oncomplete="PF('deleteOrderDialog').show()">
+                                <f:setPropertyActionListener value="#{order}" target="#{OrdersController.selectedOrder}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+                
+            <div class="columns">
+                <div class="column">
+                    <p:commandButton value="New Order" icon="pi pi-plus" update="dt-orders AdminMain"
+                                     styleClass="button is-success is-rounded is-fullwidth">
+                            <f:actionListener binding="#{OrdersController.openNewOrder()}" />
+                            <f:actionListener binding="#{DashboardController.switchViewToForm('OrdersCreateForm')}" />
+                    </p:commandButton>
+                </div>
+            </div>
+            
+            <!--Delete Confirmation for Order-->
+        <p:confirmDialog widgetVar="deleteOrderDialog" showEffect="fade" width="300"
+            message="Delete the Order?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{OrdersController.deleteOrder}"
+                process="@this" update="dt-orders" oncomplete="" 
+                styleClass="button is-rounded"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
+                onclick="PF('deleteOrderDialog').hide()" />
+        </p:confirmDialog>
+            
+        </h:form>
+    
+</ui:composition>

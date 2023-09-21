@@ -52,6 +52,7 @@ public class UserController implements Serializable{
     
     public void openNewUser() {
         newUser = new Users();
+        System.out.println("New User!");
     }
     
     public void saveUser() {

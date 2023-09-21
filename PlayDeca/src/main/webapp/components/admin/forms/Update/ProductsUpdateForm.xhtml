@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        <!-- Product Details Dialog -->
+            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty ProductsController.selectedProduct}">
+                    
+                    <div class="box center">
+                    <h1 class="title">
+                        Update a Product Panel
+                    </h1>
+                </div>
+                    
+                    <div class="box">
+                    <div class="field">
+                        <p:outputLabel for="productName">Product Name</p:outputLabel>
+                        <p:inputText id="productName" value="#{ProductsController.selectedProduct.name}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productDescription">Product Description</p:outputLabel>
+                        <p:inputText id="productDescription" value="#{ProductsController.selectedProduct.description}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productCategory">Category</p:outputLabel>
+                        <p:inputText id="productCategory" value="#{ProductsController.selectedProduct.category}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productImage">Image Url</p:outputLabel>
+                        <p:inputText id="productImage" value="#{ProductsController.selectedProduct.imageUrl}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productPrice">Price</p:outputLabel>
+                        <p:inputText id="productPrice" value="#{ProductsController.selectedProduct.price}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="productDiscountPercentage">Discount Percentage</p:outputLabel>
+                        <p:inputText id="productDiscountPercentage" value="#{ProductsController.selectedProduct.discountPercentage}" required="true" />
+                    </div>
+                        </div>
+                    
+                    <div class="box">
+                        <div class="columns">
+                            <div class="column">
+                                <p:commandButton value="Save" icon="pi pi-check"
+                                update="manage-product-content dt-products" process="manage-product-content @this" 
+                                styleClass="button is-rounded">
+                                <f:actionListener binding="#{ProductsController.saveProduct()}" />
+                                <f:actionListener binding="#{DashboardController.switchViewToForm('ProductsTable')}" />
+                                </p:commandButton>
+                                <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('ProductsTable')}"
+                                    class="ui-button-secondary button is-rounded"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </p:outputPanel>
+            </p:outputPanel>
+    </h:form>
+    
+</ui:composition>

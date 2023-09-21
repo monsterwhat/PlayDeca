@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        
+        <!--Post Creation Dialog-->
+            <p:outputPanel id="createPostPanel" rendered="#{not empty PostController.newPost}">
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box center">
+                            <h1 class="title">
+                        Create a Post Panel
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="ThreadSelection">Thread</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:selectOneMenu id="ThreadSelection" value="#{PostController.postThreadId}" required="true">
+                                        <f:selectItems value="#{ThreadsController.list}" itemValue="#{thread.threadId}" var="thread" itemLabel="#{thread.title}"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="Title">Title</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="Title" value="#{PostController.newPost.title}" required="true" />
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="Body">Body</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputTextarea id="Body" value="#{PostController.newPost.body}" required="true" />
+                                </div>
+                            </div>
+                        
+                            <div class="columns">
+                                <div class="column">
+                                    <p:commandButton value="Create" icon="pi pi-check" update="AdminMain" 
+                                                     process="@this createPostPanel" class="button is-success is-rounded is-fullwidth">
+                                        <f:actionListener binding="#{PostController.createPost()}"/>
+                                        <f:actionListener binding="#{DashboardController.switchViewToForm('PostsTable')}" />
+                                    </p:commandButton>
+                                                <br/>
+                                    <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('PostsTable')}"
+                                             class="button is-dark is-rounded is-fullwidth" update="AdminMain" immediate="true"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                
+               
+            </p:outputPanel>
+
+        
+    </h:form>
+    
+</ui:composition>

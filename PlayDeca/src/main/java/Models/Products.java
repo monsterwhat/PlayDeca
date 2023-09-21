@@ -28,7 +28,6 @@ public class Products implements Serializable {
     private double price;
     private String category;
     private String imageUrl;
-    private double salePrice;
     private int discountPercentage;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -91,14 +90,6 @@ public class Products implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
-    }
-
     public int getDiscountPercentage() {
         return discountPercentage;
     }
@@ -125,8 +116,21 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "Products{" + "productId=" + productId + ", name=" + name + ", description=" + description + ", price=" + price + ", category=" + category + ", imageUrl=" + imageUrl + ", salePrice=" + salePrice + ", discountPercentage=" + discountPercentage + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Products{");
+        sb.append("productId=").append(productId);
+        sb.append(", name=").append(name);
+        sb.append(", description=").append(description);
+        sb.append(", price=").append(price);
+        sb.append(", category=").append(category);
+        sb.append(", imageUrl=").append(imageUrl);
+        sb.append(", discountPercentage=").append(discountPercentage);
+        sb.append(", createdDate=").append(createdDate);
+        sb.append(", modifiedDate=").append(modifiedDate);
+        sb.append('}');
+        return sb.toString();
     }
 
+    
     
 }

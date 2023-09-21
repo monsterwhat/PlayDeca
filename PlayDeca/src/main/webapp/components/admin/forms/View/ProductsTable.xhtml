@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+         
+    
+        
+    <h:form>
+        
+            <div class="columns">
+                <div class="column">
+                    <p:commandButton value="Return to Main Menu" icon="pi pi-back" actionListener="#{DashboardController.switchViewToForm('Home')}"
+                        class="button is-dark is-outlined is-fullwidth" update="AdminMain">
+                    </p:commandButton>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column">
+        <!--Products Table-->
+            <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{ProductsController.getList()}" reflow="true"
+                styleClass="posts-table" selection="#{ProductsController.selectedProduct}" rowKey="#{product.productId}"
+                paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                <p:column headerText="Product Name" sortBy="#{product.name}" filterBy="#{product.name}">
+                    <h:outputText value="#{product.name}" />
+                </p:column>
+                <p:column headerText="Category" sortBy="#{product.category}" filterBy="#{product.category}">
+                    <h:outputText value="#{product.category}" />
+                </p:column>
+                <p:column headerText="Img" sortBy="#{product.imageUrl}" filterBy="#{product.imageUrl}">
+                    <h:outputText value="#{product.imageUrl}" />
+                </p:column>
+                <p:column headerText="Price" sortBy="#{product.price}" filterBy="#{product.price}">
+                    <h:outputText value="#{product.price}" />
+                </p:column>
+                <p:column headerText="Discount %" sortBy="#{product.discountPercentage}" filterBy="#{product.discountPercentage}">
+                    <h:outputText value="#{product.discountPercentage}" />
+                </p:column>
+                
+                <p:column>
+                    <p:commandButton icon="pi pi-pencil" update="" oncomplete=""
+                        styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                    </p:commandButton>
+                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                     process="@this"
+                                     oncomplete="PF('deleteProductDialog').show()">
+                        <f:setPropertyActionListener value="#{product}" target="#{ProductsController.selectedProduct}" />
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+        </div>
+    </div>
+                
+    <div class="columns">
+        <div class="column">
+            <p:commandButton value="New Product" icon="pi pi-plus" update="AdminMain dt-products" 
+            styleClass="button is-success is-rounded is-fullwidth">
+                <f:actionListener binding="#{ProductsController.openNewProduct()}" />
+                <f:actionListener binding="#{DashboardController.switchViewToForm('ProductsCreateForm')}" />
+            </p:commandButton>
+        </div>
+    </div>
+        
+        <!--Delete Confirmation for Product-->
+        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+            message="Delete the product?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{ProductsController.deleteProduct}"
+                process="@this" update="dt-products" styleClass="button is-rounded"
+                oncomplete="PF('deleteProductDialog').hide()" />
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
+                onclick="PF('deleteProductDialog').hide()" />
+        </p:confirmDialog>
+        
+    </h:form>
+    
+</ui:composition>

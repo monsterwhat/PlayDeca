@@ -29,6 +29,8 @@ public class ProductsService extends GService<Products>{
 
             if (product != null) {
                 em.remove(product);
+                em.flush();
+
             } else {
                 System.out.println("Entity not found");
             }

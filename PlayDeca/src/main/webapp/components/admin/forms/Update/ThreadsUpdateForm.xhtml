@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        <!--Thread Details-->
+        <p:outputPanel id="manage-thread-content" rendered="#{not empty ThreadsController.selectedThread}">
+                    
+        <div class="columns center">
+            <div class="column is-4">
+                <div class="box center">
+                    <h1 class="title">
+                        Update a Thread Panel
+                    </h1>
+                </div>
+            </div>
+        </div>
+                    
+        <div class="columns center">
+            <div class="column is-4">
+                <div class="box">
+                    <div class="field">
+                        <p:outputLabel for="@next">User</p:outputLabel>
+                    
+                        <p:selectOneMenu id="user" value="#{ThreadsController.selectedUserId}" required="true">
+                            <f:selectItems value="#{UserController.users}" itemValue="#{user.userID}" var="user" itemLabel="#{user.username}"/>
+                        </p:selectOneMenu>
+                        
+                    </div>
+                        
+                    <div class="field">
+                        <p:outputLabel for="Title">Thread Title</p:outputLabel>
+                        <p:inputText id="Title" value="#{ThreadsController.selectedThread.title}" required="true" />
+                    </div>
+
+                    <div class="columns">
+                        <div class="column">
+                            <p:commandButton value="Save" icon="pi pi-check" update="AdminMain"
+                                             process="manage-thread-content @this" class="button is-success is-rounded is-fullwidth">
+                                <f:actionListener binding="#{ThreadsController.saveThread()}" />
+                                <f:actionListener binding="#{DashboardController.switchViewToForm('ThreadsTable')}" />
+                            </p:commandButton>
+                                <br/>
+                            <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('ThreadsTable')}"
+                                class="button is-dark is-rounded is-fullwidth" update="AdminMain" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </p:outputPanel>
+        
+    </h:form>
+    
+</ui:composition>

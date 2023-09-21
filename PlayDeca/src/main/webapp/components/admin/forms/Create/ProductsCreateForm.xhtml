@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    <h:form>
+        
+        <!-- Product Creation Dialog -->
+            <p:outputPanel id="createProductPanel" rendered="#{not empty ProductsController.newProduct}">
+
+                <div class="columns center">
+                    <div class="column is-4">
+                        <div class="box center">
+                            <h1 class="title">
+                                Create a Product Panel
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="columns center">
+                    <div class="column is-4">
+                
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="newProductName">Product Name</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="newProductName" value="#{ProductsController.newProduct.name}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="newDescription">Product Description</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="newDescription" value="#{ProductsController.newProduct.description}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="newPrice">Price</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputNumber id="newPrice" value="#{ProductsController.newProduct.price}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="newCategory">Category</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="newCategory" value="#{ProductsController.newProduct.category}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="newImg">Img Url</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputText id="newImg" value="#{ProductsController.newProduct.imageUrl}" required="true" />
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column">
+                                    <p:outputLabel for="newDiscountPercentage">Discount Percentage</p:outputLabel>
+                                </div>
+                                <div class="column">
+                                    <p:inputNumber id="newDiscountPercentage" value="#{ProductsController.newProduct.discountPercentage}" required="true" />
+                                </div>
+                            </div>
+                                
+                            <div class="columns">
+                                <div class="column">
+                                    <p:commandButton value="Create" icon="pi pi-check"
+                                                    update="AdminMain" process="@this createProductPanel" class="button is-success is-rounded is-fullwidth">
+                                        <f:actionListener binding="#{ProductsController.createProduct()}"/>
+                                        <f:actionListener binding="#{DashboardController.switchViewToForm('ProductsTable')}" />
+                                    </p:commandButton>
+                                        <br/>
+                                    <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('ProductsTable')}"
+                                                     class="button is-dark is-rounded is-fullwidth" update="AdminMain" immediate="true"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </p:outputPanel>
+        
+    </h:form>
+    
+</ui:composition>

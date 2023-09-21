@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+          
+    
+        
+    <h:form>
+        
+        <div class="columns">
+            <div class="column">
+                <p:commandButton value="Return to Main Menu" icon="pi pi-back" actionListener="#{DashboardController.switchViewToForm('Home')}"
+                    class="button is-dark is-outlined is-fullwidth" update="AdminMain">
+                </p:commandButton>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column">
+                <!--Posts Table-->
+                    <p:dataTable id="dt-posts" widgetVar="dtPosts" var="post" value="#{PostController.getList()}" reflow="true"
+                        styleClass="posts-table" selection="#{PostController.selectedPost}" rowKey="#{post.postId}"
+                        paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+
+                        <p:column headerText="User Name" sortBy="#{post.user.username}" filterBy="#{post.user.username}">
+                            <h:outputText value="#{post.user.username}" />
+                        </p:column>
+                        <p:column headerText="Thread Name" sortBy="#{post.thread.title}" filterBy="#{post.thread.title}">
+                            <h:outputText value="#{post.thread.title}" />
+                        </p:column>
+                        <p:column headerText="Post Date" sortBy="#{post.date}" filterBy="#{post.date}">
+                            <h:outputText value="#{post.date}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Title" sortBy="#{post.title}" filterBy="#{post.title}">
+                            <h:outputText value="#{post.title}" />
+                        </p:column>
+                        <p:column headerText="Body" sortBy="#{post.body}" filterBy="#{post.body}">
+                            <h:outputText value="#{post.body}" />
+                        </p:column>
+                        <p:column headerText="Upvotes" sortBy="#{post.upvotes}" filterBy="#{post.upvotes}">
+                            <h:outputText value="#{post.upvotes}" />
+                        </p:column>
+                        <p:column headerText="Downvotes" sortBy="#{post.downvotes}" filterBy="#{post.downvotes}">
+                            <h:outputText value="#{post.downvotes}" />
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="pi pi-pencil" update="" oncomplete="" 
+                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                <f:setPropertyActionListener value="#{post}" target="#{PostController.selectedPost}" />
+                            </p:commandButton>
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                             process="@this"
+                                             oncomplete="PF('deletePostDialog').show()">
+                                <f:setPropertyActionListener value="#{post}" target="#{PostController.selectedPost}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+                
+            <div class="columns">
+                <div class="column">
+                    <p:commandButton value="New Post" icon="pi pi-plus" update="AdminMain dt-posts" 
+                                     styleClass="button is-success is-rounded is-fullwidth">
+                            <f:actionListener binding="#{PostController.openNewPost()}" />
+                            <f:actionListener binding="#{DashboardController.switchViewToForm('PostsCreateForm')}" />
+                    </p:commandButton>
+                </div>
+            </div>
+        
+        <!--Delete Confirmation for Posts-->
+        <p:confirmDialog widgetVar="deletePostDialog" showEffect="fade" width="300"
+            message="Delete the post?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{PostController.deletePost}"
+                process="@this" update="dt-posts" oncomplete="PF('deletePostDialog').hide()" 
+                styleClass="button is-rounded"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary button is-rounded" icon="pi pi-times"
+                onclick="PF('deletePostDialog').hide()" />
+        </p:confirmDialog>
+        
+    </h:form>
+    
+</ui:composition>

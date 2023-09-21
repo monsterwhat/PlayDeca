@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Posts;
 import Services.PostService;
+import Services.ThreadService;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -23,9 +24,12 @@ public class PostController implements Serializable{
     private Posts selectedPost;
     private Posts newPost = new Posts();
     private List<Posts> filteredList;
-    
+    private Long postThreadId;
+
     @Inject PostService PostService;
+    @Inject ThreadService ThreadService;
     @Inject SessionController SessionController;
+    @Inject ThreadsController threadController;
     
     public long getPostsCount(){
         return PostService.count();
@@ -39,6 +43,7 @@ public class PostController implements Serializable{
     public List<Posts> getList() {
         if(!isCacheValid){
             cachedPosts = PostService.listAll();
+            //ListAllofThread()
             isCacheValid=true;
         }
         return cachedPosts;
@@ -57,9 +62,12 @@ public class PostController implements Serializable{
     }
     
     public void createPost(){
-        PostService.create(newPost);
-        SessionController.getLogger().createLog("Created Post", "Successfully created Post: "+ newPost.getPostId() +"", SessionController.getCurrentUser());
-        invalidateCache();
+        if(postThreadId != null || postThreadId != 0){
+            newPost.setThread(ThreadService.getThreadByID(postThreadId));
+            PostService.create(newPost);
+            SessionController.getLogger().createLog("Created Post", "Successfully created Post: "+ newPost.getPostId() +"", SessionController.getCurrentUser());
+            invalidateCache();
+        }
     }
     
     public void savePost(){
@@ -119,5 +127,15 @@ public class PostController implements Serializable{
     public void setNewPost(Posts newPost) {
         this.newPost = newPost;
     }
+
+    public Long getPostThreadId() {
+        return postThreadId;
+    }
+
+    public void setPostThreadId(Long postThreadId) {
+        this.postThreadId = postThreadId;
+    }
+    
+    
     
 }

@@ -18,7 +18,7 @@ public class Threads implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int threadId;
+    private Long threadId;
 
     @ManyToOne
     @JoinColumn(name = "userID")
@@ -32,21 +32,22 @@ public class Threads implements Serializable {
     public Threads() {
     }
 
-    public Threads(int threadId, Users user, String title, Date date) {
+    public Threads(Long threadId, Users user, String title, Date date) {
         this.threadId = threadId;
         this.user = user;
         this.title = title;
         this.date = date;
     }
 
-    public int getThreadId() {
+    public Long getThreadId() {
         return threadId;
     }
 
-    public void setThreadId(int threadId) {
+    public void setThreadId(Long threadId) {
         this.threadId = threadId;
     }
 
+    
     public Users getUser() {
         return user;
     }
@@ -71,5 +72,18 @@ public class Threads implements Serializable {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Threads{");
+        sb.append("threadId=").append(threadId);
+        sb.append(", user=").append(user);
+        sb.append(", title=").append(title);
+        sb.append(", date=").append(date);
+        sb.append('}');
+        return sb.toString();
+    }
+    
+    
     
 }

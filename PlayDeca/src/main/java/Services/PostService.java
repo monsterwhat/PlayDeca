@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -32,7 +33,13 @@ public class PostService extends GService<Posts>{
     }
     
     public void getThread(){
-       thread = ThreadService.getThreadByID(1);
+       thread = ThreadService.getThreadByID(1L);
+    }
+    
+    public List<Posts> listAllofThread(Threads thread){
+        
+        return null;
+        
     }
     
     @Override
@@ -44,6 +51,8 @@ public class PostService extends GService<Posts>{
             post.setDownvotes(0);
             post.setThread(thread);
             em.persist(post);
+            em.flush();
+
             System.out.println("Post added successfully!");
         } catch (IllegalStateException | SecurityException e) {
             System.out.println("Error adding post: " + e.toString());
@@ -59,6 +68,8 @@ public class PostService extends GService<Posts>{
 
             if (post != null) {
                 em.remove(post);
+                em.flush();
+
             } else {
                 System.out.println("Entity not found");
             }

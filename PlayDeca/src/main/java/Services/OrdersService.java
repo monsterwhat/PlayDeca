@@ -27,6 +27,8 @@ public class OrdersService extends GService<Orders>{
 
             if (order != null) {
                 em.remove(order);
+                em.flush();
+
             } else {
                 System.out.println("Entity not found");
             }

@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+       
+    <h:form>
+    <!--User Details-->
+    <p:outputPanel id="manage-user-content" rendered="#{not empty UserController.selectedUser}">
+
+        <div class="columns center">
+            <div class="column is-4">
+                <div class="box center">
+                    <h1 class="title">
+                        Update a User Panel
+                    </h1>
+                </div>
+            </div>
+        </div>  
+
+        <div class="columns center">
+            <div class="column is-4">
+                <div class="box">
+
+                <div class="field">
+                    <p:outputLabel for="username">Username</p:outputLabel>
+                    <p:inputText id="username" value="#{UserController.selectedUser.username}" required="true" />
+                </div>
+                <div class="field">
+                    <p:outputLabel for="email">Email</p:outputLabel>
+                    <p:inputText id="email" value="#{UserController.selectedUser.email}" required="true" />
+                </div>
+                <div class="field">
+                    <p:outputLabel for="role">Role</p:outputLabel>
+                    <p:inputText id="role" value="#{UserController.selectedUser.userGroup}" required="true" />
+                </div>
+
+                    <div class="columns">
+                        <div class="column">
+                            <p:commandButton value="Save" icon="pi pi-check" update="AdminMain" 
+                                process="manage-user-content @this" class="button is-success is-rounded is-fullwidth">
+                            <f:actionListener binding="#{UserController.saveUser()}" />
+                            <f:actionListener binding="#{DashboardController.switchViewToForm('UsersTable')}" />
+                            </p:commandButton>
+                            <br/>
+                            <p:commandButton value="Cancel" icon="pi pi-times" actionListener="#{DashboardController.switchViewToForm('UsersTable')}"
+                                class="button is-dark is-rounded is-fullwidth" update="AdminMain" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </p:outputPanel>
+
+    </h:form>
+    
+    
+</ui:composition>

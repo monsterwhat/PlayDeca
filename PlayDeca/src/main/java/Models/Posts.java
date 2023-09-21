@@ -17,7 +17,7 @@ import java.util.Date;
 public class Posts implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int postId;
+    private Long postId;
     
     @ManyToOne
     @JoinColumn(name = "threadId")
@@ -41,7 +41,7 @@ public class Posts implements Serializable{
     public Posts() {
     }
 
-    public Posts(int postId, Threads thread, Users user, Date date, String title, String body, int upvotes, int downvotes) {
+    public Posts(Long postId, Threads thread, Users user, Date date, String title, String body, int upvotes, int downvotes) {
         this.postId = postId;
         this.thread = thread;
         this.user = user;
@@ -51,12 +51,12 @@ public class Posts implements Serializable{
         this.upvotes = upvotes;
         this.downvotes = downvotes;
     }
-    
-    public int getPostId() {
+
+    public Long getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Long postId) {
         this.postId = postId;
     }
 

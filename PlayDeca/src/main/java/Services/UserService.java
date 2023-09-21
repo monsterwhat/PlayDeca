@@ -51,6 +51,23 @@ public class UserService extends GService<Users>{
         }
     }
     
+    public Users getUserById(Long userId) {
+        try {
+            // Create a TypedQuery to fetch the Users object by userID
+            TypedQuery<Users> query = em.createQuery(
+                "SELECT u FROM Users u WHERE u.userID = :userId", Users.class);
+
+            // Set the userId parameter
+            query.setParameter("userId", userId);
+
+            // Execute the query and return the result
+            return query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Error finding user by id" +e.getLocalizedMessage());
+            return null;
+        }
+    }
+    
     public void refreshIdentityStoreConfig() {
         // Recreate or reinitialize the IdentityStoreConfigProvider here
         ISCP = new IdentityStoreConfig.IdentityStoreConfigProvider();
@@ -75,6 +92,8 @@ public class UserService extends GService<Users>{
                 user.setUserGroup("admin");
 
                 em.persist(user);
+                em.flush();
+
                 this.userTransaction.commit();
                 System.out.println("Default Admin Saved!");
             } else {
@@ -138,9 +157,11 @@ public class UserService extends GService<Users>{
             var HashedPassword = passwordHasher.generate(unHashedPassword.toCharArray());
             user.setPassword(HashedPassword);
             em.persist(user);
+            em.flush();
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", session.getCurrentUser());
            
         } catch (Exception e) {
+            
         }
         refreshIdentityStoreConfig();
     }
@@ -152,6 +173,7 @@ public class UserService extends GService<Users>{
             var HashedPassword = passwordHasher.generate(unHashedPassword.toCharArray());
             user.setPassword(HashedPassword);
             em.persist(user);
+            em.flush();
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", user);
            
         } catch (Exception e) {
@@ -176,6 +198,7 @@ public class UserService extends GService<Users>{
 
             if (user != null) {
                 em.remove(user);
+                em.flush();
             } else {
                 System.out.println("Entity not found");
             }
@@ -189,6 +212,8 @@ public class UserService extends GService<Users>{
     public void update(Users user) {
         try {
             em.merge(user);
+            em.flush();
+
         } catch (Exception e) {
         }
         refreshIdentityStoreConfig();

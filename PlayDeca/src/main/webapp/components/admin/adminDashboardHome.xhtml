@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+<h:form id="AdminHome">
+
+    <div class="columns">
+
+        <div class="column is-3">
+            <aside class="menu is-hidden-mobile">
+                <p class="menu-label"> CRUD's </p>
+                    <div class="buttons is-centered">
+                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
+                                         value="Users" actionListener="#{DashboardController.switchViewToForm('UsersTable')}"/>
+                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
+                                         value="Threads" actionListener="#{DashboardController.switchViewToForm('ThreadsTable')}"/>
+                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
+                                         value="Posts" actionListener="#{DashboardController.switchViewToForm('PostsTable')}"/>
+                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
+                                         value="Products" actionListener="#{DashboardController.switchViewToForm('ProductsTable')}"/>
+                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
+                                         value="Orders" actionListener="#{DashboardController.switchViewToForm('OrdersTable')}"/>
+                    </div>
+
+                 <hr/>
+
+                 <p class="menu-label"> Server Stats </p>
+                 <button class="button is-rounded is-info is-fullwidth" disabled="true">
+                   Server Stats
+                 </button>
+
+                 <p class="menu-label"> Manage Plugins </p>
+                 <button class="button is-rounded is-info is-fullwidth" disabled="true">
+                   Manage Plugins
+                 </button>
+
+                 <p class="menu-label"> Server Console </p>
+                 <button class="button is-rounded is-info is-fullwidth" disabled="true">
+                   Server Console
+                 </button>
+
+                 <hr/>
+
+                 <p class="menu-label"> Server Logs </p>
+                 <button class="button is-rounded is-warning is-fullwidth" disabled="true">
+                   Server Logs
+                 </button>
+
+            </aside>
+        </div>
+
+        <div class="column is-9">
+            <!-- Hello Banner -->
+            <section class="is-info welcome is-small">
+                <div class="notification is-warning is-dark">
+                    <div class="container">
+                        <h1 class="title">
+                            Hello, Admin.
+                        </h1>
+                        <h2 class="subtitle">
+                            We hope you have a great day!
+                        </h2>
+                    </div>
+                </div>
+            </section>
+
+            <br/>
+
+            <!-- Stats Mobile Only -->
+            <section>
+                <div class="column">
+                    <div class="columns has-text-centered is-hidden-fullhd is-hidden-tablet">
+                        <button class="column box is-full-mobile" onclick="PF('UsersTable').show()">
+                                <p:outputLabel styleClass="title" value="#{UserController.getUsersCount()}"/>
+                                <br/>
+                                <p:outputLabel styleClass="subtitle" value=" Registered Users"/>
+                        </button>
+                        <button class="column box is-full-mobile" onclick="PF('ProductsTable').show()">
+                                <p:outputLabel class="title" value="#{ProductsController.getProductsCount()}"/>
+                                <br/>
+                                <p:outputLabel class="subtitle" value=" Products"/>
+                        </button>
+                        <button class="column box is-full-mobile">
+                                <p class="title">Online</p>
+                                <p class="subtitle">Server Status</p>
+                        </button>
+                        <button class="column box is-full-mobile" onclick="PF('PostsTable').show()">
+                                <p:outputLabel class="title" value="#{PostController.getPostsCount()}"/>
+                                <br/>
+                                <p:outputLabel class="subtitle" value=" Forum Posts"/>
+                        </button>
+                        <button class="column box is-full-mobile" onclick="PF('OrdersTable').show()">
+                                <p:outputLabel class="title" value="#{OrdersController.getOrdersCount()}"/>
+                                <br/>
+                                <p:outputLabel class="subtitle" value=" Orders"/>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <br/>
+
+            <div class="columns">
+                <!-- DashBoard -->
+                <div class="column is-6">
+                    <div class="box">
+                            <p:lineChart model="#{DashboardController.lineModel}" />
+                    </div>
+                </div>
+
+                <!--Activity-->
+                <div class="column is-6">
+                    <div class="card events-card">
+
+                        <div class="card-table">
+                            <div class="content">
+                                <p:dataTable styleClass="table is-striped"  scrollable="true" scrollHeight="220" id="logsTable" var="log" value="#{DashboardController.logsList}">
+                                    <p:column class="has-text-centered" headerText="Logs">
+                                        <div class="columns">
+                                            <h:outputText class="column" value="#{log.name}"/>
+                                            <h:outputText class="column" value="#{log.description}"/>
+                                            <h:outputText class="column" value="#{log.user.username}"/>
+                                        </div>
+
+                                    </p:column>
+                                    <p:column width="50">
+                                        <!---->
+                                        <p:commandButton update="" oncomplete=""
+                                                         icon="pi pi-search" title="View">
+                                            <f:setPropertyActionListener value="#{log}" target="#{DashboardController.selectedLog}"/>
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+</h:form>
+    
+    
+      
+</ui:composition>

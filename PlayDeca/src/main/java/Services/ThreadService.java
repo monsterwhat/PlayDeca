@@ -1,9 +1,10 @@
 package Services;
 
 import Models.Threads;
-import jakarta.annotation.PostConstruct;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
+import java.time.Instant;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +22,7 @@ public class ThreadService extends GService<Threads>{
     public ThreadService() {
     }
     
-    public Threads getThreadByID(int threadId){
+    public Threads getThreadByID(Long threadId){
         try {
             return em.find(Threads.class, threadId);
         } catch (Exception e) {
@@ -31,14 +32,31 @@ public class ThreadService extends GService<Threads>{
     }
     
     @Override
+    public void create(Threads thread) {
+        try {
+            
+            thread.setDate(Date.from(Instant.now()));
+
+            em.persist(thread);
+            em.flush();
+
+        } catch (Exception e) {
+            System.out.println("Error! " + e.getMessage());
+        }
+    }
+    
+    @Override
     public void delete(Threads thread) {
         try {
+                        
             if (!em.contains(thread)) {
                 thread = em.find(getEntityClass(), thread.getThreadId());
             }
 
             if (thread != null) {
                 em.remove(thread);
+                em.flush();
+
             } else {
                 System.out.println("Entity not found");
             }
@@ -47,4 +65,15 @@ public class ThreadService extends GService<Threads>{
         }
     }
     
+    @Override    
+    public void update(Threads thread) {
+        try {
+            em.merge(thread);
+            em.flush();
+
+        } catch (Exception e) {
+            
+        }
+    }
+
 }
