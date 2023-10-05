@@ -28,17 +28,20 @@
        <div class="column is-full-widescreen is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
         <div class="notification">
             <div class="columns">
-                <div class="column is-3">
-                    <div class="box center">
-                        <ui:include src="components/forum/listThreads.xhtml"/>
+                <p:outputPanel id="ForumMain">
+                    
+                </p:outputPanel>
+                    <div class="column is-3">
+                        <div class="box center">
+                            <ui:include src="components/forum/listThreads.xhtml"/>
+                        </div>
                     </div>
-                </div>
-                <div class="column">
-                <!-- Main Content -->
-                  <div class="content">
-                      <ui:include src="components/forum/viewPosts.xhtml"/>
-                  </div>
-                </div>
+                    <div class="column">
+                    <!-- Main Content -->
+                      <div class="content">
+                          <ui:include src="components/forum/viewPosts.xhtml"/>
+                      </div>
+                    </div>
             </div>
          </div>         
        </div>
