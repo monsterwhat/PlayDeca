@@ -3,7 +3,6 @@ package Services;
 import Controllers.SessionController;
 import Models.Posts;
 import Models.Threads;
-import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.transaction.Transactional;

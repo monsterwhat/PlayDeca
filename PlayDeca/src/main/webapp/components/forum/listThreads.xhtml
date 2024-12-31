@@ -1,21 +1,23 @@
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-              
-    <p:orderList id="threads" value="#{ThreadsController.threadList}" var="thread" 
-                 controlsLocation="none" itemLabel="#{thread.title}" itemValue="#{thread}" responsive="true">
-                
-        <p:ajax event="select" listener="#{ThreadsController.onSelect}"/>
-        
-        <f:facet name="caption">Threads</f:facet>
-        
-        <p:column>
-            <h:outputText value="#{thread.title}"/>
-        </p:column>
-        
-    </p:orderList>
+    
+    <p:dataScroller id="threadsScroller" value="#{ThreadsController.threadList}" var="thread"
+                rows="10">
+    
+    <f:facet name="header">
+        <h:outputText value="Threads" />
+    </f:facet>
+    
+    <p:column>
+        <h:outputText value="#{thread.title}" />
+    </p:column>
+            
+    </p:dataScroller>
+
     
 </ui:composition>

@@ -27,7 +27,6 @@ public class LogsService extends GService<ServerLogs>{
         log.setDate(new Date());
         em.persist(log);
         em.flush();
-
     }
     
     public void delete(ServerLogs logs) {

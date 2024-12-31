@@ -46,7 +46,8 @@ public class UserService extends GService<Users>{
     
     @PostConstruct
     void init(){
-        if(count() < 1){
+        var count = count();
+        if(count < 1 || count != null){
             InsertAdmin();
         }
     }
@@ -161,7 +162,7 @@ public class UserService extends GService<Users>{
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", session.getCurrentUser());
            
         } catch (Exception e) {
-            
+            System.out.println("Error: " + e.getLocalizedMessage());
         }
         refreshIdentityStoreConfig();
     }
@@ -177,6 +178,7 @@ public class UserService extends GService<Users>{
             session.getLogger().createLog("Created User", "Successfully created User: "+ user.getUserID() +"", user);
            
         } catch (Exception e) {
+            System.out.println("Error: "+ e.getLocalizedMessage());
         }
         refreshIdentityStoreConfig();
     }
@@ -215,6 +217,7 @@ public class UserService extends GService<Users>{
             em.flush();
 
         } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
         }
         refreshIdentityStoreConfig();
     }

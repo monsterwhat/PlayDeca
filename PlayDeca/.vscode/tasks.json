@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "payara-micro-exploded-war-start",
+			"type": "shell",
+			"command": "mvn resources:resources compiler:compile war:exploded -Dexploded=true -DdeployWar=true fish.payara.maven.plugins:payara-micro-maven-plugin:start",
+			"group": "build"
+		}
+	]
+}

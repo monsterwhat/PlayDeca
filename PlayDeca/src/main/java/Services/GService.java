@@ -11,10 +11,12 @@ import java.util.List;
  *
  * @author Al
  * @param <T>
+ * The entity that we are servicing
  */
 
 @Transactional
 public abstract class GService<T> implements Serializable{
+    
     @PersistenceContext EntityManager em;
 
     protected abstract Class<T> getEntityClass();
@@ -67,4 +69,6 @@ public abstract class GService<T> implements Serializable{
             return null;
         }
     }
+    
+    
 }
