@@ -1,21 +1,13 @@
 package Services;
 
 import Controllers.SessionController;
-import Models.Users;
-import Utils.IdentityStoreConfig;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
+import Models.Users; 
+import jakarta.annotation.PostConstruct; 
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.TypedQuery;
-import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
-import jakarta.transaction.HeuristicMixedException;
-import jakarta.transaction.HeuristicRollbackException;
-import jakarta.transaction.NotSupportedException;
-import jakarta.transaction.RollbackException;
-import jakarta.transaction.SystemException;
-import jakarta.transaction.Transactional;
-import jakarta.transaction.UserTransaction;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash; 
 import java.util.Date;
 import java.util.List;
 
@@ -25,32 +17,27 @@ import java.util.List;
  */
 
 @Named
-@Transactional
+@Stateless
 public class UserService extends GService<Users>{
     
     @Override
     protected Class<Users> getEntityClass(){
         return Users.class;
-    }
-    
-    @Resource UserTransaction userTransaction;
+    } 
     
     @Inject SessionController session;
     
     @Inject Pbkdf2PasswordHash passwordHasher;
     
-    @Inject private IdentityStoreConfig.IdentityStoreConfigProvider ISCP;
-    
-    public UserService() {
-    }
-    
     @PostConstruct
-    void init(){
-        var count = count();
-        if(count < 1 || count != null){
+    public void init() {
+        if (count() == 0) {
             InsertAdmin();
         }
     }
+    
+    public UserService() {
+    } 
     
     public Users getUserById(Long userId) {
         try {
@@ -68,15 +55,9 @@ public class UserService extends GService<Users>{
             return null;
         }
     }
-    
-    public void refreshIdentityStoreConfig() {
-        // Recreate or reinitialize the IdentityStoreConfigProvider here
-        ISCP = new IdentityStoreConfig.IdentityStoreConfigProvider();
-    }
-    
+       
     public void InsertAdmin(){  
-        try {
-            this.userTransaction.begin();
+        try { 
             String username = "Admin";
             
             TypedQuery<Users> query = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class);
@@ -94,14 +75,12 @@ public class UserService extends GService<Users>{
 
                 em.persist(user);
                 em.flush();
-
-                this.userTransaction.commit();
+ 
                 System.out.println("Default Admin Saved!");
             } else {
-                System.out.println("User already exists");
-                this.userTransaction.rollback();
+                System.out.println("User already exists"); 
             }
-        } catch (HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException | IllegalStateException | SecurityException e) {
+        } catch (IllegalStateException | SecurityException e) {
             System.out.println("Error in InsertAdmin! Error: " + e.toString());
         }
     }
@@ -163,8 +142,7 @@ public class UserService extends GService<Users>{
            
         } catch (Exception e) {
             System.out.println("Error: " + e.getLocalizedMessage());
-        }
-        refreshIdentityStoreConfig();
+        } 
     }
     
     public void register(Users user){
@@ -179,8 +157,7 @@ public class UserService extends GService<Users>{
            
         } catch (Exception e) {
             System.out.println("Error: "+ e.getLocalizedMessage());
-        }
-        refreshIdentityStoreConfig();
+        } 
     }
     
     @Override
@@ -206,8 +183,7 @@ public class UserService extends GService<Users>{
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.toString());
-        }
-        refreshIdentityStoreConfig();
+        } 
     }
     
     @Override    
@@ -218,8 +194,7 @@ public class UserService extends GService<Users>{
 
         } catch (Exception e) {
             System.out.println("Error: " + e.toString());
-        }
-        refreshIdentityStoreConfig();
+        } 
     }
     
     public boolean verifyPassword(char[] password, String hashedPassword){

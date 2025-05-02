@@ -1,5 +1,6 @@
 package Utils;
 
+import jakarta.ejb.Stateless;
 import jakarta.inject.Named;
 import java.net.*;
 import java.util.*;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Stateless
 @Named
 public class MinecraftQueryUtils implements Serializable{
     

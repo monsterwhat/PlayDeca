@@ -9,6 +9,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Named(value = "PostController")
 @ViewScoped
+@Data
 public class PostController implements Serializable{
     
     private List<Posts> cachedPosts;
@@ -87,55 +89,5 @@ public class PostController implements Serializable{
     private void invalidateCache() {
         isCacheValid = false;
     }
-
-    public Posts getSelectedPost() {
-        return selectedPost;
-    }
-
-    public void setSelectedPost(Posts selectedPost) {
-        this.selectedPost = selectedPost;
-    }
-
-    public PostService getPostService() {
-        return PostService;
-    }
-
-    public void setPostService(PostService PostService) {
-        this.PostService = PostService;
-    }
-
-    public String getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(String UserID) {
-        this.UserID = UserID;
-    }
-
-    public List<Posts> getFilteredList() {
-        return filteredList;
-    }
-
-    public void setFilteredList(List<Posts> filteredList) {
-        this.filteredList = filteredList;
-    }
-
-    public Posts getNewPost() {
-        return newPost;
-    }
-
-    public void setNewPost(Posts newPost) {
-        this.newPost = newPost;
-    }
-
-    public Long getPostThreadId() {
-        return postThreadId;
-    }
-
-    public void setPostThreadId(Long postThreadId) {
-        this.postThreadId = postThreadId;
-    }
-    
-    
-    
+  
 }

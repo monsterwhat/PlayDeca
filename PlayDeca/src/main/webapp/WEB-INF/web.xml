@@ -21,44 +21,18 @@
         <param-value>true</param-value>
     </context-param>
     
-    <security-constraint>
-        <display-name>Admin Role</display-name>
-        <web-resource-collection>
-            <web-resource-name>Admin Dashboard</web-resource-name>
-            <url-pattern>/admin-dashboard</url-pattern>
-            <url-pattern>/admin-dashboard.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
-        <display-name>User Role</display-name>
-        <web-resource-collection>
-            <web-resource-name>Profile Page</web-resource-name>
-            <url-pattern>/user-profile</url-pattern>
-            <url-pattern>/user-profile.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-            <role-name>user</role-name>
-        </auth-constraint>
-    </security-constraint>
-
-    <security-role>
-    <role-name>admin</role-name>
-    </security-role>
-    <security-role>
-    <role-name>user</role-name>
-    </security-role>
-    
+    <context-param>
+        <param-name>primefaces.COOKIES_SAME_SITE</param-name>
+        <param-value>Strict</param-value>
+    </context-param> 
+     
     <error-page>
-    <error-code>403</error-code>
-    <location>/403.xhtml</location>
+        <error-code>403</error-code>
+        <location>/403.xhtml</location>
     </error-page>
 
     <session-config>
-    <session-timeout>60</session-timeout> <!-- Timeout in minutes -->
+        <session-timeout>60</session-timeout> <!-- Timeout in minutes -->
     </session-config>
 
 

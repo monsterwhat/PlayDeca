@@ -8,6 +8,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Named(value="OrdersController")
 @ViewScoped
+@Data
 public class OrdersController implements Serializable {
     
     @Inject private OrdersService ordersService;
@@ -68,45 +70,5 @@ public class OrdersController implements Serializable {
     public boolean hasSelectedOrder() {
         return selectedOrder != null;
     }
-
-    public OrdersService getOrdersService() {
-        return ordersService;
-    }
-
-    public void setOrdersService(OrdersService ordersService) {
-        this.ordersService = ordersService;
-    }
-
-    public List<Orders> getCachedOrders() {
-        return cachedOrders;
-    }
-
-    public void setCachedOrders(List<Orders> cachedOrders) {
-        this.cachedOrders = cachedOrders;
-    }
-
-    public Orders getSelectedOrder() {
-        return selectedOrder;
-    }
-
-    public void setSelectedOrder(Orders selectedOrder) {
-        this.selectedOrder = selectedOrder;
-    }
-
-    public Orders getNewOrder() {
-        return newOrder;
-    }
-
-    public void setNewOrder(Orders newOrder) {
-        this.newOrder = newOrder;
-    }
-
-    public boolean isIsCacheValid() {
-        return isCacheValid;
-    }
-
-    public void setIsCacheValid(boolean isCacheValid) {
-        this.isCacheValid = isCacheValid;
-    }
-
+  
 }

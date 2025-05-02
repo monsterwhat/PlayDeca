@@ -50,8 +50,8 @@ Follow the steps below to install and set up the required components:
 
    ```sql
    CREATE DATABASE jakarta;
-   CREATE USER 'jakarta'@'localhost' IDENTIFIED BY 'Jakarta@1!';
-   GRANT ALL PRIVILEGES ON jakarta.* TO 'jakarta'@'localhost';
+   CREATE USER 'jakarta'@'127.0.0.1' IDENTIFIED BY 'Jakarta@1!';
+   GRANT ALL PRIVILEGES ON jakarta.* TO 'jakarta'@'127.0.0.1';
    FLUSH PRIVILEGES;
    ```
 

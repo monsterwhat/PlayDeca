@@ -1,15 +1,15 @@
 package Services;
 
 import Models.Products;
-import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Named; 
 
 /**
  *
  * @author Al
  */
 @Named
-@Transactional
+@Stateless
 public class ProductsService extends GService<Products>{
     
     @Override

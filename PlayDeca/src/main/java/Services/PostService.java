@@ -3,9 +3,9 @@ package Services;
 import Controllers.SessionController;
 import Models.Posts;
 import Models.Threads;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
+import jakarta.inject.Named; 
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @author Al
  */
 @Named
-@Transactional
+@Stateless
 public class PostService extends GService<Posts>{
     
     @Override

@@ -1,14 +1,14 @@
 package Services;
 
 import jakarta.annotation.Resource;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Named;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.transaction.Transactional;
+import jakarta.mail.internet.MimeMessage; 
 import java.io.Serializable;
 
 /**
@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 
 @Named
-@Transactional
+@Stateless
 public class MailerService implements Serializable {
     
     @Resource(name = "mail/Playdeca") private Session mailSession;

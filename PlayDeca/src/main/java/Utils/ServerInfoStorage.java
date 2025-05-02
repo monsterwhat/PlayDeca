@@ -1,6 +1,7 @@
 package Utils;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.IOException;
@@ -13,8 +14,9 @@ import java.util.List;
  * @author Al
  */
 
+@Stateless
 @Named
-public class ServerInfoStorage implements Serializable{
+public class ServerInfoStorage implements Serializable {
     
     private List<ServerInfo> serverInfoHistory = new ArrayList<>();
     private static final int MAX_HISTORY_SIZE = 30; // Maximum number of records to store

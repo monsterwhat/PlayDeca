@@ -8,6 +8,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Named(value="ProductsController")
 @ViewScoped
+@Data
 public class ProductsController implements Serializable{
     
     @Inject private ProductsService productsService;
@@ -69,47 +71,5 @@ public class ProductsController implements Serializable{
     public boolean hasSelectedProduct() {
         return selectedProduct != null;
     }
-
-    public ProductsService getProductsService() {
-        return productsService;
-    }
-
-    public void setProductsService(ProductsService productsService) {
-        this.productsService = productsService;
-    }
-
-    public List<Products> getCachedProducts() {
-        return cachedProducts;
-    }
-
-    public void setCachedProducts(List<Products> cachedProducts) {
-        this.cachedProducts = cachedProducts;
-    }
-
-    public Products getSelectedProduct() {
-        return selectedProduct;
-    }
-
-    public void setSelectedProduct(Products selectedProduct) {
-        this.selectedProduct = selectedProduct;
-    }
-
-    public Products getNewProduct() {
-        return newProduct;
-    }
-
-    public void setNewProduct(Products newProduct) {
-        this.newProduct = newProduct;
-    }
-
-    public boolean isIsCacheValid() {
-        return isCacheValid;
-    }
-
-    public void setIsCacheValid(boolean isCacheValid) {
-        this.isCacheValid = isCacheValid;
-    }
-       
-    
-    
+  
 }

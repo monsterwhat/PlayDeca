@@ -12,6 +12,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.line.LineChartDataSet;
 import org.primefaces.model.charts.line.LineChartModel;
@@ -24,6 +25,7 @@ import org.primefaces.model.charts.line.LineChartModel;
 @Named(value="DashboardController")
 @ViewScoped
 @RolesAllowed(value = "admin")
+@Data
 public class DashboardController implements Serializable{
     
     private LineChartModel lineModel;
@@ -136,39 +138,5 @@ public class DashboardController implements Serializable{
 
         lineModel.setData(data);
     }
-
-    public LineChartModel getLineModel() {
-        return lineModel;
-    }
-
-    public void setLineModel(LineChartModel lineModel) {
-        this.lineModel = lineModel;
-    }
-
-    public List<ServerLogs> getLogsList() {
-        return logsList;
-    }
-
-    public void setLogsList(List<ServerLogs> logsList) {
-        this.logsList = logsList;
-    }
-
-    public ServerLogs getSelectedLog() {
-        return selectedLog;
-    }
-
-    public void setSelectedLog(ServerLogs selectedLog) {
-        this.selectedLog = selectedLog;
-    }
-
-    public String getView() {
-        return view;
-    }
-
-    public void setView(String View) {
-        this.view = View;
-    }
-    
-    
-
+ 
 }

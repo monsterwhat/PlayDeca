@@ -12,6 +12,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -21,6 +22,7 @@ import org.primefaces.event.SelectEvent;
 
 @Named(value = "ThreadsController")
 @RequestScoped
+@Data
 public class ThreadsController implements Serializable{
 
     @Inject FacesContext facesContext;
@@ -99,52 +101,6 @@ public class ThreadsController implements Serializable{
         
         ThreadService.update(selectedThread);
         invalidateCache();
-    }
-
-    public Threads getThreadById(Long threadId){
-        return ThreadService.getThreadByID(threadId);
-    }
-    
-    public long getThreadCount(){
-        return ThreadService.count();
-    }
-
-    public List<Threads> getThreadList() {
-        return threadList;
-    }
-
-    public void setThreadList(List<Threads> threadList) {
-        this.threadList = threadList;
-    }
-
-    public Threads getSelectedThread() {
-        return selectedThread;
-    }
-
-    public void setSelectedThread(Threads selectedThread) {
-        this.selectedThread = selectedThread;
-    }
-    
-    public void onSelect(SelectEvent<Threads> event) {
-        selectedThread = event.getObject();
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Thread Selected", event.getObject().getTitle()));
-    }
-
-    public Threads getNewThread() {
-        return newThread;
-    }
-
-    public void setNewThread(Threads newThread) {
-        this.newThread = newThread;
-    }
-
-    public long getSelectedUserId() {
-        return selectedUserId;
-    }
-
-    public void setSelectedUserId(long selectedUserId) {
-        this.selectedUserId = selectedUserId;
-    }
+    } 
     
 }

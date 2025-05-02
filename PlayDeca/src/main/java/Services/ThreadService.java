@@ -1,8 +1,8 @@
 package Services;
 
 import Models.Threads;
-import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Named; 
 import java.time.Instant;
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Al
  */
 @Named
-@Transactional
+@Stateless
 public class ThreadService extends GService<Threads>{
         
     @Override

@@ -1,8 +1,8 @@
 package Services;
 
 import Models.Orders;
-import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Named; 
 
 /**
  *
@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
  */
 
 @Named
-@Transactional
+@Stateless
 public class OrdersService extends GService<Orders>{
         
     @Override

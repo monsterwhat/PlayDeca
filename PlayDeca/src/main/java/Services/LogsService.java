@@ -2,8 +2,8 @@ package Services;
 
 import Models.ServerLogs;
 import Models.Users;
-import jakarta.inject.Named;
-import jakarta.transaction.Transactional;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Named; 
 import java.util.Date;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Al
  */
 @Named
-@Transactional
+@Stateless
 public class LogsService extends GService<ServerLogs>{
     
     @Override

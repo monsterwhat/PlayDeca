@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import lombok.Data;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Named(value="UserController")
 @ViewScoped
+@Data
 public class UserController implements Serializable{
 
     @Inject private UserService UserService;
@@ -77,25 +79,5 @@ public class UserController implements Serializable{
         newUser = null;
         users = null; // Reset the users list to fetch the latest data
     }
-
-    public Users getSelectedUser() {
-        return selectedUser;
-    }
-
-    public void setSelectedUser(Users selectedUser) {
-        this.selectedUser = selectedUser;
-    }
-    
-    public boolean hasSelectedUser() {
-    return selectedUser != null;
-    }
-
-    public Users getNewUser() {
-        return newUser;
-    }
-
-    public void setNewUser(Users newUser) {
-        this.newUser = newUser;
-    }
-    
+ 
 }
