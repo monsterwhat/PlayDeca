@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml" data-theme="light"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>PlayDeca - Purchase</title>
+        <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
+        <script src="js/navbar.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
+    </h:head>
+
+    <h:body>
+        <div class="bg"></div>
+        <input type="hidden" id="isAdminHidden" value="#{SessionController.isAdmin()}" />
+        <ui:include src="components/navbar.xhtml"/>
+
+        <!-- Coins Toast for Logged In Users -->
+        <ui:fragment rendered="#{SessionController.isLoggedIn()}">
+            <div class="notification is-info is-light coins-toast" style="position: fixed; top: 80px; right: 20px; z-index: 999; max-width: 300px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fas fa-coins" style="color: #ffdd57; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="media-content">
+                        <p class="has-text-weight-bold">Your Server Coins</p>
+                        <p id="serverCoinsDisplay" class="is-size-4 has-text-weight-bold">#{SessionController.currentUser.coins}</p>
+                    </div>
+                </div>
+            </div>
+        </ui:fragment>
+
+
+
+
+
+  
+
+        <section class="section is-overlay">
+            <div class="container" style="top: 100px">
+
+                <!-- Admin Coin Management -->
+                <ui:fragment rendered="#{SessionController.isAdmin()}">
+                    <div class="notification is-warning mb-4">
+                        <h3 class="title is-5">Admin: Add Coins to Account</h3>
+                        <p class="mb-3">As an admin, you can add coins to your account for testing purposes.</p>
+                        <h:form id="adminCoinForm">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <h:inputText class="input" 
+                                               value="#{donationController.adminCoinAmount}" 
+                                               id="adminCoinInput"
+                                               style="width: 150px;"
+                                               min="1" max="1000" 
+                                               placeholder="Enter coins to add"/>
+                                </div>
+                                <div class="control">
+                                    <h:commandButton value="Add Coins" 
+                                                   action="#{donationController.giveAdminCoins()}"
+                                                   styleClass="button is-warning"
+                                                   update="adminCoinForm :serverCoinsDisplay"/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </ui:fragment>
+
+                <!-- Header Section -->
+                <div class="has-text-centered mb-6">
+                    <h1 class="title is-1 has-text-white">
+                        <i class="fas fa-heart"></i>
+                        Purchase
+                    </h1>
+                    <p class="subtitle is-4 has-text-white">
+                        Support our community and unlock amazing perks!
+                    </p>
+                </div>
+
+                <!-- Server Coin Package - Centered -->
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <div class="donation-package is-coin">
+                            <div class="package-header">
+                                <h2 class="package-title">Server Coin</h2>
+                                <div class="package-price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">1.99</span>
+                                    <span class="period">per coin</span>
+                                </div>
+                            </div>
+
+                            <div class="package-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-coins"></i>
+                                    <span>Server Currency for Community Ranks</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-store"></i>
+                                    <span>Access to server shop</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Instant delivery</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-infinity"></i>
+                                    <span>Never expire</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Support server costs</span>
+                                </div>
+                            </div>
+
+                            <div class="package-footer">
+                                <ui:fragment rendered="#{SessionController.isLoggedIn()}">
+                                    <ui:fragment rendered="#{SessionController.isLoggedIn()}">
+                                        <p:commandButton value="Buy Coins" 
+                                                         styleClass="button is-info is-large is-fullwidth is-rounded"
+                                                         onclick="PF('coinQuantityDialog').show();"
+                                                         update=":coinQuantityForm:coinQuantityContent" />
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
+                                        <a href="#{donationController.redirectForCoins()}" class="button is-info is-large is-fullwidth is-rounded">
+                                            <i class="fas fa-sign-in-alt"></i>
+                                            <span>Login to Purchase Coins</span>
+                                        </a>
+                                    </ui:fragment>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
+                                    <a href="login" class="button is-info is-large is-fullwidth is-rounded">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span>Login to Purchase Coins</span>
+                                    </a>
+                                </ui:fragment>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <!-- Rank Packages -->
+                <div class="columns is-centered mt-6">
+
+                    <!-- Donator Package -->
+                    <div class="column is-one-third">
+                        <div class="donation-package is-premium">
+                            <div class="package-header">
+                                <h2 class="package-title">Donator</h2>
+                                <div class="package-price">
+                                    <span class="coins-donator">7</span>
+                                    <span class="period">coins (one-time)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-magic"></i>
+                                    <span>Includes Passive Perks</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-sign"></i>
+                                    <span>Teleport Banners</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-crown"></i>
+                                    <span>Donator badge</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-vote-yea"></i>
+                                    <span>Voting rewards boost</span>
+                                </div>
+                            </div>
+
+                            <div class="package-footer">
+                                <ui:fragment rendered="#{SessionController.isLoggedIn()}">
+                                    <p:commandButton value="Get Donator" 
+                                                     styleClass="button is-danger is-large is-fullwidth is-rounded"
+                                                     onclick="PF('coinConfirmDialog').show();"
+                                                     update=":coinConfirmForm:coinDialogContent"
+                                                     oncomplete="updateCoinsDisplay();">
+                                        <f:setPropertyActionListener target="#{donationController.selectedPackage}" value="donator" />
+                                    </p:commandButton>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
+                                    <a href="login" class="button is-danger is-large is-fullwidth is-rounded">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span>Login to Get Donator</span>
+                                    </a>
+                                </ui:fragment>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Supporter Package -->
+                    <div class="column is-one-third">
+                        <div class="donation-package">
+                            <div class="package-header">
+                                <h2 class="package-title">Supporter</h2>
+                                <div class="package-price">
+                                    <span class="coins-supporter">2</span>
+                                    <span class="period">coins (monthly)</span>
+                                </div>
+                            </div>
+
+                            <div class="package-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Inherits Donator Perks</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Creative Mode</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Supporter badge</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Actively supports the server!</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-server"></i>
+                                    <span>Can request a temporary game server host</span>
+                                </div>
+
+                            </div>
+
+                            <div class="package-footer">
+                                <ui:fragment rendered="#{SessionController.isLoggedIn()}">
+                                    <p:commandButton value="Get Supporter" 
+                                                     styleClass="button is-info is-large is-fullwidth is-rounded"
+                                                     onclick="PF('coinConfirmDialog').show();"
+                                                     update=":coinConfirmForm:coinDialogContent">
+                                        <f:setPropertyActionListener target="#{donationController.selectedPackage}" value="supporter" />
+                                    </p:commandButton>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
+                                    <a href="login" class="button is-info is-large is-fullwidth is-rounded">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span>Login to Get Supporter</span>
+                                    </a>
+                                </ui:fragment>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Information Section -->
+                <div class="has-text-centered mt-6">
+                    <div class="notification is-warning">
+                        <p class="has-text-weight-bold">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Important Notice
+                        </p>
+                        <p class="mt-2">
+                            All donor and supporter features and abilities are designed for <strong>singular use</strong> (solo adventurers) and <strong>CANNOT</strong> be used to compete, harass, or bully other players. 
+                            These privileges are intended for personal enjoyment and exploration, not for gaining advantages in multiplayer interactions.
+                            Any abuse of these features will result in immediate rank removal without refund.
+                        </p>
+                    </div>
+
+                    <div class="notification is-info">
+                        <p class="has-text-weight-bold">
+                            <i class="fas fa-info-circle"></i>
+                            All purchases help keep our community and servers running and are greatly appreciated!
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Coin Quantity Dialog -->
+        <h:form id="coinQuantityForm">
+            <p:dialog id="coinQuantityDialog" header="Select Coin Quantity" widgetVar="coinQuantityDialog" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+                <p:outputPanel id="coinQuantityContent">
+                    <div class="notification is-info">
+                        <p class="has-text-weight-bold mb-4">
+                            <i class="fas fa-coins"></i>
+                            How many Server Coins would you like to purchase?
+                        </p>
+
+                        <div class="field has-addons">
+                            <div class="control">
+                                <button class="button is-info" type="button" onclick="decreaseQuantity()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <div class="control is-expanded">
+                                <div id="coinQuantityDisplay" class="box has-text-centered" style="font-size: 2rem; background: #f5f5f5; border: 2px solid #dbdbdb; border-radius: 6px; padding: 16px; min-width: 80px; font-weight: bold; letter-spacing: 2px;">1</div>
+                                <input type="hidden" id="coinQuantityInput" value="1" min="1" max="100" step="1" />
+                            </div>
+                            <div class="control">
+                                <button class="button is-info" type="button" onclick="increaseQuantity()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </p:outputPanel>
+
+                <div class="dialog-footer">
+                    <div class="box is-warning" style="background: linear-gradient(135deg, #ffdd57 0%, #f5e456 100%); color: #000; cursor: pointer;" 
+                         onclick="confirmCoinPurchase();">
+                        <p class="is-size-5 has-text-weight-bold has-text-centered">
+                            <i class="fas fa-shopping-cart"></i>
+                            Total: $<span id="totalPrice">1.99</span>
+                        </p>
+                        <p class="is-small has-text-centered">
+                            <i class="fas fa-coins"></i>
+                            <span id="coinCount">1</span> Server Coins
+                        </p>
+                    </div>
+                </div>
+            </p:dialog>
+        </h:form>
+
+        <!-- Coin Confirmation Dialog -->
+        <h:form id="coinConfirmForm">
+            <p:dialog id="coinConfirmDialog" header="Confirm Purchase" widgetVar="coinConfirmDialog" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
+                <p:outputPanel id="coinDialogContent">
+                    <div class="notification is-info">
+                        <p class="has-text-weight-bold">
+                            <h:outputText value="Purchase Donator Package for " rendered="#{donationController.selectedPackage == 'donator'}" />
+                            <h:outputText value="Purchase Supporter Package for " rendered="#{donationController.selectedPackage == 'supporter'}" />
+                            <span class="has-text-warning">
+                                <h:outputText value="7 Server Coins" rendered="#{donationController.selectedPackage == 'donator'}" />
+                                <h:outputText value="2 Server Coins" rendered="#{donationController.selectedPackage == 'supporter'}" />
+                            </span>
+                            <h:outputText value="?" />
+                        </p>
+                        <p class="is-small mt-2">
+                            Make sure you have enough Server Coins in your account before confirming.
+                        </p>
+                    </div>
+
+                    <div class="buttons is-right">
+                        <p:commandButton value="Cancel" 
+                                         styleClass="button is-light"
+                                         onclick="PF('coinConfirmDialog').hide();" />
+                         <p:commandButton value="Confirm Purchase" 
+                                          styleClass="button is-success"
+                                          action="#{donationController.processPurchase()}"
+                                          onclick="PF('coinConfirmDialog').hide();"
+                                          oncomplete="updateCoinsDisplay();" />
+                    </div>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+        <script>
+//<![CDATA[
+            function decreaseQuantity() {
+                const input = document.getElementById('coinQuantityInput');
+                const display = document.getElementById('coinQuantityDisplay');
+                const currentValue = parseInt(input.value) || 1;
+                const newValue = Math.max(1, currentValue - 1);
+                input.value = newValue;
+                display.textContent = newValue;
+                updateTotal();
+            }
+
+            function increaseQuantity() {
+                const input = document.getElementById('coinQuantityInput');
+                const display = document.getElementById('coinQuantityDisplay');
+                const currentValue = parseInt(input.value) || 1;
+                const newValue = Math.min(100, currentValue + 1);
+                input.value = newValue;
+                display.textContent = newValue;
+                updateTotal();
+            }
+
+            function updateTotal() {
+                const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
+                const total = (quantity * 1.99).toFixed(2);
+
+                document.getElementById('totalPrice').textContent = total;
+                document.getElementById('coinCount').textContent = quantity;
+            }
+
+            function confirmCoinPurchase() {
+                const isAdmin = document.getElementById('isAdminHidden').value === 'true';
+                
+                // Close quantity dialog
+                PF('coinQuantityDialog').hide();
+                
+                if (isAdmin) {
+                    // For admins, directly process without confirmation
+                    // Show success message and update coins
+                    const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
+                    alert(`Added ${quantity} coins to your account!`);
+                    updateCoinsDisplay();
+                } else {
+                    // For regular users, show confirmation dialog
+                    PF('coinConfirmDialog').show();
+                }
+            }
+
+
+
+            function updateCoinsDisplay() {
+                // Get current displayed coins
+                const currentCoins = parseInt(document.getElementById('serverCoinsDisplay').textContent) || 0;
+                const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
+                const newCoins = currentCoins + quantity;
+                
+                // Update the display
+                document.getElementById('serverCoinsDisplay').textContent = newCoins;
+                
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'notification is-success is-light';
+                successMessage.style.position = 'fixed';
+                successMessage.style.top = '80px';
+                successMessage.style.right = '20px';
+                successMessage.style.zIndex = '1000';
+                successMessage.style.maxWidth = '300px';
+                successMessage.innerHTML = `
+                    <div class="media">
+                        <div class="media-left">
+                            <i class="fas fa-coins" style="color: #23d160; font-size: 1.5rem;"></i>
+                        </div>
+                        <div class="media-content">
+                            <p class="has-text-weight-bold">Coins Added!</p>
+                            <p class="is-size-5">+${quantity} Server Coins</p>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(successMessage);
+                
+                // Remove success message after 3 seconds
+                setTimeout(function() {
+                    if (successMessage.parentNode) {
+                        successMessage.parentNode.removeChild(successMessage);
+                    }
+                }, 3000);
+            }
+
+            // Initialize total on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                updateTotal();
+            });
+            //]]>
+        </script>
+
+        <style>
+            .donation-package {
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                backdrop-filter: blur(10px);
+                border: 2px solid transparent;
+            }
+
+            .donation-package:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+            }
+
+            .donation-package.is-premium {
+                border-color: #ff3860;
+                position: relative;
+            }
+
+            .donation-package.is-coin {
+                border-color: #3273dc;
+            }
+
+            .package-badge {
+                position: absolute;
+                top: -2px;
+                right: 20px;
+                background: linear-gradient(45deg, #ff3860, #ff6b6b);
+                color: white;
+                padding: 6px 16px;
+                border-radius: 0 0 12px 12px;
+                font-size: 0.75rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 4px 12px rgba(255, 56, 96, 0.3);
+            }
+
+            .package-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 40px 30px;
+                text-align: center;
+                color: white;
+            }
+
+            .is-premium .package-header {
+                background: linear-gradient(135deg, #ff3860 0%, #ff6b6b 100%);
+            }
+
+            .is-coin .package-header {
+                background: linear-gradient(135deg, #ff3860 0%, #3273dc 100%);
+            }
+
+            .package-title {
+                font-size: 2rem;
+                font-weight: 800;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            .package-price {
+                margin-bottom: 0;
+            }
+
+            .currency {
+                font-size: 1.5rem;
+                vertical-align: top;
+                opacity: 0.8;
+            }
+
+            .coins {
+                font-size: 3.5rem;
+                font-weight: 900;
+                line-height: 1;
+                color: #ff3860;
+            }
+
+            .coins-donator {
+                font-size: 3.5rem;
+                font-weight: 900;
+                line-height: 1;
+                color: #ffffff;
+            }
+
+            .coins-supporter {
+                font-size: 3.5rem;
+                font-weight: 900;
+                line-height: 1;
+                color: #ffffff;
+            }
+
+            .amount {
+                font-size: 3.5rem;
+                font-weight: 900;
+                line-height: 1;
+            }
+
+            .period {
+                display: block;
+                font-size: 0.9rem;
+                opacity: 0.8;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-top: 4px;
+            }
+
+            .package-features {
+                padding: 30px;
+                flex-grow: 1;
+            }
+
+            .feature-item {
+                display: flex;
+                align-items: center;
+                padding: 12px 0;
+                border-bottom: 1px solid #f5f5f5;
+                font-size: 1.1rem;
+            }
+
+            .feature-item:last-child {
+                border-bottom: none;
+            }
+
+            .feature-item i {
+                width: 24px;
+                margin-right: 16px;
+                color: #23d160;
+                font-size: 1.1rem;
+            }
+
+            .is-premium .feature-item i {
+                color: #ff3860;
+            }
+
+            .is-coin .feature-item i {
+                color: #3273dc;
+            }
+
+            .package-footer {
+                padding: 30px;
+                background: #f8f9fa;
+            }
+
+            .button.is-large {
+                padding: 16px 32px;
+                font-size: 1.2rem;
+                font-weight: 700;
+                border: none;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .button.is-large i {
+                margin-right: 8px;
+            }
+
+            .dialog-footer {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            @media (max-width: 768px) {
+                .column.is-one-third,
+                .column.is-half {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+                .package-title {
+                    font-size: 1.5rem;
+                }
+
+                .amount {
+                    font-size: 2.5rem;
+                }
+
+                .columns.is-centered .column {
+                    flex-basis: 100%;
+                    max-width: 100%;
+                }
+            }
+        </style>
+
+    </h:body>
+
+</html>

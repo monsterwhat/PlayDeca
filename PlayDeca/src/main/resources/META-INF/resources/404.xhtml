@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>404 - Page Not Found</title>
+    <h:outputStylesheet name="css/style.css"/>
+    <style>
+        .error-container {
+            text-align: center;
+            padding: 50px 20px;
+            font-family: Arial, sans-serif;
+        }
+        .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            color: #dc3545;
+            margin: 0;
+            line-height: 1;
+        }
+        .error-message {
+            font-size: 24px;
+            color: #666;
+            margin: 20px 0;
+        }
+        .error-description {
+            font-size: 16px;
+            color: #888;
+            margin: 20px 0 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .back-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Page Not Found</div>
+        <div class="error-description">
+            The page you are looking for might have been removed, had its name changed, 
+            or is temporarily unavailable. Please check the URL and try again.
+        </div>
+        <h:link value="← Back to Home" outcome="index" styleClass="back-button"/>
+    </div>
+</h:body>
+</html>

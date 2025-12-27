@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+    
+ 
+    
+    <!-- Error page configuration -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.xhtml</location>
+    </error-page>
+    
+    <session-config>
+        <session-timeout>60</session-timeout>
+        <cookie-config>
+            <secure>true</secure>
+            <http-only>true</http-only>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+    
+    <!-- Security constraints for HTTPS -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Entire Application</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    <!-- Security headers -->
+    <filter>
+        <filter-name>SecurityHeadersFilter</filter-name>
+        <filter-class>com.playdeca.utils.SecurityHeadersFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityHeadersFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+      
+</web-app>
