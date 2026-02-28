@@ -7,8 +7,8 @@
           
     <h:form id="formPost">
 
-    <div class="box">
-      <h1 class="title center">General Discussion</h1>
+<div class="box">
+      <h1 class="title has-text-success">📝 Thread Discussion</h1>
       <p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="5" 
                     paginator="true" paginatorPosition="bottom" reflow="true" id="postsTable" 
                     emptyMessage="No posts available" selectionMode="single" rowKey="#{thepost.postId}"
@@ -35,13 +35,18 @@
                     <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        
                 </div>
 
-                <!--
                 <div class="media-right">
-                    <h:outputText class="subtitle is-6 pi pi-thumbs-up" value=" #{thepost.upvotes}"/>
-                 <br/>
-                    <h:outputText class="subtitle is-6 pi pi-thumbs-down" value=" #{thepost.downvotes}"/>
+                    <div class="vote-container">
+                        <div class="vote-count has-text-success">
+                            <i class="pi pi-thumbs-up"></i>
+                            <h:outputText value="#{thepost.upvotes}"/>
+                        </div>
+                        <div class="vote-count has-text-danger">
+                            <i class="pi pi-thumbs-down"></i>
+                            <h:outputText value="#{thepost.downvotes}"/>
+                        </div>
+                    </div>
                 </div>
-                -->
 
             </div>
         </p:column>
@@ -66,8 +71,8 @@
     </div>
         
     <p class="control">
-    <p:commandButton value="New Post" onclick="PF('postDialogCreate').show();" 
-                     styleClass="button is-link is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
+<p:commandButton value="📝 New Post" onclick="PF('postDialogCreate').show();" 
+                     styleClass="button is-success is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
     </p>
         
     </h:form>

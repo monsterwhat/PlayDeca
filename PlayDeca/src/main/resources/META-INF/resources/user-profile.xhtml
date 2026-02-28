@@ -29,61 +29,252 @@
         <ui:include src="components/navbar.xhtml"/>
     </h:form>
   
-     <section class="section is-overlay" rendered="#{SessionController.isLoggedIn()}">
-      <div class="container" style="top: 100px">
-      <div class="columns is-centered">
-       <div class="column is-full-widescreen is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
-        <div class="notification">
-          
-         <div class="card-content">
-             
-            <h:form id="userDetails">
-                 
-            <div class="media">
-                <div class="media-left">
-                    <figure class="image is-64x64">
-                        <img src="#{ 'https://crafthead.net/avatar/'.concat(SessionController.currentUser.UUID) }" alt="Player's Head"/>
-                    </figure>
-                </div>
-                <div class="media-content">
-                    <p class="title is-4">#{SessionController.currentUser.username}</p>
-                    <p class="subtitle is-6">#{SessionController.currentUser.email}</p>
-                </div>
-                <div class="media-right">
-                    <p class="title is-4">#{SessionController.currentUser.userGroup}</p>
-                    <p class="subtitle is-6">0 Decacoins</p>
-                    <p:outputPanel rendered="#{SessionController.isAdmin()}">
-                        <p:commandButton actionListener="#{SessionController.navigateToAdminDashboard}" value="Dashboard" icon="fa-solid fa-right-from-bracket" styleClass="button is-small is-warning is-fullwidth" />
-                    </p:outputPanel>
-                </div>
-            </div>
-                 
-            <br/>
-           
-            </h:form>
+     <!-- Modern User Profile Page -->
+     <section class="hero is-fullheight is-overlay" rendered="#{SessionController.isLoggedIn()}">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-full-widescreen is-four-fifths-desktop is-five-sixths-tablet is-full-mobile">
 
-            <div class="box">
-                <div class="content">
-                    <h1 class="title center">Profile Info</h1>
-                    <ui:include src="components/user/profileInfo.xhtml"/>
+                        <!-- Logo -->
+                        <div class="has-text-centered mb-6">
+                            <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" class="logo-main"/>
+                            <h1 class="title has-text-white is-3">User Profile</h1>
+                        </div>
+
+                        <!-- Profile Content Area -->
+                        <div class="content-area">
+                            <!-- User Info Card -->
+                            <div class="content-card">
+                                <div class="card-header">
+                                    <h3 class="title is-5 has-text-white">👤 Profile Information</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h:form id="userDetails">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <figure class="image is-64x64">
+                                                    <img src="#{ 'https://crafthead.net/avatar/'.concat(SessionController.currentUser.UUID) }" alt="Player's Head"/>
+                                                </figure>
+                                            </div>
+                                            <div class="media-content">
+                                                <p class="title is-4 has-text-white">#{SessionController.currentUser.username}</p>
+                                                <p class="subtitle is-6 has-text-grey-light">#{SessionController.currentUser.email}</p>
+                                            </div>
+                                            <div class="media-right">
+                                                <p class="title is-4 has-text-white">#{SessionController.currentUser.userGroup}</p>
+                                                <p class="subtitle is-6 has-text-grey-light">#{SessionController.currentUser.coins} Decacoins</p>
+                                                <p:outputPanel rendered="#{SessionController.isAdmin()}">
+                                                    <div class="mt-3">
+                                                        <p:commandButton actionListener="#{SessionController.navigateToAdminDashboard}" value="Dashboard" icon="fa-solid fa-right-from-bracket" styleClass="button is-small is-warning is-fullwidth is-rounded" />
+                                                    </div>
+                                                </p:outputPanel>
+                                            </div>
+                                        </div>
+                                    </h:form>
+
+                                    <div class="mt-5">
+                                        <ui:include src="components/user/profileInfo.xhtml"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Profile Actions Card -->
+                            <div class="content-card mt-5">
+                                <div class="card-header">
+                                    <h3 class="title is-5 has-text-white">⚙️ Profile Actions</h3>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Logout Button -->
+                                    <h:form>
+                                        <div class="field">
+                                            <p:commandButton value="Log-out" icon="pi pi-sign-out" styleClass="button is-danger is-large is-fullwidth is-rounded" action="#{SessionController.logout}" ajax="false"/>
+                                        </div>
+                                    </h:form>
+                                    
+                                    <!-- Edit Forms -->
+                                    <div class="mt-5">
+                                        <ui:include src="components/user/editEmailForm.xhtml"/>
+                                    </div>
+                                    <div class="mt-4">
+                                        <ui:include src="components/user/editUUIDForm.xhtml"/>
+                                    </div>
+                                    <div class="mt-4">
+                                        <ui:include src="components/user/editPasswordForm.xhtml"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-             
-            <div class="box">
-               <div class="field">
-                   <p:commandButton value="Log-out" icon="pi pi-sign-out" styleClass="button is-warning is-fullwidth" action="#{SessionController.logOut}"/>
-               </div>
-            </div>
+        </div>
+     </section>
+
+    <style>
+        /* Enhanced Profile Button Styles */
+        .content-card .card-body .button {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 8px 0 !important;
+            padding: 12px 24px !important;
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            font-size: 0.95rem !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            position: relative !important;
+            overflow: hidden !important;
+            border: 2px solid transparent !important;
+            backdrop-filter: blur(10px) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Button glow effect before hover */
+        .content-card .card-body .button::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent) !important;
+            transition: left 0.5s ease !important;
+            z-index: 1 !important;
+        }
+
+        /* Success buttons (Save, Edit actions) */
+        .content-card .card-body .button.is-success {
+            background: linear-gradient(135deg, #23D160, #1ba94d) !important;
+            border-color: #23D160 !important;
+            color: white !important;
+            box-shadow: 0 4px 20px rgba(35, 209, 96, 0.4) !important;
+        }
+
+        .content-card .card-body .button.is-success:hover {
+            background: linear-gradient(135deg, #1ba94d, #168e40) !important;
+            transform: translateY(-3px) scale(1.02) !important;
+            box-shadow: 0 8px 30px rgba(35, 209, 96, 0.6) !important;
+        }
+
+        /* Danger buttons (Logout, Delete actions) */
+        .content-card .card-body .button.is-danger {
+            background: linear-gradient(135deg, #ff3860, #ff1744) !important;
+            border-color: #ff3860 !important;
+            color: white !important;
+            box-shadow: 0 4px 20px rgba(255, 56, 96, 0.4) !important;
+        }
+
+        .content-card .card-body .button.is-danger:hover {
+            background: linear-gradient(135deg, #ff1744, #d50000) !important;
+            transform: translateY(-3px) scale(1.02) !important;
+            box-shadow: 0 8px 30px rgba(255, 56, 96, 0.6) !important;
+        }
+
+        /* Warning buttons (Admin Dashboard) */
+        .content-card .card-body .button.is-warning {
+            background: linear-gradient(135deg, #ffdd57, #ffca28) !important;
+            border-color: #ffdd57 !important;
+            color: rgba(0, 0, 0, 0.8) !important;
+            box-shadow: 0 4px 20px rgba(255, 221, 87, 0.4) !important;
+        }
+
+        .content-card .card-body .button.is-warning:hover {
+            background: linear-gradient(135deg, #ffca28, #ffb300) !important;
+            transform: translateY(-3px) scale(1.02) !important;
+            box-shadow: 0 8px 30px rgba(255, 221, 87, 0.6) !important;
+        }
+
+        /* Light buttons (Cancel) */
+        .content-card .card-body .button.is-light {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            color: #f5f5f5 !important;
+            backdrop-filter: blur(10px) !important;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .content-card .card-body .button.is-light:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2)) !important;
+            transform: translateY(-3px) scale(1.02) !important;
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Large button variants */
+        .content-card .card-body .button.is-large {
+            padding: 16px 32px !important;
+            font-size: 1.1rem !important;
+            font-weight: 700 !important;
+        }
+
+        /* Small button variants */
+        .content-card .card-body .button.is-small {
+            padding: 8px 16px !important;
+            font-size: 0.85rem !important;
+        }
+
+        /* Hover glow effect for all buttons */
+        .content-card .card-body .button:hover::before {
+            left: 100% !important;
+        }
+
+        /* Active/pressed state */
+        .content-card .card-body .button:active {
+            transform: translateY(-1px) scale(0.98) !important;
+            transition: all 0.1s ease !important;
+        }
+
+        /* Focus state */
+        .content-card .card-body .button:focus {
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(35, 209, 96, 0.3), 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Field styling improvements */
+        .content-card .card-body .field {
+            margin-bottom: 20px !important;
+        }
+
+        /* Ensure edit forms are properly styled */
+        .content-card .card-body .field .control {
+            width: 100% !important;
+        }
+
+        .content-card .card-body .field .button {
+            width: 100% !important;
+        }
+
+        /* Media content styling */
+        .content-card .card-body .media {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-card .card-body .media .title,
+        .content-card .card-body .media .subtitle {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button group styling */
+        .content-card .card-body .buttons {
+            gap: 12px !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-card .card-body .button {
+                padding: 10px 20px !important;
+                font-size: 0.9rem !important;
+            }
             
-            <ui:include src="components/user/editEmailForm.xhtml"/>
-            <ui:include src="components/user/editUUIDForm.xhtml"/>
-            <ui:include src="components/user/editPasswordForm.xhtml"/>
-             
-          </div>
-         </div>
-       </div>
-      </div>
-     </div>
-    </section>
-  </h:body>
+            .content-card .card-body .button.is-large {
+                padding: 14px 28px !important;
+                font-size: 1rem !important;
+            }
+        }
+    </style>
+   </h:body>
 </html>

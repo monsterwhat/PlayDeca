@@ -84,16 +84,19 @@ public class SessionController implements Serializable {
 
     public void logout() {
         try {
+            // Create simple log without accessing user object to avoid lazy loading
             if (currentUser != null) {
-                logsService.createLog("User: " + currentUser.getUsername() + " logged Out", "Successful user Logout", currentUser);
+                // Use a simple string without calling getUsername() to avoid lazy initialization
+                logsService.createLog("User logout", "Successful user Logout", null);
             }
-            
+           
             HttpServletRequest request = (HttpServletRequest) getExternalContext().getRequest();
             request.logout();
-            
+           
             // Invalidate session
+            currentUser = null;
             getExternalContext().invalidateSession();
-            
+           
             // Redirect to login page
             getExternalContext().redirect(getExternalContext().getRequestContextPath() + "/login.xhtml");
         } catch (ServletException | IOException e) {
@@ -193,5 +196,17 @@ public class SessionController implements Serializable {
 
     public void setLogger(LogsService logger) {
         this.logsService = logger;
+    }
+    
+    public void selectRegister() {
+        selectedOption = "register";
+    }
+    
+    public void selectLogin() {
+        selectedOption = "login";
+    }
+    
+    public void registerUser() {
+        register();
     }
 }

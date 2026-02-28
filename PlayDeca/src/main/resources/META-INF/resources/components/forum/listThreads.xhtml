@@ -1,23 +1,58 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
-    <p:dataScroller id="threadsScroller" value="#{ThreadsController.threadList}" var="thread"
-                rows="10">
+    <!-- Thread List Component -->
+    <div class="collapsible-threads">
+        <div class="thread-list-header">
+            <h3 class="title is-5 has-text-white">📋 Forum Threads</h3>
+        </div>
+        
+        <div class="thread-list-content">
+            <p:dataScroller id="threadsScroller" value="#{ThreadsController.threadList}" var="thread"
+                        rows="50">
     
-    <f:facet name="header">
-        <h:outputText value="Threads" />
-    </f:facet>
-    
-    <p:column>
-        <h:outputText value="#{thread.title}" />
-    </p:column>
-            
-    </p:dataScroller>
+                <p:column class="thread-item collapsible" data-thread-id="#{thread.threadId}">
+                    <div class="thread-header-content">
+                        <h4 class="has-text-success is-6">
+                            <h:outputText value="#{thread.title}" />
+                            <small class="has-text-grey-light">Thread ID: #{thread.threadId}</small>
+                        </h4>
+                        <button type="button" class="toggle-button" onclick="toggleThread(#{thread.threadId})">
+                            <i class="pi pi-chevron-down"></i>
+                        </button>
+                    </div>
+                </p:column>
+                    
+            </p:dataScroller>
+        </div>
+    </div>
 
-    
+    <script>
+        function toggleThread(threadId) {
+            const item = document.querySelector(`[data-thread-id="${threadId}"]`);
+            const content = item.querySelector('.thread-header-content');
+            const button = item.querySelector('.toggle-button i');
+            
+            if (item.classList.contains('expanded')) {
+                item.classList.remove('expanded');
+                content.style.maxHeight = '60px';
+                button.className = 'pi pi-chevron-down';
+            } else {
+                item.classList.add('expanded');
+                content.style.maxHeight = 'none';
+                button.className = 'pi pi-chevron-up';
+            }
+        }
+
+        function backToThreadList() {
+            // Hide post view and show thread list
+            document.getElementById('threadList').style.display = 'block';
+            document.getElementById('postView').style.display = 'none';
+        }
+    </script>
 </ui:composition>

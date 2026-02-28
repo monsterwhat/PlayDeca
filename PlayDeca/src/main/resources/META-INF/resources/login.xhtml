@@ -8,7 +8,7 @@
 <h:head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Login</title>
+  <title>PlayDeca - Login and Register</title>
   <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
   <script src="js/navbar.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
@@ -20,42 +20,66 @@
     <div class="bg"></div>
     <ui:include src="components/navbar.xhtml"/>
 
-  <section class="section is-overlay">
-   <br/>
-    <div class="hero-body">
-     
-      <div class="is-overlay has-text-centered " style="top: 82px;">
-        <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="Server Banner" width="512" height="512"/>
-      </div>
-        
-    <br/>
-     
-      <div class="container" style="top: 50px;">
-        <div class="columns is-centered">
-          <div class="column is-two-fifths-tablet">
-            <div class="notification">
-              <hr />
-              <div class="columns is-centered">
-                <p:growl id="growl" showDetail="true" />
-                
-                <p:outputPanel id="dynamicContent">
-                    
-                    <ui:fragment rendered="#{SessionController.selectedOption eq 'login'}">
-                        <ui:include src="./components/user/loginForm.xhtml"/>
-                    </ui:fragment>
-                    
-                    <ui:fragment rendered="#{SessionController.selectedOption eq 'register'}">
-                        <ui:include src="./components/user/registerForm.xhtml"/>
-                    </ui:fragment>
+    <!-- Modern Login Page -->
+    <section class="hero is-fullheight is-overlay">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-full-widescreen is-four-fifths-desktop is-five-sixths-tablet is-full-mobile">
 
-                </p:outputPanel>               
-              </div>
-              <hr />
+                        <!-- Logo -->
+                        <div class="has-text-centered mb-6">
+                            <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" class="logo-main"/>
+                            <h1 class="title has-text-white is-3">Login and Register</h1>
+                        </div>
+
+                        <!-- Login/Register Content Area -->
+                        <div class="content-area">
+                            <div class="content-card">
+                                <div class="card-header">
+                                    <h3 class="title is-5 has-text-white">🔐 Account Access</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="columns is-centered">
+                                        <p:growl id="growl" showDetail="true" />
+                                        
+                                        <p:outputPanel id="dynamicContent">
+                                            
+                                            <ui:fragment rendered="#{SessionController.selectedOption eq 'login'}">
+                                                <ui:include src="./components/user/loginForm.xhtml"/>
+                                            </ui:fragment>
+                                            
+                                            <ui:fragment rendered="#{SessionController.selectedOption eq 'register'}">
+                                                <ui:include src="./components/user/registerForm.xhtml"/>
+                                            </ui:fragment>
+
+                                        </p:outputPanel>               
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
+    <style>
+        /* Ensure login/register toggle links are visible */
+        .content-card .card-body .has-text-link {
+            display: block !important;
+            text-align: center !important;
+            margin-top: 20px !important;
+            color: #3273dc !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            transition: color 0.3s ease !important;
+        }
+
+        .content-card .card-body .has-text-link:hover {
+            color: #209cee !important;
+            text-decoration: underline !important;
+        }
+    </style>
   </h:body>
 </html>

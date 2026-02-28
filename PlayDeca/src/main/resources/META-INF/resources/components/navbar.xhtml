@@ -11,7 +11,7 @@
     <nav class="navbar is-danger">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://playdeca.com/">
-          <img src="./assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28" />
+          <img src="/assets/images/logos/PlayDecaBannerPNG_decagon.png" alt="Server Banner" width="28" height="28" />
         </a>
         <div class="navbar-burger burger" data-target="navbarMain">
           <span></span>
@@ -22,11 +22,11 @@
 
       <div id="navbarMain" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item has-text-light" href="/"> Home </a>
-          <a class="navbar-item has-text-light" href="info"> Information </a>
-          <a class="navbar-item has-text-light" href="vote"> Vote </a>
-          <a class="navbar-item has-text-light" href="forums"> Forum </a>
-          <a class="navbar-item has-text-light" href="purchase"> Purchase </a>
+          <a class="navbar-item has-text-light" href="/index.xhtml"> Home </a>
+          <a class="navbar-item has-text-light" href="/info.xhtml"> Information </a>
+          <a class="navbar-item has-text-light" href="/vote.xhtml"> Vote </a>
+          <a class="navbar-item has-text-light" href="/forums.xhtml"> Forum </a>
+          <a class="navbar-item has-text-light" href="/purchase.xhtml"> Purchase </a>
         </div>
 
         <div class="navbar-end">
@@ -50,7 +50,7 @@
               
               <p:outputPanel rendered="#{not SessionController.isValid()}">
               <p class="control">
-                <a class="button is-success is-outlined" href="login">
+                <a class="button is-success is-outlined" href="/login.xhtml">
                   <span class="icon has-text-white">
                     <i class="fa-solid fa-right-to-bracket"></i>
                   </span>
@@ -61,7 +61,7 @@
               
               <p:outputPanel rendered="#{SessionController.isValid()}">
                 <p class="control">
-                  <a class="button is-success is-outlined" href="user-profile">
+                  <a class="button is-success is-outlined" href="/user-profile.xhtml">
                     <span class="icon has-text-white">
                       <i class="fa-solid fa-user"></i>
                     </span>

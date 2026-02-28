@@ -26,7 +26,10 @@ public class LogsService {
             ServerLogs log = new ServerLogs();
             log.setName(logName);
             log.setDescription(logDescription);
-            log.setUser(user);
+            // Only set user if not null to avoid lazy initialization issues
+            if (user != null) {
+                log.setUser(user);
+            }
             log.setRegistrationDate(LocalDateTime.now());
             log.persist();
         } catch (Exception e) {

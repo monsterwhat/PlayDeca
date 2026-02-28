@@ -5,64 +5,88 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>PlayDeca - Profile</title>
-  <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
-  <script src="js/navbar.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
-  <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
-  <h:outputStylesheet library="css" name="bulma.min.css"/>
-</h:head>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>PlayDeca - Forums</title>
+        <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
+        <script src="js/navbar.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
+    </h:head>
 
-<h:body>
-    <div class="bg"></div>
-    <ui:include src="components/navbar.xhtml"/>
-  
-    <p:messages id="messages"/>
-    
-    <section class="section is-overlay">
-     <div class="container" style="top: 100px">
-      <div class="columns is-centered">
-       <div class="column is-full-widescreen is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
-        <div class="notification">
-            <div class="columns">
-                <p:outputPanel id="ForumMain">
-                    
-                </p:outputPanel>
-                    <div class="column is-3">
-                        <div class="box center">
-                            <ui:include src="components/forum/listThreads.xhtml"/>
+    <h:body>
+        <div class="bg"></div>
+        <ui:include src="components/navbar.xhtml"/>
+
+        <!-- Messages -->
+        <p:messages id="messages"/>
+
+        <!-- Modern Forums Page -->
+        <section class="hero is-fullheight is-overlay">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div class="column is-full-widescreen is-four-fifths-desktop is-four-fifths-tablet is-full-mobile">
+
+                            <!-- Logo -->
+                            <div class="has-text-centered mb-6">
+                                <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" class="logo-main"/>
+                                <h1 class="title has-text-white is-3">Community Forums</h1>
+                            </div>
+
+                            <!-- Forum Content Area -->
+                            <div class="content-area">
+
+                                <!-- Thread List - Full Width Initially -->
+                                <div class="column is-full-desktop is-four-fifths-tablet is-full-mobile" id="threadList">
+                                    <div class="content-card">
+                                        <div class="card-header">
+                                            <h3 class="title is-5 has-text-white">💬 Forum Threads</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <ui:include src="components/forum/listThreads.xhtml"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Post View - Appears when thread selected -->
+                                <div class="column is-full-desktop is-four-fifths-tablet is-full-mobile" id="postView" style="display: none;">
+                                    <div class="content-card">
+                                        <div class="card-header">
+                                            <h3 class="title is-5 has-text-white">📝 Thread Posts</h3>
+                                            <div class="back-button" onclick="backToThreadList()">
+                                                <i class="pi pi-arrow-left"></i> Back to Threads
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <ui:include src="components/forum/viewPosts.xhtml"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="column">
-                    <!-- Main Content -->
-                      <div class="content">
-                          <ui:include src="components/forum/viewPosts.xhtml"/>
-                      </div>
-                    </div>
+                </div>
             </div>
-         </div>         
-       </div>
-      </div>
-     </div>
-    </section>
-    
-    <ui:include src="components/forum/createPostForm.xhtml"/>
-    <ui:include src="components/forum/modifyPostForm.xhtml"/>
-    
-    <h:form id="confirmDeleteForm">
-        <p:confirmDialog id="confirmDeleteDialog" message="Are you sure you want to delete this post?"
-                     header="Confirmation" severity="alert" widgetVar="confirmDeleteDialog">
-        <p:commandButton value="Yes" styleClass="button is-primary is-rounded"
-                         action="#{PostController.deletePost()}"
-                         update=":formPost:postsTable" icon="fa fa-check" onclick="PF('postDialogModify').hide(); PF('confirmDeleteDialog').hide();"/>
-            <p:commandButton value="No" styleClass="button is-danger is-rounded"
-                             onclick="PF('confirmDeleteDialog').hide();" />
-        </p:confirmDialog>
-    </h:form>
-    
-  </h:body>
+        </section>
+ 
+        <!-- Form Components -->
+        <ui:include src="components/forum/createPostForm.xhtml"/>
+        <ui:include src="components/forum/modifyPostForm.xhtml"/>
+
+        <!-- Delete Confirmation Dialog -->
+        <h:form id="confirmDeleteForm">
+            <p:confirmDialog id="confirmDeleteDialog" message="Are you sure you want to delete this post?"
+                             header="Confirmation" severity="alert" widgetVar="confirmDeleteDialog">
+                <p:commandButton value="Yes" styleClass="button is-primary is-rounded"
+                                 action="#{PostController.deletePost()}"
+                                 update=":formPost:postsTable" icon="fa fa-check" onclick="PF('postDialogModify').hide(); PF('confirmDeleteDialog').hide();"/>
+                <p:commandButton value="No" styleClass="button is-danger is-rounded"
+                                 onclick="PF('confirmDeleteDialog').hide();" />
+            </p:confirmDialog>
+        </h:form>
+
+    </h:body>
 </html>

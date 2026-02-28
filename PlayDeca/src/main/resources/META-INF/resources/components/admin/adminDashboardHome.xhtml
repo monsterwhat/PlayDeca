@@ -4,6 +4,43 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <style>
+        /* Dashboard Statistics Styling */
+        .box .notification {
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(35, 209, 96, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .box .notification:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .box .notification.is-success {
+            background: linear-gradient(135deg, rgba(35, 209, 96, 0.2), rgba(35, 209, 96, 0.1)) !important;
+        }
+        
+        .box .notification.is-info {
+            background: linear-gradient(135deg, rgba(32, 156, 238, 0.2), rgba(32, 156, 238, 0.1)) !important;
+        }
+        
+        .box .notification.is-warning {
+            background: linear-gradient(135deg, rgba(255, 221, 87, 0.2), rgba(255, 221, 87, 0.1)) !important;
+        }
+        
+        .box .notification.is-danger {
+            background: linear-gradient(135deg, rgba(255, 56, 96, 0.2), rgba(255, 56, 96, 0.1)) !important;
+        }
+        
+        .box .notification .title,
+        .box .notification .subtitle {
+            color: #f5f5f5 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+    </style>
     
 <h:form id="AdminHome">
 
@@ -104,10 +141,38 @@
             <br/>
 
             <div class="columns">
-                <!-- DashBoard -->
+                <!-- DashBoard Stats -->
                 <div class="column is-6">
                     <div class="box">
-                            <p:lineChart model="#{DashboardController.lineModel}" />
+                        <h3 class="title is-5 has-text-white">📊 Dashboard Statistics</h3>
+                        <div class="content">
+                            <div class="columns is-multiline">
+                                <div class="column is-half">
+                                    <div class="notification is-success">
+                                        <p class="title is-4">#{UserController.getUsersCount()}</p>
+                                        <p class="subtitle is-6">Total Users</p>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="notification is-info">
+                                        <p class="title is-4">#{ProductsController.getProductsCount()}</p>
+                                        <p class="subtitle is-6">Products</p>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="notification is-warning">
+                                        <p class="title is-4">#{PostController.getPostsCount()}</p>
+                                        <p class="subtitle is-6">Forum Posts</p>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="notification is-danger">
+                                        <p class="title is-4">#{OrdersController.getOrdersCount()}</p>
+                                        <p class="subtitle is-6">Orders</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

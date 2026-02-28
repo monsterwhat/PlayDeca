@@ -10,11 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Admin - Free Bulma template</title>
     <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
-    <script src="js/navbar.js"></script>
+    <script src="/js/navbar.js"></script>
     <!-- Bulma Version 0.9.4-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
 
 </h:head>
 
@@ -40,7 +40,7 @@
     </p:outputPanel>
  
     <h:form id="NavForm" rendered="#{SessionController.isAdmin()}">
-        <ui:include src="components/navbar.xhtml"/>
+        <ui:include src="../components/navbar.xhtml"/>
     </h:form>
 
     <section class="section is-overlay" rendered="#{SessionController.isAdmin()}">
@@ -50,76 +50,76 @@
         <p:outputPanel id="AdminMain">
             
             <ui:fragment rendered="#{DashboardController.view eq 'Home'}">
-                <ui:include src="components/admin/adminDashboardHome.xhtml"/>
+                <ui:include src="../components/admin/adminDashboardHome.xhtml"/>
             </ui:fragment>
 
             <!-- USER -->
             <ui:fragment rendered="#{DashboardController.view eq 'UsersTable'}">
-                <ui:include src="components/admin/forms/View/UsersTable.xhtml"/>
+                <ui:include src="../components/admin/forms/View/UsersTable.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'UsersCreateForm'}">
-                <ui:include src="components/admin/forms/Create/UsersCreateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Create/UsersCreateForm.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'UsersUpdateForm'}">
-                <ui:include src="components/admin/forms/Update/UsersUpdateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Update/UsersUpdateForm.xhtml"/>
             </ui:fragment>
 
             <!-- THREADS -->
             <ui:fragment rendered="#{DashboardController.view eq 'ThreadsTable'}">
-                <ui:include src="components/admin/forms/View/ThreadsTable.xhtml"/>
+                <ui:include src="../components/admin/forms/View/ThreadsTable.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'ThreadsCreateForm'}">
-                <ui:include src="components/admin/forms/Create/ThreadsCreateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Create/ThreadsCreateForm.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'ThreadsUpdateForm'}">
-                <ui:include src="components/admin/forms/Update/ThreadsUpdateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Update/ThreadsUpdateForm.xhtml"/>
             </ui:fragment>
 
             <!-- PRODUCTS -->
             <ui:fragment rendered="#{DashboardController.view eq 'ProductsTable'}">
-                <ui:include src="components/admin/forms/View/ProductsTable.xhtml"/>
+                <ui:include src="../components/admin/forms/View/ProductsTable.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'ProductsCreateForm'}">
-                <ui:include src="components/admin/forms/Create/ProductsCreateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Create/ProductsCreateForm.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'ProductsUpdateForm'}">
-                <ui:include src="components/admin/forms/Update/ProductsUpdateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Update/ProductsUpdateForm.xhtml"/>
             </ui:fragment>
 
             <!-- POSTS -->
             <ui:fragment rendered="#{DashboardController.view eq 'PostsTable'}">
-                <ui:include src="components/admin/forms/View/PostsTable.xhtml"/>
+                <ui:include src="../components/admin/forms/View/PostsTable.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'PostsCreateForm'}">
-                <ui:include src="components/admin/forms/Create/PostsCreateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Create/PostsCreateForm.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'PostsUpdateForm'}">
-                <ui:include src="components/admin/forms/Update/PostsUpdateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Update/PostsUpdateForm.xhtml"/>
             </ui:fragment>
 
             <!-- ORDERS -->
             <ui:fragment rendered="#{DashboardController.view eq 'OrdersTable'}">
-                <ui:include src="components/admin/forms/View/OrdersTable.xhtml"/>
+                <ui:include src="../components/admin/forms/View/OrdersTable.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'OrdersCreateForm'}">
-                <ui:include src="components/admin/forms/Create/OrdersCreateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Create/OrdersCreateForm.xhtml"/>
             </ui:fragment>
             
             <ui:fragment rendered="#{DashboardController.view eq 'OrdersUpdateForm'}">
-                <ui:include src="components/admin/forms/Update/OrdersUpdateForm.xhtml"/>
+                <ui:include src="../components/admin/forms/Update/OrdersUpdateForm.xhtml"/>
             </ui:fragment>
             
-            <ui:include src="components/admin/popups/dataTableDialogs.xhtml"/>
-            <ui:include src="components/admin/popups/dataTablesForm.xhtml"/>
+            <ui:include src="../components/admin/popups/dataTableDialogs.xhtml"/>
+            <ui:include src="../components/admin/popups/dataTablesForm.xhtml"/>
             
         </p:outputPanel>
 

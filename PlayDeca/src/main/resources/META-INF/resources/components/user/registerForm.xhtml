@@ -46,7 +46,7 @@
         </div>
         <div class="field">
             <p class="control">
-             <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Register" action="#{SessionController.registerUser()}"/>
+             <p:commandButton class="button is-success is-rounded is-fullwidth" update="growl" value="Register" action="#{SessionController.register()}"/>
             </p>
         </div>
         <p:commandLink class="has-text-link" value="I already have an account..." update="dynamicContent" process="@this" actionListener="#{SessionController.selectLogin()}" />

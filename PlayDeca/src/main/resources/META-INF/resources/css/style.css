@@ -370,3 +370,443 @@ border: 0;
 height: 2px;
 background: #23D160;
 }
+
+/* Fix strong element visibility */
+strong {
+    color: inherit !important;
+    font-weight: bold !important;
+}
+
+/* Vote Page Styles */
+.vote-site-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.vote-link {
+    display: block;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.vote-banner {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    border: 2px solid rgba(35, 209, 96, 0.3);
+    box-sizing: border-box;
+}
+
+.vote-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(35, 209, 96, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.vote-site-name {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.vote-action {
+    color: #f5f5f5;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background: transparent;
+}
+
+.vote-link:hover .vote-overlay {
+    opacity: 1;
+}
+
+.vote-link:hover .vote-banner {
+    transform: scale(1.05);
+}
+
+.vote-site-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(35, 209, 96, 0.3);
+}
+
+/* Forum Styles - HIGHER SPECIFICITY TO OVERRIDE BULMA */
+.thread-item {
+    padding: 15px !important;
+    border-left: 3px solid #23D160 !important;
+    background: transparent !important;
+    border-radius: 5px !important;
+    margin-bottom: 10px !important;
+    transition: all 0.3s ease !important;
+    color: #f5f5f5 !important;
+}
+
+.thread-item:hover {
+    background: rgba(35, 209, 96, 0.1) !important;
+    transform: translateX(5px) !important;
+    border-left: 3px solid #23D160 !important;
+}
+
+.thread-item h4 {
+    color: #23D160 !important;
+}
+
+.thread-item h4 small {
+    color: #f5f5f5 !important;
+}
+
+.vote-container {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
+}
+
+.vote-count {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    background: rgba(35, 209, 96, 0.1) !important;
+}
+
+.selected-row {
+    background: rgba(35, 209, 96, 0.2) !important;
+    border-left: 3px solid #23D160 !important;
+}
+
+/* Collapsible Threads Styles */
+.collapsible-threads {
+    display: flex;
+    flex-direction: column;
+}
+
+.thread-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: rgba(35, 209, 96, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+
+.thread-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.thread-list-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.thread-item.collapsible {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.thread-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 60px;
+}
+
+.thread-item.expanded .thread-header-content {
+    max-height: none;
+}
+
+.thread-item .toggle-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    color: #23D160;
+    transition: color 0.3s ease;
+}
+
+.thread-item .toggle-button:hover {
+    background: rgba(35, 209, 96, 0.1);
+}
+
+/* Override ALL forum text colors with MAXIMUM SPECIFICITY */
+.thread-item .title,
+.thread-item .has-text-success,
+.thread-item .has-text-grey-light,
+.thread-item h4,
+.thread-item h4 *,
+.thread-item h4 small,
+.thread-item small,
+.media-content .title,
+.media-content .title,
+.media-content .has-text-success,
+.media-content .has-text-grey-light,
+.media-content h4,
+.media-content h4 *,
+.media-content h4 small,
+.media-content small,
+.media-content .subtitle,
+.post-content .title,
+.post-content .title,
+.post-content .has-text-success,
+.post-content .has-text-grey-light,
+.post-content h4,
+.post-content h4 *,
+.post-content h4 small,
+.post-content small,
+.post-content .subtitle,
+.post-content p,
+.card-body .has-text-grey-light,
+.card-body .has-text-success,
+.card-body .title,
+.card-body h4,
+.card-body h4 *,
+.card-body h4 small,
+.card-body small,
+.card-body .subtitle,
+.card-body p {
+    color: #f5f5f5 !important;
+}
+
+/* Override specific element types */
+.media-content h4,
+.post-content h4 {
+    color: #23D160 !important;
+    margin-bottom: 8px !important;
+}
+
+.post-content p {
+    color: #f5f5f5 !important;
+}
+
+/* Force card content backgrounds transparent */
+.content-card .card-body .thread-item,
+.content-card .card-body .post-content,
+.content-card .card-body .media,
+.content-card .card-body .box {
+    background: transparent !important;
+}
+
+/* MASSIVE OVERRIDE - Remove ALL white color from card bodies */
+.content-card .card-body,
+.content-card .card-body *,
+.content-card .card-body p,
+.content-card .card-body h1,
+.content-card .card-body h2,
+.content-card .card-body h3,
+.content-card .card-body h4,
+.content-card .card-body h5,
+.content-card .card-body h6,
+.content-card .card-body span,
+.content-card .card-body small,
+.content-card .card-body strong,
+.content-card .card-body em,
+.content-card .card-body i {
+    color: #f5f5f5 !important;
+}
+
+/* Override any Bulma text color classes in card bodies */
+.content-card .card-body .has-text-white,
+.content-card .card-body .has-text-light,
+.content-card .card-body .has-text-grey,
+.content-card .card-body .has-text-grey-light,
+.content-card .card-body .has-text-primary,
+.content-card .card-body .has-text-success,
+.content-card .card-body .has-text-info,
+.content-card .card-body .has-text-warning,
+.content-card .card-body .has-text-danger {
+    color: #f5f5f5 !important;
+}
+
+/* Specifically override any remaining white text */
+.content-card .card-body [class*="white"],
+.content-card .card-body [style*="white"],
+.content-card .card-body :not([class*="has-text"]):not([style*="color"]):not(:empty) {
+    color: #f5f5f5 !important;
+}
+
+/* Override Bulma is-* classes within forum */
+.thread-item .is-4,
+.thread-item .is-6,
+.media-content .is-4,
+.media-content .is-6,
+.post-content .is-4,
+.post-content .is-6 {
+    color: #f5f5f5 !important;
+}
+
+.thread-item .is-success,
+.media-content .is-success,
+.post-content .is-success {
+    color: #23D160 !important;
+}
+
+/* MASSIVE OVERRIDE - Target ALL text elements within forum cards */
+.content-card .card-body *,
+.content-card .card-body *::before,
+.content-card .card-body *::after,
+.content-card .card-body *::first-line,
+.content-card .card-body *::first-letter,
+.thread-item *,
+.thread-item *::before,
+.thread-item *::after,
+.thread-item *::first-line,
+.thread-item *::first-letter,
+.media-content *,
+.media-content *::before,
+.media-content *::after,
+.media-content *::first-line,
+.media-content *::first-letter,
+.post-content *,
+.post-content *::before,
+.post-content *::after,
+.post-content *::first-line,
+.post-content *::first-letter,
+.box *,
+.box *::before,
+.box *::after,
+.box *::first-line,
+.box *::first-letter {
+    color: #f5f5f5 !important;
+}
+
+/* Override green text specifically */
+.content-card .card-body h4,
+.content-card .card-body .has-text-success,
+.thread-item h4,
+.media-content h4,
+.post-content h4,
+.thread-item .title,
+.media-content .title,
+.post-content .title {
+    color: #23D160 !important;
+}
+
+/* PRIMEFACES DATATABLE SPECIFIC OVERRIDES */
+.ui-datatable table,
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tbody tr,
+.ui-datatable .ui-datatable-data,
+.ui-datatable .ui-datatable-data *,
+.ui-datatable .ui-column-title,
+.ui-datatable .ui-column-header {
+    color: #23D160 !important;
+    font-weight: bold !important;
+}
+
+/* DataTable table structure override */
+.ui-datatable-tablewrapper,
+.ui-datatable thead,
+.ui-datatable thead th {
+    background: transparent !important;
+    color: #23D160 !important;
+    border: none !important;
+}
+
+.ui-datatable thead tr {
+    background: transparent !important;
+    border: none !important;
+}
+
+.ui-datatable thead th {
+    background: transparent !important;
+    color: #23D160 !important;
+    border: none !important;
+    border-bottom: 2px solid rgba(35, 209, 96, 0.2) !important;
+    padding: 10px !important;
+}
+
+.ui-datatable .ui-datatable-data tr,
+.ui-datatable tbody tr {
+    background: transparent !important;
+    color: #f5f5f5 !important;
+    border: none !important;
+}
+
+.ui-datatable .ui-datatable-data tr:hover,
+.ui-datatable tbody tr:hover {
+    background: rgba(35, 209, 96, 0.1) !important;
+    border-left: 3px solid #23D160 !important;
+}
+
+.ui-datatable .ui-datatable-data td,
+.ui-datatable tbody td {
+    background: transparent !important;
+    color: #f5f5f5 !important;
+    border: none !important;
+    padding: 8px !important;
+}
+
+.ui-datatable thead th,
+.ui-datatable .ui-column-title {
+    color: #23D160 !important;
+    font-weight: bold !important;
+}
+
+.ui-datatable tbody tr:hover,
+.ui-datatable .ui-state-hover {
+    background: rgba(35, 209, 96, 0.1) !important;
+}
+
+.ui-datatable tr[aria-selected="true"],
+.ui-datatable td[aria-selected="true"],
+.ui-datatable .ui-state-highlight,
+.ui-datatable .ui-state-active {
+    background: rgba(35, 209, 96, 0.2) !important;
+    border-left: 3px solid #23D160 !important;
+}
+
+.ui-datatable table {
+    background: transparent !important;
+}
+
+.ui-datatable .ui-datatable-empty-message {
+    color: #f5f5f5 !important;
+}
+
+/* Remove default DataTable borders and backgrounds */
+.ui-datatable .ui-widget-header,
+.ui-datatable .ui-datatable-even,
+.ui-datatable .ui-datatable-odd {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* DATASCROLLER HEADER OVERRIDE */
+.ui-datascroller-header,
+.ui-datascroller .ui-widget-header,
+.ui-datascroller .ui-datascroller-content,
+.ui-datascroller .ui-widget-content {
+    background: transparent !important;
+    color: #23D160 !important;
+    border: none !important;
+}
+
+.ui-datascroller .ui-column-title,
+.ui-datascroller .ui-column-header {
+    color: #23D160 !important;
+    font-weight: bold !important;
+}
