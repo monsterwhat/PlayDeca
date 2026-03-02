@@ -22,11 +22,11 @@
 
       <div id="navbarMain" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item has-text-light" href="/index.xhtml"> Home </a>
-          <a class="navbar-item has-text-light" href="/info.xhtml"> Information </a>
-          <a class="navbar-item has-text-light" href="/vote.xhtml"> Vote </a>
-          <a class="navbar-item has-text-light" href="/forums.xhtml"> Forum </a>
-          <a class="navbar-item has-text-light" href="/purchase.xhtml"> Purchase </a>
+          <a class="navbar-item has-text-light" href="/index"> Home </a>
+          <a class="navbar-item has-text-light" href="/info"> Information </a>
+          <a class="navbar-item has-text-light" href="/vote"> Vote </a>
+          <a class="navbar-item has-text-light" href="/forums"> Forum </a>
+          <a class="navbar-item has-text-light" href="/purchase"> Purchase </a>
         </div>
 
         <div class="navbar-end">
@@ -50,18 +50,17 @@
               
               <p:outputPanel rendered="#{not SessionController.isValid()}">
               <p class="control">
-                <a class="button is-success is-outlined" href="/login.xhtml">
+                <a class="button is-success is-outlined" href="/login">
                   <span class="icon has-text-white">
                     <i class="fa-solid fa-right-to-bracket"></i>
                   </span>
                   <span class="has-text-white">Log In / Register</span>
                 </a>
-              </p>
               </p:outputPanel>
               
               <p:outputPanel rendered="#{SessionController.isValid()}">
                 <p class="control">
-                  <a class="button is-success is-outlined" href="/user-profile.xhtml">
+                  <a class="button is-success is-outlined" href="/user-profile">
                     <span class="icon has-text-white">
                       <i class="fa-solid fa-user"></i>
                     </span>

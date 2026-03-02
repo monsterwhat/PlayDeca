@@ -8,10 +8,9 @@
 <h:head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Admin - Free Bulma template</title>
+    <title>PlayDeca - Admin Dashboard</title>
     <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
     <script src="/js/navbar.js"></script>
-    <!-- Bulma Version 0.9.4-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -23,7 +22,7 @@
     <!-- Authentication and Authorization Check -->
     <p:outputPanel rendered="#{!SessionController.isLoggedIn()}">
         <script>
-            window.location.href = '#{facesContext.externalContext.requestContextPath}/login.xhtml';
+            window.location.href = '#{facesContext.externalContext.requestContextPath}/login';
         </script>
     </p:outputPanel>
     
@@ -43,14 +42,29 @@
         <ui:include src="../components/navbar.xhtml"/>
     </h:form>
 
-    <section class="section is-overlay" rendered="#{SessionController.isAdmin()}">
-        
-    <div class="container notification" style="top: 50px">
+    <section class="hero is-fullheight is-overlay" rendered="#{SessionController.isAdmin()}">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-full-widescreen is-four-fifths-desktop is-five-sixths-tablet is-full-mobile">
+
+                        <!-- Logo -->
+                        <div class="has-text-centered mb-4 mt-1">
+                            <img src="/assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" class="logo-main"/>
+                            <h1 class="title has-text-white is-3">Admin Dashboard</h1>
+                        </div>
+
+                        <!-- Content Area -->
+                        <div class="content-area">
         
         <p:outputPanel id="AdminMain">
             
             <ui:fragment rendered="#{DashboardController.view eq 'Home'}">
                 <ui:include src="../components/admin/adminDashboardHome.xhtml"/>
+            </ui:fragment>
+
+            <ui:fragment rendered="#{DashboardController.view eq 'TrafficStats'}">
+                <ui:include src="../components/admin/trafficStats.xhtml"/>
             </ui:fragment>
 
             <!-- USER -->
@@ -123,12 +137,13 @@
             
         </p:outputPanel>
 
-    </div>
-        
-
-        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    
+
 
 
 </h:body>

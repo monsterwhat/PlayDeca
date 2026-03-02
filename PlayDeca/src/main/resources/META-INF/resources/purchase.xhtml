@@ -50,7 +50,7 @@
                         <div class="column is-full-widescreen is-four-fifths-desktop is-five-sixths-tablet is-full-mobile">
 
                             <!-- Logo -->
-                            <div class="has-text-centered mb-6">
+                            <div class="has-text-centered mb-4 mt-1">
                                 <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" class="logo-main"/>
                                 <h1 class="title has-text-white is-3">Purchase Ranks - Coins</h1>
                             </div>
@@ -88,9 +88,10 @@
                                     </div>
                                 </ui:fragment>
 
-                                <!-- Server Coin Package -->
-                                <div class="columns is-centered">
-                                    <div class="column is-half">
+                                <!-- Package Columns -->
+                                <div class="columns is-centered is-vcentered">
+                                    <!-- Server Coin Package -->
+                                    <div class="column">
                                         <div class="content-card is-coin-package">
                                             <div class="card-header">
                                                 <h3 class="title is-5 has-text-white">💰 Server Coin</h3>
@@ -132,7 +133,7 @@
                                                                          update=":coinQuantityForm:coinQuantityContent" />
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
-                                                        <a href="login" class="button is-warning is-large is-fullwidth is-rounded">
+                                                        <a href="login" class="button is-warning is-large is-fullwidth is-rounded has-text-black">
                                                             <i class="fas fa-sign-in-alt"></i>
                                                             <span>Login to Purchase Coins</span>
                                                         </a>
@@ -140,10 +141,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        <br/>
-                                        
-                                        <!-- Donator Package -->
+                                    </div>
+
+                                    <!-- Donator Package -->
+                                    <div class="column">
                                         <div class="content-card is-premium-package">
                                             <div class="card-header">
                                                 <h3 class="title is-5 has-text-white">⭐ Donator</h3>
@@ -191,10 +192,10 @@
                                                 </div>
                                             </div> 
                                         </div>
-                                        
-                                        <br/>
-                                        
-                                        <!-- Supporter Package -->
+                                    </div>
+
+                                    <!-- Supporter Package -->
+                                    <div class="column">
                                         <div class="content-card is-supporter-package">
                                             <div class="card-header">
                                                 <h3 class="title is-5 has-text-white">👑 Supporter</h3>
@@ -237,43 +238,43 @@
                                                         </p:commandButton>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
-                                                        <a href="login" class="button is-info is-large is-fullwidth is-rounded">
+                                                        <a href="login" class="button is-info is-large is-fullwidth is-rounded has-text-black">
                                                             <i class="fas fa-sign-in-alt"></i>
                                                             <span>Login to Get Supporter</span>
                                                         </a>
                                                     </ui:fragment>
                                                 </div>
-                                            </div>
+                                            </div> 
                                         </div> 
+                                    </div>
+                                </div>
 
-                                        <!-- Information Section -->
-                                        <div class="content-card mt-5">
-                                            <div class="card-header">
-                                                <h3 class="title is-5 has-text-white">📋 Important Information</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="notification is-warning">
-                                                    <p class="has-text-weight-bold">
-                                                        <i class="fas fa-exclamation-triangle"></i>
-                                                        Important Notice
-                                                    </p>
-                                                    <p class="mt-2 has-text-grey-light">
-                                                        All donor and supporter features and abilities are designed for <strong>singular use</strong> (solo adventurers) and <strong>CANNOT</strong> be used to compete, harass, or bully other players. 
-                                                        These privileges are intended for personal enjoyment and exploration, not for gaining advantages in multiplayer interactions.
-                                                        Any abuse of these features will result in immediate rank removal without refund.
-                                                    </p>
-                                                </div>
+                                <!-- Information Section -->
+                                <div class="content-card mt-5">
+                                    <div class="card-header">
+                                        <h3 class="title is-5 has-text-white">📋 Important Information</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="notification is-warning has-text-black">
+                                            <p class="has-text-weight-bold has-text-black" >
+                                                <i class="fas fa-exclamation-triangle" ></i>
+                                                Important Notice
+                                            </p>
+                                            <p class="mt-2" >
+                                                All donor and supporter features and abilities are designed for <strong>singular use</strong> (solo adventurers) and <strong>CANNOT</strong> be used to compete, harass, or bully other players. 
+                                                These privileges are intended for personal enjoyment and exploration, not for gaining advantages in multiplayer interactions.
+                                                Any abuse of these features will result in immediate rank removal without refund.
+                                            </p>
+                                        </div>
 
-                                                <div class="notification is-info">
-                                                    <p class="has-text-weight-bold">
-                                                        <i class="fas fa-info-circle"></i>
-                                                        Thank You for Your Support!
-                                                    </p>
-                                                    <p class="mt-2 has-text-grey-light">
-                                                        All purchases help keep our community and servers running and are greatly appreciated!
-                                                    </p>
-                                                </div>
-                                            </div>
+                                        <div class="notification is-warning has-text-black" >
+                                            <p class="has-text-weight-bold has-text-black" >
+                                                <i class="fas fa-info-circle has-text-black" ></i>
+                                                Thank You for Your Support!
+                                            </p>
+                                            <p class="mt-2 has-text-black" >
+                                                All purchases help keep our community and servers running and are greatly appreciated!
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +282,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
         </section>
 
         <!-- Coin Quantity Dialog -->
@@ -365,95 +366,95 @@
         <script>
             //<![CDATA[
             function decreaseQuantity() {
-                const input = document.getElementById('coinQuantityInput');
-                const display = document.getElementById('coinQuantityDisplay');
-                const currentValue = parseInt(input.value) || 1;
-                const newValue = Math.max(1, currentValue - 1);
-                input.value = newValue;
-                display.textContent = newValue;
-                updateTotal();
+            const input = document.getElementById('coinQuantityInput');
+            const display = document.getElementById('coinQuantityDisplay');
+            const currentValue = parseInt(input.value) || 1;
+            const newValue = Math.max(1, currentValue - 1);
+            input.value = newValue;
+            display.textContent = newValue;
+            updateTotal();
             }
 
             function increaseQuantity() {
-                const input = document.getElementById('coinQuantityInput');
-                const display = document.getElementById('coinQuantityDisplay');
-                const currentValue = parseInt(input.value) || 1;
-                const newValue = Math.min(100, currentValue + 1);
-                input.value = newValue;
-                display.textContent = newValue;
-                updateTotal();
+            const input = document.getElementById('coinQuantityInput');
+            const display = document.getElementById('coinQuantityDisplay');
+            const currentValue = parseInt(input.value) || 1;
+            const newValue = Math.min(100, currentValue + 1);
+            input.value = newValue;
+            display.textContent = newValue;
+            updateTotal();
             }
 
             function updateTotal() {
-                const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
-                const total = (quantity * 1.99).toFixed(2);
+            const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
+            const total = (quantity * 1.99).toFixed(2);
 
-                document.getElementById('totalPrice').textContent = total;
-                document.getElementById('coinCount').textContent = quantity;
+            document.getElementById('totalPrice').textContent = total;
+            document.getElementById('coinCount').textContent = quantity;
             }
 
             function confirmCoinPurchase() {
-                const isAdmin = document.getElementById('isAdminHidden').value === 'true';
+            const isAdmin = document.getElementById('isAdminHidden').value === 'true';
 
-                // Close quantity dialog
-                PF('coinQuantityDialog').hide();
+            // Close quantity dialog
+            PF('coinQuantityDialog').hide();
 
-                if (isAdmin) {
-                    // For admins, directly process without confirmation
-                    // Show success message and update coins
-                    const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
-                    alert(`Added ${quantity} coins to your account!`);
-                    updateCoinsDisplay();
-                } else {
-                    // For regular users, show confirmation dialog
-                    PF('coinConfirmDialog').show();
-                }
+            if (isAdmin) {
+            // For admins, directly process without confirmation
+            // Show success message and update coins
+            const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
+            alert(`Added ${quantity} coins to your account!`);
+            updateCoinsDisplay();
+            } else {
+            // For regular users, show confirmation dialog
+            PF('coinConfirmDialog').show();
+            }
             }
 
 
 
             function updateCoinsDisplay() {
-                // Get current displayed coins
-                const currentCoins = parseInt(document.getElementById('serverCoinsDisplay').textContent) || 0;
-                const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
-                const newCoins = currentCoins + quantity;
+            // Get current displayed coins
+            const currentCoins = parseInt(document.getElementById('serverCoinsDisplay').textContent) || 0;
+            const quantity = parseInt(document.getElementById('coinQuantityInput').value) || 1;
+            const newCoins = currentCoins + quantity;
 
-                // Update the display
-                document.getElementById('serverCoinsDisplay').textContent = newCoins;
+            // Update the display
+            document.getElementById('serverCoinsDisplay').textContent = newCoins;
 
-                // Show success message
-                const successMessage = document.createElement('div');
-                successMessage.className = 'notification is-success is-light';
-                successMessage.style.position = 'fixed';
-                successMessage.style.top = '80px';
-                successMessage.style.right = '20px';
-                successMessage.style.zIndex = '1000';
-                successMessage.style.maxWidth = '300px';
-                successMessage.innerHTML = `
-                    <div class="media">
-                        <div class="media-left">
-                            <i class="fas fa-coins" style="color: #23d160; font-size: 1.5rem;"></i>
-                        </div>
-                        <div class="media-content">
-                            <p class="has-text-weight-bold">Coins Added!</p>
-                            <p class="is-size-5">+${quantity} Server Coins</p>
-                        </div>
-                    </div>
-                `;
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'notification is-success is-light';
+            successMessage.style.position = 'fixed';
+            successMessage.style.top = '80px';
+            successMessage.style.right = '20px';
+            successMessage.style.zIndex = '1000';
+            successMessage.style.maxWidth = '300px';
+            successMessage.innerHTML = `
+            <div class="media">
+            <div class="media-left">
+            <i class="fas fa-coins" style="color: #23d160; font-size: 1.5rem;"></i>
+            </div>
+            <div class="media-content">
+            <p class="has-text-weight-bold">Coins Added!</p>
+            <p class="is-size-5">+${quantity} Server Coins</p>
+            </div>
+            </div>
+            `;
 
-                document.body.appendChild(successMessage);
+            document.body.appendChild(successMessage);
 
-                // Remove success message after 3 seconds
-                setTimeout(function () {
-                    if (successMessage.parentNode) {
-                        successMessage.parentNode.removeChild(successMessage);
-                    }
-                }, 3000);
+            // Remove success message after 3 seconds
+            setTimeout(function () {
+            if (successMessage.parentNode) {
+            successMessage.parentNode.removeChild(successMessage);
+            }
+            }, 3000);
             }
 
             // Initialize total on page load
             document.addEventListener('DOMContentLoaded', function () {
-                updateTotal();
+            updateTotal();
             });
             //]]>
         </script>
@@ -480,6 +481,16 @@
                 background: linear-gradient(135deg, #ffdd57 0%, #ffc107 100%);
                 padding: 20px;
                 border-bottom: 2px solid #ffdd57;
+            }
+
+            .content-card.is-coin-package .card-header .title {
+                color: #000000 !important;
+            }
+
+            .content-card.is-coin-package .package-price .amount,
+            .content-card.is-coin-package .package-price .currency,
+            .content-card.is-coin-package .package-price .period {
+                color: #000000 !important;
             }
 
             .content-card.is-premium-package {
@@ -630,6 +641,24 @@
                 .feature-list .feature-item span {
                     font-size: 0.9rem;
                 }
+            }
+            .notification.is-warning {
+                color: #000000 !important;
+                background-color: #ffdd57 !important;
+            }
+
+            .notification.is-warning p,
+            .notification.is-warning span,
+            .notification.is-warning div {
+                color: #000000 !important;
+            }
+
+            .notification.is-warning .has-text-weight-bold {
+                color: #000000 !important;
+            }
+
+            .notification.is-warning strong {
+                color: #000000 !important;
             }
         </style>
 

@@ -7,81 +7,127 @@
 
     <style>
         /* Dashboard Statistics Styling */
-        .box .notification {
+        .content-card .notification {
             border-radius: 12px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(35, 209, 96, 0.3);
             transition: all 0.3s ease;
         }
         
-        .box .notification:hover {
+        .content-card .notification:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
-        .box .notification.is-success {
+        .content-card .notification.is-success {
             background: linear-gradient(135deg, rgba(35, 209, 96, 0.2), rgba(35, 209, 96, 0.1)) !important;
         }
         
-        .box .notification.is-info {
+        .content-card .notification.is-info {
             background: linear-gradient(135deg, rgba(32, 156, 238, 0.2), rgba(32, 156, 238, 0.1)) !important;
         }
         
-        .box .notification.is-warning {
+        .content-card .notification.is-warning {
             background: linear-gradient(135deg, rgba(255, 221, 87, 0.2), rgba(255, 221, 87, 0.1)) !important;
         }
         
-        .box .notification.is-danger {
+        .content-card .notification.is-danger {
             background: linear-gradient(135deg, rgba(255, 56, 96, 0.2), rgba(255, 56, 96, 0.1)) !important;
         }
         
-        .box .notification .title,
-        .box .notification .subtitle {
+        .content-card .notification .title,
+        .content-card .notification .subtitle {
             color: #f5f5f5 !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Logs DataTable Styling */
+        #AdminHome .ui-datatable {
+            background: transparent !important;
+        }
+        
+        #AdminHome .ui-datatable table {
+            background: transparent !important;
+            color: #f5f5f5 !important;
+        }
+        
+        #AdminHome .ui-datatable thead th,
+        #AdminHome .ui-datatable .ui-column-title,
+        #AdminHome .ui-datatable .ui-column-header {
+            background: rgba(35, 209, 96, 0.2) !important;
+            color: #23D160 !important;
+            border: none !important;
+            border-bottom: 2px solid rgba(35, 209, 96, 0.3) !important;
+        }
+        
+        #AdminHome .ui-datatable tbody td {
+            background: transparent !important;
+            color: #f5f5f5 !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        #AdminHome .ui-datatable tbody tr {
+            background: transparent !important;
+        }
+        
+        #AdminHome .ui-datatable tbody tr:hover {
+            background: rgba(35, 209, 96, 0.1) !important;
+        }
+        
+        #AdminHome .ui-datatable .ui-datatable-empty-message {
+            color: #f5f5f5 !important;
+        }
+        
+        #AdminHome .ui-datatable .ui-paginator {
+            background: transparent !important;
+            color: #f5f5f5 !important;
         }
     </style>
     
 <h:form id="AdminHome">
 
-    <div class="columns">
+    <div class="columns is-multiline">
 
         <div class="column is-3">
             <aside class="menu is-hidden-mobile">
-                <p class="menu-label"> CRUD's </p>
-                    <div class="buttons is-centered">
-                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
-                                         value="Users" actionListener="#{DashboardController.switchViewToForm('UsersTable')}"/>
-                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
-                                         value="Threads" actionListener="#{DashboardController.switchViewToForm('ThreadsTable')}"/>
-                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
-                                         value="Posts" actionListener="#{DashboardController.switchViewToForm('PostsTable')}"/>
-                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
-                                         value="Products" actionListener="#{DashboardController.switchViewToForm('ProductsTable')}"/>
-                        <p:commandButton class="button is-rounded is-link is-outlined" update="AdminMain"
-                                         value="Orders" actionListener="#{DashboardController.switchViewToForm('OrdersTable')}"/>
+                <p class="menu-label has-text-white"> CRUD's </p>
+                    <div class="content-card mb-4">
+                        <div class="card-body">
+                            <div class="buttons is-centered">
+                                <p:commandButton class="button is-rounded is-success is-outlined" update="AdminMain"
+                                                 value="Users" actionListener="#{DashboardController.switchViewToForm('UsersTable')}"/>
+                                <p:commandButton class="button is-rounded is-success is-outlined" update="AdminMain"
+                                                 value="Threads" actionListener="#{DashboardController.switchViewToForm('ThreadsTable')}"/>
+                                <p:commandButton class="button is-rounded is-success is-outlined" update="AdminMain"
+                                                 value="Posts" actionListener="#{DashboardController.switchViewToForm('PostsTable')}"/>
+                                <p:commandButton class="button is-rounded is-success is-outlined" update="AdminMain"
+                                                 value="Products" actionListener="#{DashboardController.switchViewToForm('ProductsTable')}"/>
+                                <p:commandButton class="button is-rounded is-success is-outlined" update="AdminMain"
+                                                 value="Orders" actionListener="#{DashboardController.switchViewToForm('OrdersTable')}"/>
+                            </div>
+                        </div>
                     </div>
 
-                 <hr/>
+                 <hr class="has-background-grey-dark"/>
 
-                 <p class="menu-label"> Server Stats </p>
-                 <button class="button is-rounded is-info is-fullwidth" disabled="true">
-                   Server Stats
-                 </button>
+                  <p class="menu-label has-text-white"> Server Stats </p>
+                  <p:commandButton class="button is-rounded is-info is-fullwidth" 
+                                   value="Server Stats" actionListener="#{DashboardController.showTrafficStats}" update="AdminMain"/>
 
-                 <p class="menu-label"> Manage Plugins </p>
+                 <p class="menu-label has-text-white mt-4"> Manage Plugins </p>
                  <button class="button is-rounded is-info is-fullwidth" disabled="true">
                    Manage Plugins
                  </button>
 
-                 <p class="menu-label"> Server Console </p>
+                 <p class="menu-label has-text-white mt-4"> Server Console </p>
                  <button class="button is-rounded is-info is-fullwidth" disabled="true">
                    Server Console
                  </button>
 
-                 <hr/>
+                 <hr class="has-background-grey-dark"/>
 
-                 <p class="menu-label"> Server Logs </p>
+                 <p class="menu-label has-text-white"> Server Logs </p>
                  <button class="button is-rounded is-warning is-fullwidth" disabled="true">
                    Server Logs
                  </button>
@@ -140,12 +186,14 @@
 
             <br/>
 
-            <div class="columns">
+            <div class="columns is-multiline">
                 <!-- DashBoard Stats -->
-                <div class="column is-6">
-                    <div class="box">
-                        <h3 class="title is-5 has-text-white">📊 Dashboard Statistics</h3>
-                        <div class="content">
+                <div class="column is-full">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3 class="title is-5 has-text-white">📊 Dashboard Statistics</h3>
+                        </div>
+                        <div class="card-body">
                             <div class="columns is-multiline">
                                 <div class="column is-half">
                                     <div class="notification is-success">
@@ -177,29 +225,29 @@
                 </div>
 
                 <!--Activity-->
-                <div class="column is-6">
-                    <div class="card events-card">
-
-                        <div class="card-table">
-                            <div class="content">
-                                <p:dataTable styleClass="table is-striped"  scrollable="true" scrollHeight="220" id="logsTable" var="log" value="#{DashboardController.logsList}">
-                                    <p:column class="has-text-centered" headerText="Logs">
-                                        <div class="columns">
-                                            <h:outputText class="column" value="#{log.name}"/>
-                                            <h:outputText class="column" value="#{log.description}"/>
-                                            <h:outputText class="column" value="#{log.user.username}"/>
-                                        </div>
-
-                                    </p:column>
-                                    <p:column width="50">
-                                        <!---->
-                                        <p:commandButton update="" oncomplete=""
-                                                         icon="pi pi-search" title="View">
-                                            <f:setPropertyActionListener value="#{log}" target="#{DashboardController.selectedLog}"/>
-                                        </p:commandButton>
-                                    </p:column>
-                                </p:dataTable>
-                            </div>
+                <div class="column is-full">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3 class="title is-5 has-text-white">📋 Activity</h3>
+                        </div>
+                        <div class="card-body">
+                            <p:dataTable styleClass="table is-striped" scrollable="true" scrollHeight="400" id="logsTable" var="log" value="#{DashboardController.logsList}">
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{log.name}"/>
+                                </p:column>
+                                <p:column headerText="Description">
+                                    <h:outputText value="#{log.description}"/>
+                                </p:column>
+                                <p:column headerText="User">
+                                    <h:outputText value="#{log.user.username}"/>
+                                </p:column>
+                                <p:column width="50">
+                                    <p:commandButton update="" oncomplete=""
+                                                     icon="pi pi-search" title="View">
+                                        <f:setPropertyActionListener value="#{log}" target="#{DashboardController.selectedLog}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
                         </div>
                     </div>
                 </div>

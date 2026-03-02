@@ -74,6 +74,11 @@ public class DashboardController implements Serializable {
         return "";
     }
 
+    public String showTrafficStats() {
+        this.view = "TrafficStats";
+        return "";
+    }
+
     public Object getLineModel() {
         return lineModel;
     }

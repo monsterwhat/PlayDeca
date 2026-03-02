@@ -1,0 +1,313 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:form id="TrafficStatsForm">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        <style>
+            .traffic-stats .card {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(35, 209, 96, 0.3);
+            }
+            
+            .traffic-stats .title, 
+            .traffic-stats .subtitle {
+                color: #f5f5f5 !important;
+            }
+            
+            .traffic-stats .notification {
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(35, 209, 96, 0.3);
+            }
+            
+            .traffic-stats .notification.is-success {
+                background: linear-gradient(135deg, rgba(35, 209, 96, 0.2), rgba(35, 209, 96, 0.1)) !important;
+            }
+            
+            .traffic-stats .notification.is-info {
+                background: linear-gradient(135deg, rgba(32, 156, 238, 0.2), rgba(32, 156, 238, 0.1)) !important;
+            }
+            
+            .traffic-stats .notification.is-warning {
+                background: linear-gradient(135deg, rgba(255, 221, 87, 0.2), rgba(255, 221, 87, 0.1)) !important;
+            }
+            
+            .traffic-stats .notification.is-danger {
+                background: linear-gradient(135deg, rgba(255, 56, 96, 0.2), rgba(255, 56, 96, 0.1)) !important;
+            }
+            
+            .traffic-stats .ui-datatable {
+                background: transparent !important;
+            }
+            
+            .traffic-stats .ui-datatable table {
+                background: transparent !important;
+                color: #f5f5f5 !important;
+            }
+            
+            .traffic-stats .ui-datatable thead th {
+                background: rgba(35, 209, 96, 0.2) !important;
+                color: #23D160 !important;
+                border: none !important;
+            }
+            
+            .traffic-stats .ui-datatable tbody td {
+                background: transparent !important;
+                color: #f5f5f5 !important;
+                border: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            
+            .traffic-stats .ui-datatable tbody tr:hover {
+                background: rgba(35, 209, 96, 0.1) !important;
+            }
+        </style>
+
+        <div class="traffic-stats">
+            <div class="columns is-multiline">
+                <!-- Stats Cards -->
+                <div class="column is-12 mb-4">
+                    <div class="columns is-multiline">
+                        <div class="column is-3">
+                            <div class="notification is-success">
+                                <p class="title is-4">#{TrafficStatsController.totalPageViews}</p>
+                                <p class="subtitle is-6">Total Page Views</p>
+                            </div>
+                        </div>
+                        <div class="column is-3">
+                            <div class="notification is-info">
+                                <p class="title is-4">#{TrafficStatsController.monthlyUniqueVisitors}</p>
+                                <p class="subtitle is-6">Monthly Unique Visitors</p>
+                            </div>
+                        </div>
+                        <div class="column is-3">
+                            <div class="notification is-warning">
+                                <p class="title is-4">#{TrafficStatsController.allTimeUniqueVisitors}</p>
+                                <p class="subtitle is-6">All Time Unique Visitors</p>
+                            </div>
+                        </div>
+                        <div class="column is-3">
+                            <div class="notification is-danger">
+                                <p class="title is-4">#{TrafficStatsController.averageResponseTime}ms</p>
+                                <p class="subtitle is-6">Avg Response Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Charts Row -->
+                <div class="column is-12">
+                    <div class="columns">
+                        <div class="column is-4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p class="title is-5 has-text-white has-text-centered">Device Types</p>
+                                    <canvas id="deviceChart" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p class="title is-5 has-text-white has-text-centered">Operating Systems</p>
+                                    <canvas id="osChart" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p class="title is-5 has-text-white has-text-centered">Browsers</p>
+                                    <canvas id="browserChart" width="300" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Line Charts Row -->
+                <div class="column is-12">
+                    <div class="columns">
+                        <div class="column is-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p class="title is-5 has-text-white has-text-centered">Traffic Over Time</p>
+                                    <canvas id="trafficChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p class="title is-5 has-text-white has-text-centered">Traffic Sources</p>
+                                    <canvas id="sourcesChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Logs Table -->
+                <div class="column is-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-header-title has-text-white">Recent Traffic Logs</p>
+                            <p:commandButton value="Refresh" actionListener="#{TrafficStatsController.refresh}" 
+                                             update="TrafficStatsForm" styleClass="button is-small is-success mr-4"/>
+                        </div>
+                        <div class="card-content">
+                            <p:dataTable scrollable="true" scrollHeight="400" var="log" 
+                                         value="#{TrafficStatsController.trafficLogs}">
+                                <p:column headerText="Time">
+                                    <h:outputText value="#{log.visitTime}">
+                                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="IP Address">
+                                    <h:outputText value="#{log.ipAddress}"/>
+                                </p:column>
+                                <p:column headerText="Page URL">
+                                    <h:outputText value="#{log.pageUrl}"/>
+                                </p:column>
+                                <p:column headerText="Device">
+                                    <h:outputText value="#{log.deviceType}"/>
+                                </p:column>
+                                <p:column headerText="OS">
+                                    <h:outputText value="#{log.operatingSystem}"/>
+                                </p:column>
+                                <p:column headerText="Browser">
+                                    <h:outputText value="#{log.browserVersion}"/>
+                                </p:column>
+                                <p:column headerText="Response Time">
+                                    <h:outputText value="#{log.responseTime}ms"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Device Chart
+            const deviceCtx = document.getElementById('deviceChart').getContext('2d');
+            new Chart(deviceCtx, {
+                type: 'pie',
+                data: {
+                    labels: [#{TrafficStatsController.deviceLabelsJson}],
+                    datasets: [{
+                        data: [#{TrafficStatsController.deviceValuesJson}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)'
+                        ]
+                    }]
+                }
+            });
+
+            // OS Chart
+            const osCtx = document.getElementById('osChart').getContext('2d');
+            new Chart(osCtx, {
+                type: 'pie',
+                data: {
+                    labels: [#{TrafficStatsController.osLabelsJson}],
+                    datasets: [{
+                        data: [#{TrafficStatsController.osValuesJson}],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(199, 199, 199, 0.6)'
+                        ]
+                    }]
+                }
+            });
+
+            // Browser Chart
+            const browserCtx = document.getElementById('browserChart').getContext('2d');
+            new Chart(browserCtx, {
+                type: 'pie',
+                data: {
+                    labels: [#{TrafficStatsController.browserLabelsJson}],
+                    datasets: [{
+                        data: [#{TrafficStatsController.browserValuesJson}],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)'
+                        ]
+                    }]
+                }
+            });
+
+            // Traffic Over Time Chart
+            const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+            new Chart(trafficCtx, {
+                type: 'line',
+                data: {
+                    labels: [#{TrafficStatsController.trafficDateLabelsJson}],
+                    datasets: [{
+                        label: 'Page Views',
+                        data: [#{TrafficStatsController.trafficDateValuesJson}],
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#f5f5f5' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#f5f5f5' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    }
+                }
+            });
+
+            // Traffic Sources Chart
+            const sourcesCtx = document.getElementById('sourcesChart').getContext('2d');
+            new Chart(sourcesCtx, {
+                type: 'bar',
+                data: {
+                    labels: [#{TrafficStatsController.sourceLabelsJson}],
+                    datasets: [{
+                        label: 'Traffic Sources',
+                        data: [#{TrafficStatsController.sourceValuesJson}],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#f5f5f5' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#f5f5f5' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    }
+                }
+            });
+        </script>
+    </h:form>
+</ui:composition>

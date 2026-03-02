@@ -199,6 +199,12 @@
     border-left: 3px solid #23D160;
     transition: all 0.3s ease;
     overflow: hidden;
+    display: block;
+    width: 100%;
+}
+
+.content-card + .content-card {
+    margin-top: 2rem;
 }
 
 .content-card:hover {
@@ -551,45 +557,6 @@ strong {
     background: rgba(35, 209, 96, 0.1);
 }
 
-/* Override ALL forum text colors with MAXIMUM SPECIFICITY */
-.thread-item .title,
-.thread-item .has-text-success,
-.thread-item .has-text-grey-light,
-.thread-item h4,
-.thread-item h4 *,
-.thread-item h4 small,
-.thread-item small,
-.media-content .title,
-.media-content .title,
-.media-content .has-text-success,
-.media-content .has-text-grey-light,
-.media-content h4,
-.media-content h4 *,
-.media-content h4 small,
-.media-content small,
-.media-content .subtitle,
-.post-content .title,
-.post-content .title,
-.post-content .has-text-success,
-.post-content .has-text-grey-light,
-.post-content h4,
-.post-content h4 *,
-.post-content h4 small,
-.post-content small,
-.post-content .subtitle,
-.post-content p,
-.card-body .has-text-grey-light,
-.card-body .has-text-success,
-.card-body .title,
-.card-body h4,
-.card-body h4 *,
-.card-body h4 small,
-.card-body small,
-.card-body .subtitle,
-.card-body p {
-    color: #f5f5f5 !important;
-}
-
 /* Override specific element types */
 .media-content h4,
 .post-content h4 {
@@ -609,44 +576,6 @@ strong {
     background: transparent !important;
 }
 
-/* MASSIVE OVERRIDE - Remove ALL white color from card bodies */
-.content-card .card-body,
-.content-card .card-body *,
-.content-card .card-body p,
-.content-card .card-body h1,
-.content-card .card-body h2,
-.content-card .card-body h3,
-.content-card .card-body h4,
-.content-card .card-body h5,
-.content-card .card-body h6,
-.content-card .card-body span,
-.content-card .card-body small,
-.content-card .card-body strong,
-.content-card .card-body em,
-.content-card .card-body i {
-    color: #f5f5f5 !important;
-}
-
-/* Override any Bulma text color classes in card bodies */
-.content-card .card-body .has-text-white,
-.content-card .card-body .has-text-light,
-.content-card .card-body .has-text-grey,
-.content-card .card-body .has-text-grey-light,
-.content-card .card-body .has-text-primary,
-.content-card .card-body .has-text-success,
-.content-card .card-body .has-text-info,
-.content-card .card-body .has-text-warning,
-.content-card .card-body .has-text-danger {
-    color: #f5f5f5 !important;
-}
-
-/* Specifically override any remaining white text */
-.content-card .card-body [class*="white"],
-.content-card .card-body [style*="white"],
-.content-card .card-body :not([class*="has-text"]):not([style*="color"]):not(:empty) {
-    color: #f5f5f5 !important;
-}
-
 /* Override Bulma is-* classes within forum */
 .thread-item .is-4,
 .thread-item .is-6,
@@ -661,35 +590,6 @@ strong {
 .media-content .is-success,
 .post-content .is-success {
     color: #23D160 !important;
-}
-
-/* MASSIVE OVERRIDE - Target ALL text elements within forum cards */
-.content-card .card-body *,
-.content-card .card-body *::before,
-.content-card .card-body *::after,
-.content-card .card-body *::first-line,
-.content-card .card-body *::first-letter,
-.thread-item *,
-.thread-item *::before,
-.thread-item *::after,
-.thread-item *::first-line,
-.thread-item *::first-letter,
-.media-content *,
-.media-content *::before,
-.media-content *::after,
-.media-content *::first-line,
-.media-content *::first-letter,
-.post-content *,
-.post-content *::before,
-.post-content *::after,
-.post-content *::first-line,
-.post-content *::first-letter,
-.box *,
-.box *::before,
-.box *::after,
-.box *::first-line,
-.box *::first-letter {
-    color: #f5f5f5 !important;
 }
 
 /* Override green text specifically */
@@ -809,4 +709,77 @@ strong {
 .ui-datascroller .ui-column-header {
     color: #23D160 !important;
     font-weight: bold !important;
+}
+
+/* Yellow button text overrides */
+.button.is-warning {
+    color: #000000 !important;
+}
+
+.button.is-warning span,
+.button.is-warning i {
+    color: #000000 !important;
+}
+
+a.button.is-warning:visited,
+a.button.is-warning:hover,
+a.button.is-warning:focus,
+a.button.is-warning {
+    color: #000000 !important;
+}
+
+a.button.is-warning span,
+a.button.is-warning i {
+    color: #000000 !important;
+}
+
+/* Package cards in row */
+.content-area .columns.is-centered {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.content-area .columns.is-centered > .column {
+    flex: 1 1 0 !important;
+    min-width: 280px !important;
+    max-width: 400px !important;
+    padding: 0.5rem !important;
+}
+
+.content-area .content-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+    margin-bottom: 0 !important;
+}
+
+/* Extra aggressive button text override */
+.button.is-warning,
+.button.is-warning:hover,
+.button.is-warning:focus,
+.button.is-warning:active,
+.button.is-warning:visited,
+.button.is-warning span,
+.button.is-warning i,
+a.button.is-warning,
+a.button.is-warning:visited,
+a.button.is-warning:hover,
+a.button.is-warning:focus,
+a.button.is-warning span,
+a.button.is-warning i {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+/* PrimeFaces button overrides */
+.ui-button.button.is-warning,
+.ui-button.button.is-warning span,
+.ui-button.button.is-warning .ui-button-text {
+    color: #000000 !important;
+}
+
+.ui-button.button.is-warning:focus,
+.ui-button.button.is-warning:hover {
+    color: #000000 !important;
+    background-color: #ffc107 !important;
 }
