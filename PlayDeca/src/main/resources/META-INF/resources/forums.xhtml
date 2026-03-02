@@ -21,7 +21,7 @@
         <ui:include src="components/navbar.xhtml"/>
 
         <!-- Messages -->
-        <p:messages id="messages"/>
+        <p:messages id="messages" showDetail="true" showIcon="true"/>
 
         <!-- Modern Forums Page -->
         <section class="hero is-fullheight is-overlay">
@@ -73,6 +73,7 @@
         </section>
  
         <!-- Form Components -->
+        <ui:include src="components/forum/createThreadForm.xhtml"/>
         <ui:include src="components/forum/createPostForm.xhtml"/>
         <ui:include src="components/forum/modifyPostForm.xhtml"/>
 
@@ -82,11 +83,23 @@
                              header="Confirmation" severity="alert" widgetVar="confirmDeleteDialog">
                 <p:commandButton value="Yes" styleClass="button is-primary is-rounded"
                                  action="#{PostController.deletePost()}"
-                                 update=":formPost:postsTable" icon="fa fa-check" onclick="PF('postDialogModify').hide(); PF('confirmDeleteDialog').hide();"/>
+                                 update=":postViewContent:postsTable :messages" icon="fa fa-check" onclick="PF('postDialogModify').hide(); PF('confirmDeleteDialog').hide();"/>
                 <p:commandButton value="No" styleClass="button is-danger is-rounded"
                                  onclick="PF('confirmDeleteDialog').hide();" />
             </p:confirmDialog>
         </h:form>
+        
+        <!-- Global Confirm Dialog -->
+        <p:confirmDialog global="true" widgetVar="globalConfirmDialog">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes button is-primary is-rounded" icon="pi pi-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no button is-danger is-rounded" icon="pi pi-times" />
+        </p:confirmDialog>
 
+        <script>
+            function backToThreadList() {
+                document.getElementById('threadList').style.display = 'block';
+                document.getElementById('postView').style.display = 'none';
+            }
+        </script>
     </h:body>
 </html>

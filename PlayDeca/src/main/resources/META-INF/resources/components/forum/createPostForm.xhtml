@@ -8,34 +8,37 @@
     
     <h:form id="CreatePost">
         <p:dialog id="postDialogCreate" header="Create Post" class="has-text-centered" widgetVar="postDialogCreate" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
-                     <div class="notification has-text-centered">
-                         <div class="columns">
-                             <div class="column">
-                                 <h:outputLabel styleClass="label is-centered" for="PostTitle" value="Post Title: "/>
-                             </div>
-                          </div>
-                       <div class="columns">
-                        <div class="column">
-                                 <p:inputText class="input" id="PostTitle" value="#{PostController.newPost.title}" required="true" />
-                        </div>
-                       </div>
+            <div class="notification has-text-centered">
+                <div class="columns">
+                    <div class="column">
+                        <h:outputLabel styleClass="label is-centered" for="PostTitle" value="Post Title: "/>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p:inputText class="input" id="PostTitle" value="#{PostController.newPost.title}" required="true" />
+                    </div>
+                </div>
 
-                       <div class="columns">
-                             <div class="column">
-                                 <h:outputLabel styleClass="label is-centered" for="PostBody" value="Body: " />
-                             </div>
-                         </div>
-                       <div class="columns">
-                        <div class="column">
-                                 <p:inputTextarea class="textarea" id="PostBody" autoResize="true" value="#{PostController.newPost.body}" required="true" />
-                        </div>
-                       </div>
-                       <div class="buttons is-centered">
-                             <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" action="#{PostController.createPost}" onclick="PF('postDialogCreate').hide();" update="formPost"/>
-                             <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel" onclick="PF('postDialogCreate').hide();" />
-                       </div>
-                     </div>
-                </p:dialog>
+                <div class="columns">
+                    <div class="column">
+                        <h:outputLabel styleClass="label is-centered" for="PostBody" value="Body: " />
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <p:inputTextarea class="textarea" id="PostBody" autoResize="true" value="#{PostController.newPost.body}" required="true" />
+                    </div>
+                </div>
+                <div class="buttons is-centered">
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Create" 
+                                     action="#{PostController.createPost}" 
+                                     onclick="PF('postDialogCreate').hide();" 
+                                     update=":postViewContent:postsTable :messages"/>
+                    <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel" onclick="PF('postDialogCreate').hide();" />
+                </div>
+            </div>
+        </p:dialog>
     </h:form>
     
 </ui:composition>

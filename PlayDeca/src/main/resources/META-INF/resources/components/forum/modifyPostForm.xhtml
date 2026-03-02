@@ -31,7 +31,7 @@
                 <div class="buttons is-centered">
                     <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-link is-responsive" value="Save"
                                      action="#{PostController.savePost}" onclick="PF('postDialogModify').hide();"
-                                     update=":formPost:postsTable" icon="fa fa-save" iconPos="right">
+                                     update=":postViewContent:postsTable :messages" icon="fa fa-save" iconPos="right">
                     </p:commandButton>
                     <p:commandButton styleClass="button is-fullwidth is-small is-rounded is-danger is-responsive" value="Cancel"
                                      onclick="PF('postDialogModify').hide();" icon="fa fa-times" iconPos="right">

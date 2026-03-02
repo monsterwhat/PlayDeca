@@ -28,11 +28,12 @@ public class TrafficLogService {
     }
 
     public List<TrafficLog> findAll() {
-        return TrafficLog.list("ORDER BY visitTime DESC");
+        return TrafficLog.<TrafficLog>list("ORDER BY visitTime DESC");
     }
 
     public List<TrafficLog> findRecent(int limit) {
-        return TrafficLog.list("ORDER BY visitTime DESC").stream().limit(limit).toList();
+        List<TrafficLog> all = TrafficLog.<TrafficLog>list("ORDER BY visitTime DESC");
+        return all.stream().limit(limit).collect(java.util.stream.Collectors.toList());
     }
 
     public Map<String, Long> getDeviceTypeCounts() {
@@ -59,7 +60,7 @@ public class TrafficLogService {
 
     public Map<String, Long> getTrafficVolumeByDate(int days) {
         LocalDateTime cutoff = LocalDateTime.now().minusDays(days);
-        List<TrafficLog> logs = TrafficLog.list("visitTime >= ?1 ORDER BY visitTime", cutoff);
+        List<TrafficLog> logs = TrafficLog.<TrafficLog>list("visitTime >= ?1 ORDER BY visitTime", cutoff);
         Map<String, Long> volume = new HashMap<>();
         for (TrafficLog log : logs) {
             if (log.getVisitTime() != null) {
@@ -137,7 +138,7 @@ public class TrafficLogService {
 
     public long getUniqueVisitors(int days) {
         LocalDateTime cutoff = LocalDateTime.now().minusDays(days);
-        List<TrafficLog> logs = TrafficLog.list("visitTime >= ?1", cutoff);
+        List<TrafficLog> logs = TrafficLog.<TrafficLog>list("visitTime >= ?1", cutoff);
         return logs.stream().map(TrafficLog::getIpAddress).distinct().count();
     }
 
@@ -163,14 +164,14 @@ public class TrafficLogService {
     }
 
     public List<TrafficLog> findByIpAddress(String ipAddress) {
-        return TrafficLog.list("ipAddress = ?1 ORDER BY visitTime DESC", ipAddress);
+        return TrafficLog.<TrafficLog>list("ipAddress = ?1 ORDER BY visitTime DESC", ipAddress);
     }
 
     public List<TrafficLog> findByPageUrl(String pageUrl) {
-        return TrafficLog.list("pageUrl LIKE ?1 ORDER BY visitTime DESC", "%" + pageUrl + "%");
+        return TrafficLog.<TrafficLog>list("pageUrl LIKE ?1 ORDER BY visitTime DESC", "%" + pageUrl + "%");
     }
 
     public List<TrafficLog> findByDateRange(LocalDateTime start, LocalDateTime end) {
-        return TrafficLog.list("visitTime >= ?1 AND visitTime <= ?2 ORDER BY visitTime DESC", start, end);
+        return TrafficLog.<TrafficLog>list("visitTime >= ?1 AND visitTime <= ?2 ORDER BY visitTime DESC", start, end);
     }
 }

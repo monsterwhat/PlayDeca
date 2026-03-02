@@ -2,6 +2,7 @@ package com.playdeca.services;
 
 import com.playdeca.models.Threads;
 import com.playdeca.models.Users;
+import com.playdeca.models.Posts;
 import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -57,11 +58,11 @@ public class ThreadService {
     }
     
     public List<Threads> listAll() {
-        return Threads.listAll();
+        return Threads.<Threads>list("ORDER BY date DESC");
     }
     
     public List<Threads> findByUser(Users user) {
-        return Threads.list("user", user);
+        return Threads.<Threads>list("user", user);
     }
     
     public Threads findById(Long id) {
@@ -70,5 +71,9 @@ public class ThreadService {
     
     public long count() {
         return Threads.count();
+    }
+    
+    public long getPostCount(Threads thread) {
+        return Posts.count("thread", thread);
     }
 }

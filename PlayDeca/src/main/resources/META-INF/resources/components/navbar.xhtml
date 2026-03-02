@@ -49,13 +49,14 @@
               </p>
               
               <p:outputPanel rendered="#{not SessionController.isValid()}">
-              <p class="control">
-                <a class="button is-success is-outlined" href="/login">
-                  <span class="icon has-text-white">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                  </span>
-                  <span class="has-text-white">Log In / Register</span>
-                </a>
+                <p class="control">
+                  <a class="button is-success is-outlined" href="/login">
+                    <span class="icon has-text-white">
+                      <i class="fa-solid fa-right-to-bracket"></i>
+                    </span>
+                    <span class="has-text-white">Log In / Register</span>
+                  </a>
+                </p>
               </p:outputPanel>
               
               <p:outputPanel rendered="#{SessionController.isValid()}">

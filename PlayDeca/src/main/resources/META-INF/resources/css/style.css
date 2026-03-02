@@ -557,6 +557,76 @@ strong {
     background: rgba(35, 209, 96, 0.1);
 }
 
+/* Forum Post Styles */
+.post-box {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(35, 209, 96, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.post-box:hover {
+    border-color: rgba(35, 209, 96, 0.5);
+    box-shadow: 0 4px 15px rgba(35, 209, 96, 0.1);
+}
+
+.post-column {
+    padding: 10px;
+}
+
+/* Vote Buttons */
+.vote-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.vote-buttons .button {
+    border: none;
+    background: transparent;
+    color: #b5b5b5;
+    transition: all 0.2s ease;
+}
+
+.vote-buttons .button:hover {
+    background: rgba(35, 209, 96, 0.1);
+    color: #23D160;
+}
+
+.vote-buttons .button.is-success {
+    background: rgba(35, 209, 96, 0.2);
+    color: #23D160;
+}
+
+.vote-buttons .button.is-danger {
+    background: rgba(255, 73, 73, 0.2);
+    color: #ff4957;
+}
+
+.vote-count {
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Back Button */
+.back-button {
+    background: rgba(35, 209, 96, 0.2);
+    color: #23D160;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button:hover {
+    background: rgba(35, 209, 96, 0.4);
+    transform: translateX(-5px);
+}
+
 /* Override specific element types */
 .media-content h4,
 .post-content h4 {

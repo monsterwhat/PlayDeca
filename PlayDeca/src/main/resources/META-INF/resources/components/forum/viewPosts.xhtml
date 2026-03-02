@@ -5,52 +5,87 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
           
-    <h:form id="formPost">
+    <h:form id="postViewContent">
 
-<div class="box">
-      <h1 class="title has-text-success">📝 Thread Discussion</h1>
-      <p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="5" 
+        <p:outputPanel id="threadTitleDisplay">
+            <div class="level mb-4">
+                <div class="level-left">
+                    <h2 class="title is-4 has-text-success">
+                        #{ThreadController.selectedThread.title}
+                    </h2>
+                </div>
+                <div class="level-right">
+                    <button type="button" class="button is-info is-rounded" onclick="backToThreadList()">
+                        <i class="pi pi-arrow-left"></i> Back to Threads
+                    </button>
+                </div>
+            </div>
+        </p:outputPanel>
+
+        <p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="10" 
                     paginator="true" paginatorPosition="bottom" reflow="true" id="postsTable" 
-                    emptyMessage="No posts available" selectionMode="single" rowKey="#{thepost.postId}"
-                    selection="#{PostController.selectedPost}" filteredValue="#{PostController.filteredList}">
+                    emptyMessage="No posts yet. Be the first to post!">
 
-      <p:ajax event="rowSelect" update=":formPost:postDetail" oncomplete="PF('postDialog').show()"/>
-
-      <p:column headerText="Post Title" class="center">
-            <div class="media">
-                <div class="media-left">
-                    <p:commandButton rendered="#{PostController.isModifiable(thepost)}"
-                        styleClass="button is-rounded is-info is-small"
-                        icon="pi pi-pencil" title="Modify"
-                        process="@this"
-                        update=":ModifyPost:postDialogModify"
-                        oncomplete="PF('postDialogModify').show();">
-                        <f:setPropertyActionListener target="#{PostController.selectedPost}" value="#{thepost}" />
-                    </p:commandButton>
-                </div>
-
-                <div class="media-content">
-                    <h:outputText class="title is-4" value="#{thepost.title}"/>
-                    <br/>
-                    <h:outputText class="subtitle is-6" value="Posted on #{thepost.date} by #{thepost.user.username}"/>                        
-                </div>
-
-                <div class="media-right">
-                    <div class="vote-container">
-                        <div class="vote-count has-text-success">
-                            <i class="pi pi-thumbs-up"></i>
-                            <h:outputText value="#{thepost.upvotes}"/>
+            <p:column headerText="Post" class="post-column">
+                <div class="box post-box mb-2">
+                    <div class="level">
+                        <div class="level-left">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <img class="is-rounded" src="https://api.dicebear.com/7.x/initials/svg?seed=#{thepost.user.username}" alt="#{thepost.user.username}"/>
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-5 has-text-success">#{thepost.title}</p>
+                                <p class="subtitle is-6 has-text-grey-light">
+                                    Posted by <strong>#{thepost.user.username}</strong> on #{thepost.date}
+                                </p>
+                            </div>
                         </div>
-                        <div class="vote-count has-text-danger">
-                            <i class="pi pi-thumbs-down"></i>
-                            <h:outputText value="#{thepost.downvotes}"/>
+                        <div class="level-right">
+                            <p:commandButton rendered="#{PostController.isModifiable(thepost)}"
+                                styleClass="button is-rounded is-info is-small"
+                                icon="pi pi-pencil" title="Modify"
+                                process="@this"
+                                update=":ModifyPost:postDialogModify"
+                                oncomplete="PF('postDialogModify').show();">
+                                <f:setPropertyActionListener target="#{PostController.selectedPost}" value="#{thepost}" />
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    
+                    <div class="content mt-3">
+                        <p class="has-text-white">#{thepost.body}</p>
+                    </div>
+                    
+                    <div class="level mt-3">
+                        <div class="level-left">
+                            <div class="vote-buttons">
+                                <p:commandButton styleClass="button is-small #{PostController.getUserVote(thepost) == 1 ? 'is-success' : 'is-outlined'}"
+                                                icon="pi pi-thumbs-up" title="Upvote"
+                                                action="#{PostController.upvotePost(thepost)}"
+                                                update="postsTable"
+                                                rendered="#{SessionController.isLoggedIn()}"
+                                                disabled="#{!SessionController.isLoggedIn()}"/>
+                                <span class="vote-count has-text-success ml-2 mr-3">
+                                    #{thepost.upvotes}
+                                </span>
+                                
+                                <p:commandButton styleClass="button is-small #{PostController.getUserVote(thepost) == -1 ? 'is-danger' : 'is-outlined'}"
+                                                icon="pi pi-thumbs-down" title="Downvote"
+                                                action="#{PostController.downvotePost(thepost)}"
+                                                update="postsTable"
+                                                rendered="#{SessionController.isLoggedIn()}"
+                                                disabled="#{!SessionController.isLoggedIn()}"/>
+                                <span class="vote-count has-text-danger ml-2">
+                                    #{thepost.downvotes}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </p:column>
-      </p:dataTable>
+            </p:column>
+        </p:dataTable>
 
         <p:dialog id="postDialog" header="Post Details" widgetVar="postDialog" modal="true" responsive="true" showEffect="fade" hideEffect="fade">
             <p:outputPanel id="postDetail">
@@ -68,13 +103,17 @@
                 </div>
             </p:outputPanel>
         </p:dialog>
-    </div>
         
-    <p class="control">
-<p:commandButton value="📝 New Post" onclick="PF('postDialogCreate').show();" 
-                     styleClass="button is-success is-fullwidth" rendered="#{not empty SessionController.currentUser}"/>
-    </p>
-        
+        <div class="mt-4">
+            <p:commandButton value="New Post" icon="pi pi-plus" 
+                             styleClass="button is-success is-fullwidth" 
+                             rendered="#{not empty SessionController.currentUser}"
+                             onclick="PF('postDialogCreate').show();"
+                             update=":CreatePost:postDialogCreate"/>
+            <p:outputPanel rendered="#{empty SessionController.currentUser}" styleClass="has-text-centered">
+                <p class="has-text-grey-light">Please login to create a post.</p>
+            </p:outputPanel>
+        </div>
     </h:form>
     
 </ui:composition>

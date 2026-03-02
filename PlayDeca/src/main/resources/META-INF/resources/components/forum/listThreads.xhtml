@@ -1,58 +1,85 @@
-<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
        xmlns:h="http://xmlns.jcp.org/jsf/html"
        xmlns:f="http://xmlns.jcp.org/jsf/core"
        xmlns:p="http://primefaces.org/ui"
        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
-    <!-- Thread List Component -->
-    <div class="collapsible-threads">
-        <div class="thread-list-header">
-            <h3 class="title is-5 has-text-white">📋 Forum Threads</h3>
-        </div>
-        
-        <div class="thread-list-content">
-            <p:dataScroller id="threadsScroller" value="#{ThreadsController.threadList}" var="thread"
-                        rows="50">
-    
-                <p:column class="thread-item collapsible" data-thread-id="#{thread.threadId}">
-                    <div class="thread-header-content">
-                        <h4 class="has-text-success is-6">
-                            <h:outputText value="#{thread.title}" />
-                            <small class="has-text-grey-light">Thread ID: #{thread.threadId}</small>
-                        </h4>
-                        <button type="button" class="toggle-button" onclick="toggleThread(#{thread.threadId})">
-                            <i class="pi pi-chevron-down"></i>
-                        </button>
+     
+    <h:form id="threadsForm">
+        <div class="collapsible-threads">
+            <div class="thread-list-header">
+                <div class="level">
+                    <div class="level-left">
+                        <h3 class="title is-5 has-text-white">Forum Threads</h3>
                     </div>
-                </p:column>
-                    
-            </p:dataScroller>
+                    <div class="level-right">
+                        <p:commandButton value="New Thread" icon="pi pi-plus" 
+                                         styleClass="button is-success is-small is-rounded"
+                                         rendered="#{SessionController.isAdmin()}"
+                                         onclick="PF('threadDialogCreate').show();"
+                                         update=":CreateThread:threadDialogCreate"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="thread-list-content">
+                <p:dataScroller id="threadsScroller" value="#{ThreadController.threadList}" var="thread"
+                            rows="50" chunkSize="50">
+    
+                    <p:column class="thread-item" data-thread-id="#{thread.threadId}">
+                        <div class="thread-header-content box">
+                            <div class="level">
+                                <div class="level-left">
+                                    <div>
+                                        <h4 class="has-text-success is-6">
+                                            <p:commandLink value="#{thread.title}" 
+                                                          action="#{ThreadController.selectThread(thread)}"
+                                                          update=":postViewContent :threadTitleDisplay"
+                                                          oncomplete="showPostView()"
+                                                          styleClass="has-text-success is-size-5"/>
+                                        </h4>
+                                        <small class="has-text-grey-light">
+                                            Posted by #{thread.user.username} on #{thread.date}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="level-right">
+                                    <div class="level-item has-text-centered">
+                                        <div>
+                                            <p class="heading">Posts</p>
+                                            <p class="title is-4 has-text-info">#{ThreadController.getPostCount(thread)}</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-item">
+                                        <p:commandButton icon="pi pi-trash" 
+                                                        styleClass="button is-danger is-small is-rounded"
+rendered="#{SessionController.isAdmin()}"
+                                                        action="#{ThreadController.deleteThread(thread)}"
+                                                        update=":threadsForm:threadsScroller">
+                                            <p:confirm header="Delete Thread" message="Are you sure you want to delete this thread and all its posts?" icon="pi pi-exclamation-triangle"/>
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:column>
+                        
+                </p:dataScroller>
+                
+                <p:outputPanel rendered="#{empty ThreadController.threadList and SessionController.isAdmin()}" styleClass="has-text-centered has-text-grey-light p-4">
+                    <p>No threads yet. Be the first to create one!</p>
+                </p:outputPanel>
+                <p:outputPanel rendered="#{empty ThreadController.threadList and not SessionController.isAdmin()}" styleClass="has-text-centered has-text-grey-light p-4">
+                    <p>No threads yet. Check back later!</p>
+                </p:outputPanel>
+            </div>
         </div>
-    </div>
+    </h:form>
 
     <script>
-        function toggleThread(threadId) {
-            const item = document.querySelector(`[data-thread-id="${threadId}"]`);
-            const content = item.querySelector('.thread-header-content');
-            const button = item.querySelector('.toggle-button i');
-            
-            if (item.classList.contains('expanded')) {
-                item.classList.remove('expanded');
-                content.style.maxHeight = '60px';
-                button.className = 'pi pi-chevron-down';
-            } else {
-                item.classList.add('expanded');
-                content.style.maxHeight = 'none';
-                button.className = 'pi pi-chevron-up';
-            }
-        }
-
-        function backToThreadList() {
-            // Hide post view and show thread list
-            document.getElementById('threadList').style.display = 'block';
-            document.getElementById('postView').style.display = 'none';
+        function showPostView() {
+            document.getElementById('threadList').style.display = 'none';
+            document.getElementById('postView').style.display = 'block';
         }
     </script>
 </ui:composition>

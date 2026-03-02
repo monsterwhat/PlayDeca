@@ -6,140 +6,140 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-<h:head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>PlayDeca - Home</title>
-  <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
-  <script src="js/navbar.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
-  <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
-</h:head>
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>PlayDeca - Home</title>
+        <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
+        <script src="js/navbar.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
+    </h:head>
 
-<h:body>
-    <div class="bg"></div>
-    
-<ui:include src="components/navbar.xhtml"/>
-  
-  <section class="hero is-fullheight is-overlay">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        
+    <h:body>
+        <div class="bg"></div>
 
-        
-        <!-- Server IP and Play Now Button -->
-        <div class="columns is-centered mt-1">
-          <div class="column is-three-quarters">
-            <div class="server-info-container">
-              <div class="server-ip-box mb-4">
-                <div class="logo-in-server-box mb-4">
-                  <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" />
+        <ui:include src="components/navbar.xhtml"/>
+
+        <section class="hero is-fullheight is-overlay">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+
+
+
+                    <!-- Server IP and Play Now Button -->
+                    <div class="columns is-centered mt-1">
+                        <div class="column is-three-quarters">
+                            <div class="server-info-container">
+                                <div class="server-ip-box mb-4">
+                                    <div class="logo-in-server-box mb-4">
+                                        <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" />
+                                    </div>
+                                    <button class="button is-success is-large is-outlined has-text-white play-button" onclick="copyToClipboard('playdeca.com')">
+                                        <span class="icon">
+                                            <i class="fas fa-gamepad"></i>
+                                        </span>
+                                        <span>PLAY NOW!</span>
+                                    </button>
+                                    <p class="has-text-grey-light is-size-6 mt-2">Click to copy IP</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Server News -->
+                    <div class="news-section">
+                        <div class="columns is-centered">
+                            <div class="column is-three-quarters-desktop is-full-tablet">
+                                <div class="notification is-dark">
+                                    <h2 class="title is-4 has-text-success mb-4">📢 Server News</h2>
+
+                                    <div class="news-item mb-4">
+                                        <h3 class="subtitle is-5 has-text-white">🎉 New Website Launched!</h3>
+                                        <p class="has-text-grey-light">Welcome to our brand new website! We've completely redesigned our platform to give you the best PlayDeca experience.</p>
+                                    </div>
+
+                                    <div class="news-item mb-4">
+                                        <h3 class="subtitle is-5 has-text-white">🚀 Winter Update Available</h3>
+                                        <p class="has-text-grey-light">Our latest winter update is now live! Explore new features, improved gameplay, and seasonal events.</p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
-                <button class="button is-success is-large is-outlined has-text-white play-button" onclick="copyToClipboard('playdeca.com')">
-                  <span class="icon">
-                    <i class="fas fa-gamepad"></i>
-                  </span>
-                  <span>PLAY NOW!</span>
-                </button>
-                <p class="has-text-grey-light is-size-6 mt-2">Click to copy IP</p>
-              </div>
             </div>
-          </div>
-        </div>
-        
-        <!-- Server News -->
-        <div class="news-section">
-          <div class="columns is-centered">
-            <div class="column is-three-quarters-desktop is-full-tablet">
-              <div class="notification is-dark">
-                <h2 class="title is-4 has-text-success mb-4">📢 Server News</h2>
-                
-                <div class="news-item mb-4">
-                  <h3 class="subtitle is-5 has-text-white">🎉 New Website Launched!</h3>
-                  <p class="has-text-grey-light">Welcome to our brand new website! We've completely redesigned our platform to give you the best PlayDeca experience.</p>
-                </div>
-                
-                <div class="news-item mb-4">
-                  <h3 class="subtitle is-5 has-text-white">🚀 Winter Update Available</h3>
-                  <p class="has-text-grey-light">Our latest winter update is now live! Explore new features, improved gameplay, and seasonal events.</p>
-                </div>
-                
+        </section>
 
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        
-        
-      </div>
-    </div>
-  </section>
-  
-  <script>
-    function copyToClipboard(text) {
-      // Store the button element before the async operation
-      const button = event.target.closest('.play-button');
-      const originalText = button.innerHTML;
-      
-      navigator.clipboard.writeText(text).then(function() {
-        // Show button feedback
-        button.innerHTML = '<span class="icon"><i class="fas fa-check"></i></span><span>Copied!</span>';
-        button.classList.add('is-success');
-        
-        // Show toast
-        showToast('Server IP copied to clipboard!', 'success');
-        
-        setTimeout(function() {
-          button.innerHTML = originalText;
-          button.classList.remove('is-success');
-        }, 2000);
-      }).catch(function(err) {
-        console.error('Failed to copy: ', err);
-        // Still show feedback even if copy failed
-        showToast('Failed to copy IP', 'error');
-      });
-    }
-    
-    function showToast(message, type) {
-      // Create toast container if it doesn't exist
-      let container = document.getElementById('toast-container');
-      if (!container) {
-        container = document.createElement('div');
-        container.id = 'toast-container';
-        container.className = 'toast-container';
-        document.body.appendChild(container);
-      }
-      
-      // Create toast element
-      const toast = document.createElement('div');
-      toast.className = 'toast is-' + type;
-      toast.innerHTML = 
-        '<div class="toast-content">' +
-          '<span class="icon">' +
+        <script>
+            function copyToClipboard(text) {
+            // Store the button element before the async operation
+            const button = event.target.closest('.play-button');
+            const originalText = button.innerHTML;
+
+            navigator.clipboard.writeText(text).then(function() {
+            // Show button feedback
+            button.innerHTML = '<span class="icon"><i class="fas fa-check"></i></span><span>Copied!</span>';
+            button.classList.add('is-success');
+
+            // Show toast
+            showToast('Server IP copied to clipboard!', 'success');
+
+            setTimeout(function() {
+            button.innerHTML = originalText;
+            button.classList.remove('is-success');
+            }, 2000);
+            }).catch(function(err) {
+            console.error('Failed to copy: ', err);
+            // Still show feedback even if copy failed
+            showToast('Failed to copy IP', 'error');
+            });
+            }
+
+            function showToast(message, type) {
+            // Create toast container if it doesn't exist
+            let container = document.getElementById('toast-container');
+            if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+            }
+
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'toast is-' + type;
+            toast.innerHTML = 
+            '<div class="toast-content">' +
+            '<span class="icon">' +
             '<i class="fas fa-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + '"></i>' +
-          '</span>' +
-          '<span>' + message + '</span>' +
-        '</div>';
-      
-      // Add to container
-      container.appendChild(toast);
-      
-      // Trigger animation
-      requestAnimationFrame(() => {
-        toast.classList.add('show');
-      });
-      
-      // Remove after 3 seconds
-      setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => {
-          toast.remove();
-        }, 300);
-      }, 3000);
-    }
-  </script>
-  
-</h:body>
+            '</span>' +
+            '<span>' + message + '</span>' +
+            '</div>';
+
+            // Add to container
+            container.appendChild(toast);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+            toast.classList.add('show');
+            });
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+            toast.remove();
+            }, 300);
+            }, 3000);
+            }
+        </script>
+
+    </h:body>
 </html>

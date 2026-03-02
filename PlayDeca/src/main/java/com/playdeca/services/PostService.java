@@ -1,6 +1,7 @@
 package com.playdeca.services;
 
 import com.playdeca.models.Posts;
+import com.playdeca.models.PostVotes;
 import com.playdeca.models.Threads;
 import com.playdeca.models.Users;
 import io.quarkus.arc.profile.IfBuildProfile;
@@ -64,15 +65,15 @@ public class PostService {
     }
     
     public List<Posts> listAll() {
-        return Posts.listAll();
+        return Posts.<Posts>listAll();
     }
     
     public List<Posts> findByThread(Threads thread) {
-        return Posts.list("thread", thread);
+        return Posts.<Posts>list("thread = ?1 ORDER BY date DESC", thread);
     }
     
     public List<Posts> findByUser(Users user) {
-        return Posts.list("user", user);
+        return Posts.<Posts>list("user", user);
     }
     
     public Posts findById(Long id) {
@@ -80,6 +81,90 @@ public class PostService {
     }
     
     public long count() {
-        return Posts.count();
+        return Posts.<Posts>count();
+    }
+    
+    @Transactional
+    public void upvotePost(Posts post, Users user) {
+        try {
+            PostVotes existingVote = PostVotes.<PostVotes>find("post = ?1 and user = ?2", post, user).firstResult();
+            if (existingVote != null) {
+                if (existingVote.getVoteType() == 1) {
+                    existingVote.delete();
+                } else {
+                    existingVote.setVoteType(1);
+                    existingVote.setTimestamp(LocalDateTime.now());
+                }
+            } else {
+                PostVotes vote = new PostVotes(post, user, 1);
+                vote.persist();
+            }
+            recalculateVotes(post);
+        } catch (Exception e) {
+            System.out.println("Error upvoting post: " + e.getMessage());
+        }
+    }
+    
+    @Transactional
+    public void downvotePost(Posts post, Users user) {
+        try {
+            PostVotes existingVote = PostVotes.<PostVotes>find("post = ?1 and user = ?2", post, user).firstResult();
+            if (existingVote != null) {
+                if (existingVote.getVoteType() == -1) {
+                    existingVote.delete();
+                } else {
+                    existingVote.setVoteType(-1);
+                    existingVote.setTimestamp(LocalDateTime.now());
+                }
+            } else {
+                PostVotes vote = new PostVotes(post, user, -1);
+                vote.persist();
+            }
+            recalculateVotes(post);
+        } catch (Exception e) {
+            System.out.println("Error downvoting post: " + e.getMessage());
+        }
+    }
+    
+    @Transactional
+    public void removeVote(Posts post, Users user) {
+        try {
+            PostVotes existingVote = PostVotes.<PostVotes>find("post = ?1 and user = ?2", post, user).firstResult();
+            if (existingVote != null) {
+                existingVote.delete();
+                recalculateVotes(post);
+            }
+        } catch (Exception e) {
+            System.out.println("Error removing vote: " + e.getMessage());
+        }
+    }
+    
+    public int getUserVote(Posts post, Users user) {
+        try {
+            PostVotes existingVote = PostVotes.<PostVotes>find("post = ?1 and user = ?2", post, user).firstResult();
+            if (existingVote != null) {
+                return existingVote.getVoteType();
+            }
+        } catch (Exception e) {
+            System.out.println("Error getting user vote: " + e.getMessage());
+        }
+        return 0;
+    }
+    
+    @Transactional
+    public void recalculateVotes(Posts post) {
+        try {
+            long upvotes = PostVotes.<PostVotes>count("post = ?1 and voteType = 1", post);
+            long downvotes = PostVotes.<PostVotes>count("post = ?1 and voteType = -1", post);
+            post.setUpvotes((int) upvotes);
+            post.setDownvotes((int) downvotes);
+            post.persist();
+        } catch (Exception e) {
+            System.out.println("Error recalculating votes: " + e.getMessage());
+        }
+    }
+    
+    public long getPostCountByThread(Threads thread) {
+        return Posts.<Posts>count("thread", thread);
     }
 }
