@@ -32,8 +32,10 @@
                         <p:column headerText="Products" sortBy="#{order.products.toString()}" filterBy="#{order.products}">
                             <h:outputText value="#{order.products.toString()}" />
                         </p:column>
-                        <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{post.user.username}">
-                            <h:outputText value="#{post.user.username}" />
+                        <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{order.orderDate}" field="orderDate" type="localDateTime">
+                            <h:outputText value="#{order.orderDate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </h:outputText>
                         </p:column>
 
 

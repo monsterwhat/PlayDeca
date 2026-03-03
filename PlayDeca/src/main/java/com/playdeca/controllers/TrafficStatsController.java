@@ -46,13 +46,16 @@ public class TrafficStatsController implements Serializable {
         allTimeUniqueVisitors = trafficLogService.getUniqueVisitors();
         averageResponseTime = trafficLogService.getAverageResponseTime();
 
-        deviceCounts = trafficLogService.getDeviceTypeCounts();
-        osCounts = trafficLogService.getOSDistribution();
-        browserCounts = trafficLogService.getBrowserDistribution();
-        trafficByDate = trafficLogService.getTrafficVolumeByDate(30);
-        trafficSources = trafficLogService.getTrafficSources();
+        deviceCounts = trafficLogService.getDeviceTypeCounts() != null ? trafficLogService.getDeviceTypeCounts() : new HashMap<>();
+        osCounts = trafficLogService.getOSDistribution() != null ? trafficLogService.getOSDistribution() : new HashMap<>();
+        browserCounts = trafficLogService.getBrowserDistribution() != null ? trafficLogService.getBrowserDistribution() : new HashMap<>();
+        trafficByDate = trafficLogService.getTrafficVolumeByDate(30) != null ? trafficLogService.getTrafficVolumeByDate(30) : new HashMap<>();
+        trafficSources = trafficLogService.getTrafficSources() != null ? trafficLogService.getTrafficSources() : new HashMap<>();
 
         trafficLogs = trafficLogService.findRecent(100);
+        if (trafficLogs == null) {
+            trafficLogs = new ArrayList<>();
+        }
     }
 
     public void refresh() {
@@ -60,36 +63,44 @@ public class TrafficStatsController implements Serializable {
     }
 
     public List<String> getDeviceLabels() {
+        if (deviceCounts == null) return new ArrayList<>();
         return new ArrayList<>(deviceCounts.keySet());
     }
 
     public List<Long> getDeviceValues() {
+        if (deviceCounts == null) return new ArrayList<>();
         return new ArrayList<>(deviceCounts.values());
     }
 
     public List<String> getOsLabels() {
+        if (osCounts == null) return new ArrayList<>();
         return new ArrayList<>(osCounts.keySet());
     }
 
     public List<Long> getOsValues() {
+        if (osCounts == null) return new ArrayList<>();
         return new ArrayList<>(osCounts.values());
     }
 
     public List<String> getBrowserLabels() {
+        if (browserCounts == null) return new ArrayList<>();
         return new ArrayList<>(browserCounts.keySet());
     }
 
     public List<Long> getBrowserValues() {
+        if (browserCounts == null) return new ArrayList<>();
         return new ArrayList<>(browserCounts.values());
     }
 
     public List<String> getTrafficDateLabels() {
+        if (trafficByDate == null) return new ArrayList<>();
         List<String> sorted = new ArrayList<>(trafficByDate.keySet());
         Collections.sort(sorted);
         return sorted;
     }
 
     public List<Long> getTrafficDateValues() {
+        if (trafficByDate == null) return new ArrayList<>();
         List<String> sorted = new ArrayList<>(trafficByDate.keySet());
         Collections.sort(sorted);
         List<Long> values = new ArrayList<>();
@@ -100,50 +111,59 @@ public class TrafficStatsController implements Serializable {
     }
 
     public List<String> getSourceLabels() {
+        if (trafficSources == null) return new ArrayList<>();
         return new ArrayList<>(trafficSources.keySet());
     }
 
     public List<Long> getSourceValues() {
+        if (trafficSources == null) return new ArrayList<>();
         return new ArrayList<>(trafficSources.values());
     }
 
     public String getDeviceLabelsJson() {
+        if (deviceCounts == null || deviceCounts.isEmpty()) return "";
         return deviceCounts.keySet().stream()
                 .map(s -> "'" + s.replace("'", "\\'") + "'")
                 .collect(Collectors.joining(","));
     }
 
     public String getDeviceValuesJson() {
+        if (deviceCounts == null || deviceCounts.isEmpty()) return "";
         return deviceCounts.values().stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
     }
 
     public String getOsLabelsJson() {
+        if (osCounts == null || osCounts.isEmpty()) return "";
         return osCounts.keySet().stream()
                 .map(s -> "'" + s.replace("'", "\\'") + "'")
                 .collect(Collectors.joining(","));
     }
 
     public String getOsValuesJson() {
+        if (osCounts == null || osCounts.isEmpty()) return "";
         return osCounts.values().stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
     }
 
     public String getBrowserLabelsJson() {
+        if (browserCounts == null || browserCounts.isEmpty()) return "";
         return browserCounts.keySet().stream()
                 .map(s -> "'" + s.replace("'", "\\'") + "'")
                 .collect(Collectors.joining(","));
     }
 
     public String getBrowserValuesJson() {
+        if (browserCounts == null || browserCounts.isEmpty()) return "";
         return browserCounts.values().stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
     }
 
     public String getTrafficDateLabelsJson() {
+        if (trafficByDate == null || trafficByDate.isEmpty()) return "";
         List<String> sorted = new ArrayList<>(trafficByDate.keySet());
         Collections.sort(sorted);
         return sorted.stream()
@@ -152,6 +172,7 @@ public class TrafficStatsController implements Serializable {
     }
 
     public String getTrafficDateValuesJson() {
+        if (trafficByDate == null || trafficByDate.isEmpty()) return "";
         List<String> sorted = new ArrayList<>(trafficByDate.keySet());
         Collections.sort(sorted);
         return sorted.stream()
@@ -161,12 +182,14 @@ public class TrafficStatsController implements Serializable {
     }
 
     public String getSourceLabelsJson() {
+        if (trafficSources == null || trafficSources.isEmpty()) return "";
         return trafficSources.keySet().stream()
                 .map(s -> "'" + s.replace("'", "\\'") + "'")
                 .collect(Collectors.joining(","));
     }
 
     public String getSourceValuesJson() {
+        if (trafficSources == null || trafficSources.isEmpty()) return "";
         return trafficSources.values().stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));

@@ -14,6 +14,7 @@
         <script src="js/navbar.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/mc-style.css"/>
         <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
     </h:head>
 
@@ -34,7 +35,10 @@
                             <div class="server-info-container">
                                 <div class="server-ip-box mb-4">
                                     <div class="logo-in-server-box mb-4">
-                                        <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" />
+                                        <div class="logo-container" style="position: relative; display: inline-block;">
+                                            <img src="./assets/images/logos/PlayDecaBannerPNG.png" alt="PlayDeca Logo" />
+                                            <div class="mc-splash" style="position: absolute; bottom: -10px; right: -30px; animation: mc-logo-bounce 6s ease-in-out infinite;"><span style="display: inline-block; color: #ffdd57; font-size: 20px; font-weight: bold; transform: rotate(-4deg);">Now over 10 years old!</span></div>
+                                        </div>
                                     </div>
                                     <button class="button is-success is-large is-outlined has-text-white play-button" onclick="copyToClipboard('playdeca.com')">
                                         <span class="icon">
@@ -53,16 +57,16 @@
                         <div class="columns is-centered">
                             <div class="column is-three-quarters-desktop is-full-tablet">
                                 <div class="notification is-dark">
-                                    <h2 class="title is-4 has-text-success mb-4">📢 Server News</h2>
+                                    <h2 class="title is-4 has-text-success mb-4">📢 Server Feed</h2>
 
                                     <div class="news-item mb-4">
-                                        <h3 class="subtitle is-5 has-text-white">🎉 New Website Launched!</h3>
-                                        <p class="has-text-grey-light">Welcome to our brand new website! We've completely redesigned our platform to give you the best PlayDeca experience.</p>
+                                        <h3 class="subtitle is-5 has-text-white">💬 Join Our Discord</h3>
+                                        <p class="has-text-grey-light">Join our Discord community to connect with other players, get updates, and be part of the conversation!</p>
                                     </div>
 
                                     <div class="news-item mb-4">
-                                        <h3 class="subtitle is-5 has-text-white">🚀 Winter Update Available</h3>
-                                        <p class="has-text-grey-light">Our latest winter update is now live! Explore new features, improved gameplay, and seasonal events.</p>
+                                        <h3 class="subtitle is-5 has-text-white">🏛️ Visit Our Forums</h3>
+                                        <p class="has-text-grey-light">Check out our forums to discuss strategies, share content, and stay updated with the latest server news.</p>
                                     </div>
 
 

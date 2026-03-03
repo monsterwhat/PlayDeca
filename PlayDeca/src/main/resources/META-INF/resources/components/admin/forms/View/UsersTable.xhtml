@@ -33,7 +33,7 @@
                     <p:column headerText="Role" sortBy="#{user.userGroup}" filterBy="#{user.userGroup}">
                         <h:outputText value="#{user.userGroup}" />
                     </p:column>
-                    <p:column headerText="Registration Date" sortBy="#{user.registrationDate}">
+                    <p:column headerText="Registration Date" sortBy="#{user.registrationDate}" field="registrationDate" type="localDateTime">
                         <h:outputText value="#{user.registrationDate}">
                             <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
                         </h:outputText>

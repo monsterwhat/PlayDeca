@@ -39,7 +39,10 @@
                                                           styleClass="has-text-success is-size-5"/>
                                         </h4>
                                         <small class="has-text-grey-light">
-                                            Posted by #{thread.user.username} on #{thread.date}
+                                            Posted by #{thread.user.username} on 
+                                            <h:outputText value="#{thread.date}">
+                                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                                            </h:outputText>
                                         </small>
                                     </div>
                                 </div>

@@ -32,7 +32,7 @@
             <p:column headerText="Role" sortBy="#{user.userGroup}" filterBy="#{user.userGroup}">
                 <h:outputText value="#{user.userGroup}" />
             </p:column>
-            <p:column headerText="Registration Date" sortBy="#{user.registrationDate}">
+            <p:column headerText="Registration Date" sortBy="#{user.registrationDate}" field="registrationDate" type="localDateTime">
                 <h:outputText value="#{user.registrationDate}">
                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
                 </h:outputText>
@@ -114,7 +114,7 @@
             <p:column headerText="User Name" sortBy="#{post.user.username}" filterBy="#{post.user.username}">
                 <h:outputText value="#{post.user.username}" />
             </p:column>
-            <p:column headerText="Date" sortBy="#{post.date}" filterBy="#{post.date}">
+            <p:column headerText="Date" sortBy="#{post.date}" filterBy="#{post.date}" field="date" type="localDateTime">
                 <h:outputText value="#{post.date}">
                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
                 </h:outputText>
@@ -217,8 +217,10 @@
             <p:column headerText="Products" sortBy="#{order.products.toString()}" filterBy="#{order.products}">
                 <h:outputText value="#{order.products.toString()}" />
             </p:column>
-            <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{post.user.username}">
-                <h:outputText value="#{post.user.username}" />
+            <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{order.orderDate}" field="orderDate" type="localDateTime">
+                <h:outputText value="#{order.orderDate}">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                </h:outputText>
             </p:column>
             
             

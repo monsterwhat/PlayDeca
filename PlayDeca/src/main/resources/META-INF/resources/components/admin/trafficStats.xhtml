@@ -164,7 +164,7 @@
                         <div class="card-content">
                             <p:dataTable scrollable="true" scrollHeight="400" var="log" 
                                          value="#{TrafficStatsController.trafficLogs}">
-                                <p:column headerText="Time">
+                                <p:column headerText="Time" field="visitTime" type="localDateTime">
                                     <h:outputText value="#{log.visitTime}">
                                         <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
                                     </h:outputText>

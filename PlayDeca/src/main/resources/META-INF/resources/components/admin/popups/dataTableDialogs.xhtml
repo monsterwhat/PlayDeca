@@ -175,7 +175,7 @@
                 <p:outputPanel rendered="#{not empty PostController.selectedPost}">
                     <div class="field">
                         <p:outputLabel for="date">Date</p:outputLabel>
-                        <p:calendar id="date" value="#{PostController.selectedPost.date}" required="true" />
+                        <p:calendar id="date" value="#{PostController.selectedPost.date}" required="true" pattern="yyyy-MM-dd HH:mm:ss"/>
                     </div>
                     <div class="field">
                         <p:outputLabel for="title">Title</p:outputLabel>
@@ -392,7 +392,9 @@
                     </div>
                     <div class="field">
                         <p:outputLabel for="orderDate">Order Date</p:outputLabel>
-                        <p:inputText id="orderDutTexate" value="#{OrdersController.selectedOrder.orderDate}" disabled="true" />
+                        <p:inputText id="orderDutTexate" value="#{OrdersController.selectedOrder.orderDate}" disabled="true">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </p:inputText>
                     </div>
                 </p:outputPanel>
             </p:outputPanel>

@@ -30,7 +30,7 @@
                         <p:column headerText="Thread Name" sortBy="#{post.thread.title}" filterBy="#{post.thread.title}">
                             <h:outputText value="#{post.thread.title}" />
                         </p:column>
-                        <p:column headerText="Post Date" sortBy="#{post.date}" filterBy="#{post.date}">
+                        <p:column headerText="Post Date" sortBy="#{post.date}" filterBy="#{post.date}" field="date" type="localDateTime">
                             <h:outputText value="#{post.date}">
                                 <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
                             </h:outputText>
