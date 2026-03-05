@@ -22,8 +22,8 @@
             </div>
         </p:outputPanel>
 
-        <p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="10" 
-                    paginator="true" paginatorPosition="bottom" reflow="true" id="postsTable" 
+<p:dataTable value="#{PostController.getList()}" widgetVar="postsTable" var="thepost" rows="10" 
+                    paginator="true" paginatorPosition="bottom" reflow="true" id="postsTable" lazy="true"
                     emptyMessage="No posts yet. Be the first to post!">
 
             <p:column headerText="Post" class="post-column">
@@ -39,9 +39,7 @@
                                 <p class="title is-5 has-text-success">#{thepost.title}</p>
                                 <p class="subtitle is-6 has-text-grey-light">
                                     Posted by <strong>#{thepost.user.username}</strong> on 
-                                    <h:outputText value="#{thepost.date}">
-                                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
-                                    </h:outputText>
+<h:outputText value="#{thepost.date}" />
                                 </p>
                             </div>
                         </div>

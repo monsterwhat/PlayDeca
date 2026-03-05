@@ -20,9 +20,9 @@
         <div class="columns">
             <div class="column">
                 <!--Posts Table-->
-                    <p:dataTable id="dt-posts" widgetVar="dtPosts" var="post" value="#{PostController.getList()}" reflow="true"
+<p:dataTable id="dt-posts" widgetVar="dtPosts" var="post" value="#{PostController.getList()}" reflow="true"
                         styleClass="posts-table" selection="#{PostController.selectedPost}" rowKey="#{post.postId}"
-                        paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                        paginator="true" rows="10" paginatorPosition="bottom" lazy="true">
 
                         <p:column headerText="User Name" sortBy="#{post.user.username}" filterBy="#{post.user.username}">
                             <h:outputText value="#{post.user.username}" />
@@ -30,10 +30,8 @@
                         <p:column headerText="Thread Name" sortBy="#{post.thread.title}" filterBy="#{post.thread.title}">
                             <h:outputText value="#{post.thread.title}" />
                         </p:column>
-                        <p:column headerText="Post Date" sortBy="#{post.date}" filterBy="#{post.date}" field="date" type="localDateTime">
-                            <h:outputText value="#{post.date}">
-                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
-                            </h:outputText>
+                        <p:column headerText="Post Date" sortBy="#{post.date}" filterBy="#{post.date}" field="date">
+<h:outputText value="#{post.date}" />
                         </p:column>
                         <p:column headerText="Title" sortBy="#{post.title}" filterBy="#{post.title}">
                             <h:outputText value="#{post.title}" />

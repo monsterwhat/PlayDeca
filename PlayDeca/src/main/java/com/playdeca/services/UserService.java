@@ -93,7 +93,11 @@ public class UserService {
         }
         return false;
     }
- 
+    
+    public List<Users> getUsers() {
+        return Users.listAll();
+    }
+  
     public Users getSession(String username) {
         try {
             List<Users> resultList = Users.list("username", username);
@@ -208,5 +212,17 @@ public class UserService {
     
     public long count() {
         return Users.count();
+    }
+    
+    @Transactional
+    public void updatePassword(Users user, String oldPassword, String newPassword) {
+        if (!verifyPassword(oldPassword.toCharArray(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+        
+        Users entity = Users.findById(user.getUserID());
+        if (entity != null) {
+            entity.setPassword(hashPassword(newPassword));
+        }
     }
 }

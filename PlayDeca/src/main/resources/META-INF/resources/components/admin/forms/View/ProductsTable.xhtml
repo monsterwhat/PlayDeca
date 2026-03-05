@@ -22,7 +22,7 @@
         <!--Products Table-->
             <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{ProductsController.getList()}" reflow="true"
                 styleClass="posts-table" selection="#{ProductsController.selectedProduct}" rowKey="#{product.productId}"
-                paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                paginator="true" rows="10" paginatorPosition="bottom" lazy="true">
 
                 <p:column headerText="Product Name" sortBy="#{product.name}" filterBy="#{product.name}">
                     <h:outputText value="#{product.name}" />

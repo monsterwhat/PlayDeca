@@ -23,10 +23,10 @@
             </div>
             
             <div class="thread-list-content">
-                <p:dataScroller id="threadsScroller" value="#{ThreadController.threadList}" var="thread"
-                            rows="50" chunkSize="50">
+<p:dataScroller id="threadsScroller" value="#{ThreadController.threadList}" var="thread"
+                            rows="50" chunkSize="50" lazy="true">
     
-                    <p:column class="thread-item" data-thread-id="#{thread.threadId}">
+                    <p:column class="thread-item">
                         <div class="thread-header-content box">
                             <div class="level">
                                 <div class="level-left">
@@ -40,9 +40,7 @@
                                         </h4>
                                         <small class="has-text-grey-light">
                                             Posted by #{thread.user.username} on 
-                                            <h:outputText value="#{thread.date}">
-                                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
-                                            </h:outputText>
+<h:outputText value="#{thread.date}" />
                                         </small>
                                     </div>
                                 </div>

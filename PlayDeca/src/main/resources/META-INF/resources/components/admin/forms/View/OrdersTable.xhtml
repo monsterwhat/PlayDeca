@@ -18,9 +18,9 @@
         <div class="columns">
             <div class="column">
                 <!-- Orders Table-->
-                    <p:dataTable id="dt-orders" widgetVar="dtOrders" var="order" value="#{OrdersController.getList()}" reflow="true"
+<p:dataTable id="dt-orders" widgetVar="dtOrders" var="order" value="#{OrdersController.getList()}" reflow="true"
                         styleClass="posts-table" selection="#{OrdersController.selectedOrder}" rowKey="#{order.orderId}"
-                        paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                        paginator="true" rows="10" paginatorPosition="bottom" lazy="true">
 
 
                         <p:column headerText="Order ID:" sortBy="#{order.orderId}" filterBy="#{order.orderId}">
@@ -32,10 +32,8 @@
                         <p:column headerText="Products" sortBy="#{order.products.toString()}" filterBy="#{order.products}">
                             <h:outputText value="#{order.products.toString()}" />
                         </p:column>
-                        <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{order.orderDate}" field="orderDate" type="localDateTime">
-                            <h:outputText value="#{order.orderDate}">
-                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
-                            </h:outputText>
+                        <p:column headerText="Order Date" sortBy="#{order.orderDate}" filterBy="#{order.orderDate}" field="orderDate">
+<h:outputText value="#{order.orderDate}" />
                         </p:column>
 
 

@@ -209,4 +209,39 @@ public class SessionController implements Serializable {
     public void registerUser() {
         register();
     }
+    
+    public void updatePassword() {
+        try {
+            if (oldPassword == null || oldPassword.isEmpty()) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Please enter your current password."));
+                return;
+            }
+            
+            if (newPassword == null || newPassword.isEmpty()) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Please enter a new password."));
+                return;
+            }
+            
+            if (!newPassword.equals(confirmPassword)) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "New passwords do not match."));
+                return;
+            }
+            
+            if (currentUser == null) {
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "You must be logged in to change your password."));
+                return;
+            }
+            
+            userService.updatePassword(currentUser, oldPassword, newPassword);
+            
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Password updated successfully."));
+            
+            oldPassword = "";
+            newPassword = "";
+            confirmPassword = "";
+            
+        } catch (Exception e) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to update password: " + e.getMessage()));
+        }
+    }
 }

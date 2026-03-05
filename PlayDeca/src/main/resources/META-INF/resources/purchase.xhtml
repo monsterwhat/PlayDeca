@@ -8,10 +8,17 @@
     <h:head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>PlayDeca - Purchase</title>
-        <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
+        
+        <!-- SEO Meta Tags -->
+        <title>PlayDeca - Donate | Support Our Historic Server</title>
+        <meta name="description" content="Support PlayDeca (formerly Zarkov and Octa.in) with a donation. We have been running since 2011. Get exclusive perks, supporter rank, and help keep our vanilla survival server alive!"/>
+        <meta name="keywords" content="Minecraft donation, Minecraft donor, PlayDeca donate, support Minecraft server, Minecraft perks, supporter rank, Minecraft VIP, Zarkov, Octa.in"/>
+        <meta name="robots" content="index, follow"/>
+        <link rel="canonical" href="https://playdeca.com/purchase"/>
+        
         <script src="js/navbar.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
+        <link rel="stylesheet" href="css/bulma.min.css"/>
+        <link rel="stylesheet" href="css/primeicons.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
     </h:head>
@@ -26,7 +33,7 @@
             <div class="notification is-info is-light coins-toast" style="position: fixed; top: 80px; right: 20px; z-index: 999; max-width: 300px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 <div class="media">
                     <div class="media-left">
-                        <i class="fas fa-coins" style="color: #ffdd57; font-size: 1.5rem;"></i>
+                        <i class="pi pi-dollar" style="color: #ffdd57; font-size: 1.5rem;"></i>
                     </div>
                     <div class="media-content">
                         <p class="has-text-weight-bold">Your Server Coins</p>
@@ -69,15 +76,13 @@
                                             <h:form id="adminCoinForm">
                                                 <div class="field has-addons">
                                                     <div class="control">
-                                                        <h:inputText class="input" 
+                                                        <p:inputText class="input" 
                                                                      value="#{donationController.adminCoinAmount}" 
                                                                      id="adminCoinInput"
-                                                                     style="width: 150px;"
-                                                                     min="1" max="1000" 
-                                                                     placeholder="Enter coins to add"/>
+                                                                     style="width: 150px;" />
                                                     </div>
                                                     <div class="control">
-                                                        <h:commandButton value="Add Coins" 
+                                                        <p:commandButton value="Add Coins" 
                                                                          action="#{donationController.giveAdminCoins()}"
                                                                          styleClass="button is-warning"
                                                                          update="adminCoinForm :serverCoinsDisplay"/>
@@ -103,38 +108,40 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="feature-list">
-                                                    <div class="feature-item">
-                                                        <i class="fas fa-coins has-text-warning"></i>
+                                                <div class="feature-item">
+                                                        <i class="pi pi-dollar has-text-warning"></i>
                                                         <span class="has-text-grey-light">Server Currency for Community Ranks</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-store has-text-warning"></i>
+                                                        <i class="pi pi-shopping-cart has-text-warning"></i>
                                                         <span class="has-text-grey-light">Access to server shop</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-bolt has-text-warning"></i>
+                                                        <i class="pi pi-bolt has-text-warning"></i>
                                                         <span class="has-text-grey-light">Instant delivery</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-infinity has-text-warning"></i>
+                                                        <i class="pi pi-verified has-text-warning"></i>
                                                         <span class="has-text-grey-light">Never expire</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-shield-alt has-text-warning"></i>
+                                                        <i class="pi pi-shield has-text-warning"></i>
                                                         <span class="has-text-grey-light">Support server costs</span>
                                                     </div>
                                                 </div>
 
                                                 <div class="mt-5">
                                                     <ui:fragment rendered="#{SessionController.isLoggedIn()}">
-                                                        <p:commandButton value="Buy Coins" 
-                                                                         styleClass="button is-warning is-large is-fullwidth is-rounded"
-                                                                         onclick="PF('coinQuantityDialog').show();"
-                                                                         update=":coinQuantityForm:coinQuantityContent" />
+                                                        <h:form>
+                                                            <p:commandButton value="Buy Coins" 
+                                                                             styleClass="button is-warning is-large is-fullwidth is-rounded"
+                                                                             onclick="PF('coinQuantityDialog').show();"
+                                                                             update=":coinQuantityForm:coinQuantityContent" />
+                                                        </h:form>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
                                                         <a href="login" class="button is-warning is-large is-fullwidth is-rounded has-text-black">
-                                                            <i class="fas fa-sign-in-alt"></i>
+                                                            <i class="pi pi-sign-in"></i>
                                                             <span>Login to Purchase Coins</span>
                                                         </a>
                                                     </ui:fragment>
@@ -156,36 +163,38 @@
                                             <div class="card-body">
                                                 <div class="feature-list">
                                                     <div class="feature-item">
-                                                        <i class="fas fa-magic has-text-danger"></i>
+                                                        <i class="pi pi-box has-text-danger"></i>
                                                         <span class="has-text-grey-light">Includes Passive Perks</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-sign has-text-danger"></i>
+                                                        <i class="pi pi-flag has-text-danger"></i>
                                                         <span class="has-text-grey-light">Teleport Banners</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-crown has-text-danger"></i>
+                                                        <i class="pi pi-star-fill has-text-danger"></i>
                                                         <span class="has-text-grey-light">Donator badge</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-vote-yea has-text-danger"></i>
+                                                        <i class="pi pi-check-square has-text-danger"></i>
                                                         <span class="has-text-grey-light">Voting rewards boost</span>
                                                     </div>
                                                 </div>
 
                                                 <div class="mt-5">
                                                     <ui:fragment rendered="#{SessionController.isLoggedIn()}">
-                                                        <p:commandButton value="Get Donator" 
-                                                                         styleClass="button is-danger is-large is-fullwidth is-rounded"
-                                                                         onclick="PF('coinConfirmDialog').show();"
-                                                                         update=":coinConfirmForm:coinDialogContent"
-                                                                         oncomplete="updateCoinsDisplay();">
-                                                            <f:setPropertyActionListener target="#{donationController.selectedPackage}" value="donator" />
-                                                        </p:commandButton>
+                                                        <h:form>
+                                                            <p:commandButton value="Get Donator" 
+                                                                             styleClass="button is-danger is-large is-fullwidth is-rounded"
+                                                                             onclick="PF('coinConfirmDialog').show();"
+                                                                             update=":coinConfirmForm:coinDialogContent"
+                                                                             oncomplete="updateCoinsDisplay();">
+                                                                <f:setPropertyActionListener target="#{donationController.selectedPackage}" value="donator" />
+                                                            </p:commandButton>
+                                                        </h:form>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
                                                         <a href="login" class="button is-danger is-large is-fullwidth is-rounded">
-                                                            <i class="fas fa-sign-in-alt"></i>
+                                                            <i class="pi pi-sign-in"></i>
                                                             <span>Login to Get Donator</span>
                                                         </a>
                                                     </ui:fragment>
@@ -207,39 +216,41 @@
                                             <div class="card-body">
                                                 <div class="feature-list">
                                                     <div class="feature-item">
-                                                        <i class="fas fa-check has-text-info"></i>
+                                                        <i class="pi pi-check has-text-info"></i>
                                                         <span class="has-text-grey-light">Inherits Donator Perks</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-check has-text-info"></i>
+                                                        <i class="pi pi-check has-text-info"></i>
                                                         <span class="has-text-grey-light">Creative Mode</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-star has-text-info"></i>
+                                                        <i class="pi pi-star-fill has-text-info"></i>
                                                         <span class="has-text-grey-light">Supporter badge</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-heart has-text-info"></i>
+                                                        <i class="pi pi-heart has-text-info"></i>
                                                         <span class="has-text-grey-light">Actively supports the server!</span>
                                                     </div>
                                                     <div class="feature-item">
-                                                        <i class="fas fa-server has-text-info"></i>
+                                                        <i class="pi pi-server has-text-info"></i>
                                                         <span class="has-text-grey-light">Can request a temporary game server host</span>
                                                     </div>
                                                 </div>
 
                                                 <div class="mt-5">
                                                     <ui:fragment rendered="#{SessionController.isLoggedIn()}">
-                                                        <p:commandButton value="Get Supporter" 
-                                                                         styleClass="button is-info is-large is-fullwidth is-rounded"
-                                                                         onclick="PF('coinConfirmDialog').show();"
-                                                                         update=":coinConfirmForm:coinDialogContent">
-                                                            <f:setPropertyActionListener target="#{donationController.selectedPackage}" value="supporter" />
-                                                        </p:commandButton>
+                                                        <h:form>
+                                                            <p:commandButton value="Get Supporter" 
+                                                                             styleClass="button is-info is-large is-fullwidth is-rounded"
+                                                                             onclick="PF('coinConfirmDialog').show();"
+                                                                             update=":coinConfirmForm:coinDialogContent">
+                                                                <f:setPropertyActionListener target="#{donationController.selectedPackage}" value="supporter" />
+                                                            </p:commandButton>
+                                                        </h:form>
                                                     </ui:fragment>
                                                     <ui:fragment rendered="#{not SessionController.isLoggedIn()}">
                                                         <a href="login" class="button is-info is-large is-fullwidth is-rounded has-text-black">
-                                                            <i class="fas fa-sign-in-alt"></i>
+                                                            <i class="pi pi-sign-in"></i>
                                                             <span>Login to Get Supporter</span>
                                                         </a>
                                                     </ui:fragment>
@@ -257,7 +268,7 @@
                                     <div class="card-body">
                                         <div class="notification is-warning has-text-black">
                                             <p class="has-text-weight-bold has-text-black" >
-                                                <i class="fas fa-exclamation-triangle" ></i>
+                                                <i class="pi pi-exclamation-triangle" ></i>
                                                 Important Notice
                                             </p>
                                             <p class="mt-2" >
@@ -269,7 +280,7 @@
 
                                         <div class="notification is-warning has-text-black" >
                                             <p class="has-text-weight-bold has-text-black" >
-                                                <i class="fas fa-info-circle has-text-black" ></i>
+                                                <i class="pi pi-info-circle has-text-black" ></i>
                                                 Thank You for Your Support!
                                             </p>
                                             <p class="mt-2 has-text-black" >
@@ -291,14 +302,14 @@
                 <p:outputPanel id="coinQuantityContent">
                     <div class="notification is-info">
                         <p class="has-text-weight-bold mb-4">
-                            <i class="fas fa-coins"></i>
+                            <i class="pi pi-dollar"></i>
                             How many Server Coins would you like to purchase?
                         </p>
 
                         <div class="field has-addons">
                             <div class="control">
                                 <button class="button is-info" type="button" onclick="decreaseQuantity()">
-                                    <i class="fas fa-minus"></i>
+                                    <i class="pi pi-minus"></i>
                                 </button>
                             </div>
                             <div class="control is-expanded">
@@ -307,7 +318,7 @@
                             </div>
                             <div class="control">
                                 <button class="button is-info" type="button" onclick="increaseQuantity()">
-                                    <i class="fas fa-plus"></i>
+                                    <i class="pi pi-plus"></i>
                                 </button>
                             </div>
                         </div>
@@ -318,11 +329,11 @@
                     <div class="box is-warning" style="background: linear-gradient(135deg, #ffdd57 0%, #f5e456 100%); color: #000; cursor: pointer;" 
                          onclick="confirmCoinPurchase();">
                         <p class="is-size-5 has-text-weight-bold has-text-centered">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="pi pi-shopping-cart"></i>
                             Total: $<span id="totalPrice">1.99</span>
                         </p>
                         <p class="is-small has-text-centered">
-                            <i class="fas fa-coins"></i>
+                            <i class="pi pi-dollar"></i>
                             <span id="coinCount">1</span> Server Coins
                         </p>
                     </div>
@@ -433,7 +444,7 @@
             successMessage.innerHTML = `
             <div class="media">
             <div class="media-left">
-            <i class="fas fa-coins" style="color: #23d160; font-size: 1.5rem;"></i>
+            <i class="pi pi-dollar" style="color: #23d160; font-size: 1.5rem;"></i>
             </div>
             <div class="media-content">
             <p class="has-text-weight-bold">Coins Added!</p>

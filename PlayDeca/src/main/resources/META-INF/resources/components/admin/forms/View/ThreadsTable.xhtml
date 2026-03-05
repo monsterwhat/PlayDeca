@@ -22,7 +22,7 @@
                 <!--Threads Table-->
                 <p:dataTable id="dt-threads" widgetVar="dtThreads" var="thread" value="#{ThreadsController.list}"
                 reflow="true" selection="#{ThreadsController.selectedThread}"
-                rowKey="#{thread.threadId}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                rowKey="#{thread.threadId}" paginator="true" rows="10" paginatorPosition="bottom" lazy="true">
 
                 <p:column headerText="ThreadID" sortBy="#{thread.threadId}" filterBy="#{thread.threadId}">
                     <h:outputText value="#{thread.threadId}" />

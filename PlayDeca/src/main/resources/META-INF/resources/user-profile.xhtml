@@ -8,10 +8,16 @@
 <h:head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>PlayDeca - Profile</title>
-  <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
+  
+  <!-- SEO Meta Tags -->
+  <title>PlayDeca - My Profile | User Dashboard</title>
+  <meta name="description" content="Manage your PlayDeca player profile, view stats, and manage your account on our historic Minecraft server."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="canonical" href="https://playdeca.com/user-profile"/>
+  
   <script src="js/navbar.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
+  <link rel="stylesheet" href="css/bulma.min.css"/>
+  <link rel="stylesheet" href="css/primeicons.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
 </h:head>
@@ -66,7 +72,7 @@
                                                 <p class="subtitle is-6 has-text-grey-light">#{SessionController.currentUser.coins} Decacoins</p>
                                                 <p:outputPanel rendered="#{SessionController.isAdmin()}">
                                                     <div class="mt-3">
-                                                        <p:commandButton actionListener="#{SessionController.navigateToAdminDashboard}" value="Dashboard" icon="fa-solid fa-right-from-bracket" styleClass="button is-small is-warning is-fullwidth is-rounded" />
+                                                        <p:commandButton actionListener="#{SessionController.navigateToAdminDashboard}" value="Dashboard" icon="pi pi-external" styleClass="button is-small is-warning is-fullwidth is-rounded" />
                                                     </div>
                                                 </p:outputPanel>
                                             </div>

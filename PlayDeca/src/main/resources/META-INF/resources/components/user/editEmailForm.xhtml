@@ -12,14 +12,14 @@
 
                 <div class="columns">
                     <div class="column">
-                        <h:outputLabel styleClass="label is-fullwidth">Password:</h:outputLabel>
+                        <h:outputLabel for="password" styleClass="label is-fullwidth">Password:</h:outputLabel>
                         <p:password id="password" class="password input is-fullwidth" value="#{SessionController.confirmPassword}" feedback="true"/>
                     </div>
                 </div>
 
                 <div class="columns">
                     <div class="column">
-                        <h:outputLabel class="label is-fullwidth">New Email:</h:outputLabel>
+                        <h:outputLabel for="newEmail" class="label is-fullwidth">New Email:</h:outputLabel>
                         <p:inputText id="newEmail" class="input is-fullwidth" value="#{SessionController.newEmail}"/>
                     </div>
                 </div>

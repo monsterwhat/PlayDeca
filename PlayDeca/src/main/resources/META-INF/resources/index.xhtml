@@ -9,10 +9,32 @@
     <h:head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>PlayDeca - Home</title>
-        <script src="https://kit.fontawesome.com/b6932e9e3a.js" crossorigin="anonymous"></script>
+        
+        <!-- SEO Meta Tags -->
+        <title>PlayDeca - Historic Minecraft Server | Vanilla Survival Community</title>
+        <meta name="description" content="PlayDeca (formerly Zarkov and Octa.in) has been serving the Minecraft community since 2011. Join our stable vanilla survival server with plugins, friendly community, and over a decade of history. Play now!"/>
+        <meta name="keywords" content="Minecraft server, vanilla Minecraft, survival server, oldest Minecraft server, Minecraft 2011, Minecraft community, Java Minecraft, Minecraft plugins, multiplayer Minecraft, Minecraft SMP, Zarkov, Octa.in"/>
+        <meta name="author" content="PlayDeca"/>
+        <meta name="robots" content="index, follow"/>
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://playdeca.com/"/>
+        <meta property="og:title" content="PlayDeca - Historic Minecraft Server Since 2011"/>
+        <meta property="og:description" content="formerly Zarkov and Octa.in - Join one of the oldest vanilla survival Minecraft communities. Play since 2011!"/>
+        
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image"/>
+        <meta property="twitter:url" content="https://playdeca.com/"/>
+        <meta property="twitter:title" content="PlayDeca - Historic Minecraft Server Since 2011"/>
+        <meta property="twitter:description" content="formerly Zarkov and Octa.in - Join one of the oldest vanilla survival Minecraft communities."/>
+        
+        <!-- Canonical -->
+        <link rel="canonical" href="https://playdeca.com/"/>
+        
         <script src="js/navbar.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"/>
+        <link rel="stylesheet" href="css/bulma.min.css"/>
+        <link rel="stylesheet" href="css/primeicons.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/mc-style.css"/>
         <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon"/>
@@ -42,7 +64,7 @@
                                     </div>
                                     <button class="button is-success is-large is-outlined has-text-white play-button" onclick="copyToClipboard('playdeca.com')">
                                         <span class="icon">
-                                            <i class="fas fa-gamepad"></i>
+                                            <i class="pi pi-play"></i>
                                         </span>
                                         <span>PLAY NOW!</span>
                                     </button>
@@ -58,6 +80,21 @@
                             <div class="column is-three-quarters-desktop is-full-tablet">
                                 <div class="notification is-dark">
                                     <h2 class="title is-4 has-text-success mb-4">📢 Server Feed</h2>
+
+                                    <div class="news-item mb-4">
+                                        <h3 class="subtitle is-5 has-text-white">🏰 Welcome to PlayDeca - Historic Minecraft Server</h3>
+                                        <p class="has-text-grey-light">PlayDeca has a rich history in the Minecraft community. Originally starting as <strong>Zarkov</strong> in 2011, evolving into <strong>Octa.in</strong> (2012-2016), and now <strong>PlayDeca</strong>. We've been providing a stable, quality Minecraft experience for over a decade!</p>
+                                    </div>
+
+                                    <div class="news-item mb-4">
+                                        <h3 class="subtitle is-5 has-text-white">⛏️ Vanilla Survival Experience</h3>
+                                        <p class="has-text-grey-light">Experience Minecraft as it was meant to be played. Our stable vanilla server combines the classic survival experience with carefully selected plugins to enhance gameplay without ruining the core Minecraft experience.</p>
+                                    </div>
+
+                                    <div class="news-item mb-4">
+                                        <h3 class="subtitle is-5 has-text-white">👥 Established Community</h3>
+                                        <p class="has-text-grey-light">Join our growing community of Minecraft enthusiasts. From veterans who've played since the Zarkov and Octa.in days to new players discovering our server, we welcome all who appreciate a quality survival experience built on years of stability.</p>
+                                    </div>
 
                                     <div class="news-item mb-4">
                                         <h3 class="subtitle is-5 has-text-white">💬 Join Our Discord</h3>
@@ -89,7 +126,7 @@
 
             navigator.clipboard.writeText(text).then(function() {
             // Show button feedback
-            button.innerHTML = '<span class="icon"><i class="fas fa-check"></i></span><span>Copied!</span>';
+            button.innerHTML = '<span class="icon"><i class="pi pi-check"></i></span><span>Copied!</span>';
             button.classList.add('is-success');
 
             // Show toast
@@ -119,10 +156,10 @@
             // Create toast element
             const toast = document.createElement('div');
             toast.className = 'toast is-' + type;
-            toast.innerHTML = 
+toast.innerHTML = 
             '<div class="toast-content">' +
             '<span class="icon">' +
-            '<i class="fas fa-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + '"></i>' +
+            '<i class="pi pi-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + '"></i>' +
             '</span>' +
             '<span>' + message + '</span>' +
             '</div>';

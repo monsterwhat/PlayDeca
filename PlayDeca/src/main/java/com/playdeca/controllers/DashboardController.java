@@ -1,6 +1,7 @@
 package com.playdeca.controllers;
 
 import com.playdeca.models.ServerLogs;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -18,7 +19,12 @@ public class DashboardController implements Serializable {
     private List<ServerLogs> logsList;
     private ServerLogs selectedLog;
 
-    public DashboardController() {
+public DashboardController() {
+    }
+
+    @PostConstruct
+    public void init() {
+        this.view = "Home";
     }
 
     public String getView() {
